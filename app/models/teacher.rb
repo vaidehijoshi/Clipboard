@@ -6,6 +6,9 @@ class Teacher < ActiveRecord::Base
   has_many :student_course_sections, through: :course_sections
   has_many :students, through: :student_course_sections
 
+  validates :email, presence: true, uniqueness: true
+  validates :first_name, :last_name, :title, presence: true
+
   def full_name
     self.title + " " + self.first_name + " " + self.last_name
   end

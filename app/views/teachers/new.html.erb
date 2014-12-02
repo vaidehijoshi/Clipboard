@@ -1,0 +1,8 @@
+Sign up!
+<%= form_for(@teacher) do |f| %>
+  <%= f.text_field :first_name, placeholder: "first name" %>
+  <%= f.text_field :last_name, placeholder: "last name" %>
+  <%= f.text_field :title, placeholder: "Ms., Mrs., Mr., Dr., etc." %>
+  <%= f.text_field :email, placeholder: "email address" %>
+  <%= f.submit "Sign Up" %>
+<% end %>

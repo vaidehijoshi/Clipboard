@@ -1,6 +1,18 @@
 <h1>Welcome to Clipboard!</h1>
 <h3>Bringing clipboards into the 21st century for all teachers.</h3>
 
-Select a School and Log in!
-<p>log in</p>
-<p>log out</p>
+<% if current_user %>
+	<h4>Hi, <%= current_user.full_name %> <%= link_to "Go to your homepage.", teacher_path(current_user) %></h4>
+<% end %>
+
+<p><%= link_to "Sign Up!", new_teacher_path %></p>
+
+Already signed up? Select a School and Log in!
+<p>
+<%= form_for @teacher, :url => sessions_path, :html => { :style => "padding:15px;" } do |f| %>
+  <%= f.text_field :email, placeholder: "your email" %>
+  <%= f.submit "Sign In" %>
+<% end %>
+</p>
+
+<p><%= link_to "log out", signout_path %></p>
