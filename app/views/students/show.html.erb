@@ -1,3 +1,25 @@
 <h1><%= @student.full_name %></h1>
 
+<h2>Work Buddies</h2>
+<% if @student.buddies.any? %>
+  <ul>
+    <% @student.buddies.each do |buddy| %>
+      <li><%= link_to buddy.full_name, student_path(buddy) %></li>
+    <% end %>
+  </ul>
+<% else %>
+<p><%= @student.first_name %> has no work buddies.</p>
+<% end %>
+
+<h2>Work Enemies</h2>
+<% if @student.enemies.any? %>
+  <ul>
+    <% @student.enemies.each do |enemy| %>
+      <li><%= link_to enemy.full_name, student_path(enemy) %></li>
+    <% end %>
+  </ul>
+<% else %>
+<p><%= @student.first_name %> has no work enemies.</p>
+<% end %>
+
 <%= link_to(:back) %>
