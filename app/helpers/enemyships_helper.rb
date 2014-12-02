@@ -1,0 +1,2 @@
+module EnemyshipsHelper
+end

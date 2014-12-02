@@ -6,6 +6,7 @@ class Buddyship < ActiveRecord::Base
   after_destroy :destroy_inverse
   validates_uniqueness_of :student, :scope => :buddy
   validates_uniqueness_of :buddy, :scope => :student
+  validate :cant_be_own_buddy
 
   def inversify
     self.buddy.buddyships.create(:course_section_id => self.course_section_id, :buddy_id => self.student.id)
@@ -14,6 +15,13 @@ class Buddyship < ActiveRecord::Base
   def destroy_inverse
     if inverse = self.buddy.buddyships.where(:buddy_id => self.student.id, :course_section_id => self.course_section_id).first
       inverse.destroy
+    end
+  end
+
+  private
+  def cant_be_own_buddy
+    if student_id == buddy_id
+      errors.add(:buddy_id, "you can't be your own buddy! :(")
     end
   end
 

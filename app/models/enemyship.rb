@@ -6,6 +6,7 @@ class Enemyship < ActiveRecord::Base
   after_destroy :destroy_inverse
   validates_uniqueness_of :student, :scope => :enemy
   validates_uniqueness_of :enemy, :scope => :student
+  validate :cant_be_own_enemy
 
   def inversify
     self.enemy.enemyships.create(:course_section_id => self.course_section_id, :enemy_id => self.student.id)
@@ -14,6 +15,13 @@ class Enemyship < ActiveRecord::Base
   def destroy_inverse
     if inverse = self.enemy.enemyships.where(:enemy_id => self.student.id, :course_section_id => self.course_section_id).first
       inverse.destroy
+    end
+  end
+
+  private
+  def cant_be_own_enemy
+    if student_id == enemy_id
+      errors.add(:enemy_id, "you can't be your own enemy! :(")
     end
   end
   

@@ -1,6 +1,6 @@
 <h1><%= @student.full_name %></h1>
 
-<h2>Work Buddies</h2>
+<h2>Works Well With</h2>
 <% if @student.buddies.any? %>
   <ul>
     <% @student.buddies.each do |buddy| %>
@@ -11,7 +11,7 @@
 <p><%= @student.first_name %> has no work buddies.</p>
 <% end %>
 
-<h2>Work Enemies</h2>
+<h2>Works Badly With</h2>
 <% if @student.enemies.any? %>
   <ul>
     <% @student.enemies.each do |enemy| %>

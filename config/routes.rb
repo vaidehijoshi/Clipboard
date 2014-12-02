@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 
   resources :schools
 
+  resources :buddyships
+  resources :enemyships
+
   resources :course_sections, path: 'classes'
 
   resources :sessions, :only => [:create]

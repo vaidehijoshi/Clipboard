@@ -6,3 +6,19 @@ Students:
 	<li><%= link_to student.full_name, student_path(student) %></li>
 <% end %>
 </ul>
+
+<h4>Create a pair of work buddies</h4>
+<%= form_for Buddyship.new do |f| %>
+  <%= f.collection_select(:student_id, @class.students, :id, :full_name, prompt: true) %>
+  <%= f.collection_select(:buddy_id, @class.students, :id, :full_name, prompt: true) %>
+  <%= f.hidden_field :course_section_id, value: @class.id %>
+  <%= f.submit "Go", class: "submit" %>
+<% end %>
+
+<h4>Create a pair of work enemies</h4>
+<%= form_for Enemyship.new do |f| %>
+  <%= f.collection_select(:student_id, @class.students, :id, :full_name, prompt: true) %>
+  <%= f.collection_select(:enemy_id, @class.students, :id, :full_name, prompt: true) %>
+  <%= f.hidden_field :course_section_id, value: @class.id %>
+  <%= f.submit "Go", class: "submit" %>
+<% end %>
