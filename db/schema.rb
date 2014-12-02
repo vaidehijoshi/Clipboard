@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201203642) do
+ActiveRecord::Schema.define(version: 20141201230957) do
 
   create_table "absences", force: true do |t|
     t.integer  "student_id"
@@ -30,6 +30,20 @@ ActiveRecord::Schema.define(version: 20141201203642) do
     t.datetime "date_assigned"
     t.datetime "date_due"
     t.integer  "total_points"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "buddyships", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "buddy_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "enemyships", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "enemy_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -103,20 +117,6 @@ ActiveRecord::Schema.define(version: 20141201203642) do
     t.string   "last_name"
     t.string   "email"
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "work_buddies", force: true do |t|
-    t.integer "buddy_one_id"
-    t.integer "buddy_two_id"
-    t.string  "comments"
-  end
-
-  create_table "work_enemies", force: true do |t|
-    t.integer  "enemy_one_id"
-    t.integer  "enemy_two_id"
-    t.string   "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
