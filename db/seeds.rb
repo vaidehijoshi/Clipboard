@@ -39,9 +39,10 @@ students = Student.create([
 
 students.each do |student|
   student.student_course_sections.create([
-
-      { course_section_id: course_section.id }
-
+    { course_section_id: course_section.id }
   ])
 end
+
+enemyship = course_section.enemyships.create(:student_id => Student.first.id, :enemy_id => Student.last.id)
+buddyship = course_section.buddyships.create(:student_id => Student.second.id, :buddy_id => Student.third.id)
 
