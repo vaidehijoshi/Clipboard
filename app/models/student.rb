@@ -10,6 +10,8 @@ class Student < ActiveRecord::Base
   has_many :buddies, through: :buddyships
 
 
-  
+  def full_name
+    first_name + " " + last_name
+  end
 
 end

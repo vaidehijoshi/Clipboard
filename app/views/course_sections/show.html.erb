@@ -1,6 +1,8 @@
 <h1><%= @class.name %></h1>
 
 Students:
+<ul>
 <% @class.students.each do |student| %>
-	<%= student.full_name %>
+	<li><%= link_to student.full_name, student_path(student) %></li>
 <% end %>
+</ul>

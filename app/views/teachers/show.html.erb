@@ -1,7 +1,10 @@
 <h1>Welcome, <%= @teacher.full_name %></h1>
 
 Here are your classes:
-
+<ul>
 <% @teacher.course_sections.each do |course_section| %>
-	<%= link_to course_section.name, course_section_path(course_section) %>
+	<li><%= link_to course_section.name, course_section_path(course_section) %></li>
 <% end %>
+</ul>
+
+<%= link_to 'Home', root_path %>
