@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :schools
 
-  resources :course_sections
+  resources :course_sections, path: 'classes'
 
   resources :sessions, :only => [:create]
   match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
