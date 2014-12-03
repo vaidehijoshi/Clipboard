@@ -12,18 +12,17 @@
   Students:
   <ul>
   <% @course_section.students.each do |student| %>
-  	<li><%= link_to ' x ', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete" %><%= link_to student.full_name, student_path(student) %></li>
+  	<li><%= link_to ' x ', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", data: {confirm: "Are you sure?"} %><%= link_to student.full_name, student_path(student) %></li>
   <% end %>
   </ul>
 
 
 	Assignments:
 
-	<% ["Classwork", "Homework", "Test"].each do |category| %>
-		<% assignments = @course_section.assignments.where(category: category) %>
-		<h3><%= pluralize(assignments.count, category) %></h3>
-		<ul>
-			<% assignments.each do |assignment| %>
+	<% @assignments_hash.keys.each do |category| %>
+		<div class="assignment-category">
+			<h3><%= pluralize(@assignments_hash[category].count, category) %></h3>
+			<% @assignments_hash[category].each do |assignment| %>
 				<li>
 					<%= link_to assignment.name, teacher_class_assignment_path(current_user, @course_section, assignment) %> (<%= assignment.points %> points)
 					<% if assignment.date_assigned %>
@@ -36,9 +35,11 @@
 						<li><%= assignment.date_due.strftime("Due on %m/%d/%Y at %I:%M%p") %></li>
 						</ul>
 					<% end %>
+				<%= link_to "edit", edit_teacher_class_assignment_path(current_user, @course_section, assignment) %> | 
+				<%= link_to "delete", teacher_class_assignment_path(current_user, @course_section, assignment), method: "delete", data: {confirm: "Are you sure?"} %><br>
 				</li>
 			<% end %>
-		</ul>
+		</div>
 	<% end %>
 
 	<h3>Add an Assignment</h3>

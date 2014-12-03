@@ -9,4 +9,33 @@ class AssignmentsController < ApplicationController
     redirect_to(:back)
   end
 
+  def edit
+    @assignment = Assignment.find(params[:id])
+  end
+
+  def update
+    #binding.pry
+    @assignment = Assignment.find(params[:id])
+    if params[:date_assigned] != ""
+      @assignment.update(date_assigned: params[:date_assigned])
+    end
+    if params[:date_due] != ""
+      @assignment.update(date_due: params[:date_due])
+    end
+    @assignment.update(name: params[:name], points: params[:points], category: params[:category])
+    if @assignment.save
+      flash[:notice] = "Assignment successfully updated!"
+      redirect_to(:back)
+    else
+      flash[:alert] = "Update failed!"
+      redirect_to(:back)
+    end
+  end
+
+  def destroy
+    @assignment = Assignment.find(params[:id])
+    @assignment.destroy
+    redirect_to(:back)
+  end
+
 end
