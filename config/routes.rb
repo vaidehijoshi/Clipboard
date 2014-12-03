@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :student_course_sections, :only => [:create, :destroy, :show]
+
   resources :courses
 
   resources :schools

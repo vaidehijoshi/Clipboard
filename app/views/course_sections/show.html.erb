@@ -1,11 +1,19 @@
 <h1><%= @course_section.name %></h1>
 
+<%= form_for @student_course_section, url: student_course_sections_path do |f| %>
+  <%= f.collection_select(:student_id, Student.all, :id, :full_name, prompt: true) %>
+  <%= f.hidden_field :course_section_id, value: @course_section.id %>
+  <%= f.submit "Add student", class: "submit" %>
+<% end %>
+
+
 Students:
 <ul>
 <% @course_section.students.each do |student| %>
 	<li><%= link_to student.full_name, student_path(student) %></li>
 <% end %>
 </ul>
+
 
 <h4>Create a pair of work buddies</h4>
 <%= form_for @buddyship, url: teacher_class_buddyships_path(current_user, @course_section), method: :post do |f| %>
