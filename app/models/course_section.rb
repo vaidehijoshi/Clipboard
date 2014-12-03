@@ -7,6 +7,7 @@ class CourseSection < ActiveRecord::Base
   has_many :courses, :through => :course_sections
   has_many :buddyships
   has_many :enemyships
+  has_many :assignments
 
   validates :name, presence: true
 end

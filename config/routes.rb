@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  
+
   root :to => 'schools#index'
 
   resources :students do
@@ -7,10 +9,13 @@ Rails.application.routes.draw do
 
   resources :teachers do
     resources :course_sections, path: 'classes', as: 'classes' do
+      resources :assignments
       resources :buddyships
       resources :enemyships
     end
   end
+
+  resources :student_course_sections, :only => [:create, :destroy, :show]
 
   resources :courses
 
