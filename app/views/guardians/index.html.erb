@@ -1,0 +1,40 @@
+<h1><%= @student.full_name %>’s Guardians</h1>
+
+<% if @student.guardians.any? %>
+  <% @student.guardians.each do |guardian| %>
+    <h4><%= "#{guardian.relationship}: #{guardian.full_name}" %></h4>
+      <ul>
+        <li>Address: <%= guardian.address %></li>
+        <li>Email: <%= guardian.email %></li>
+        <li>Day Phone: <%= guardian.day_phone %></li>
+        <li>Evening Phone: <%= guardian.evening_phone %></li>
+        <li><%= link_to "Edit", edit_student_guardian_path(@student, guardian) %></li>
+        <li><%= link_to "Delete", student_guardian_path(@student, guardian), method: :delete, data: {confirm: "Are you sure?"} %></li>
+      </ul>
+  <% end %>
+<% else %>
+  <h4><%= @student.first_name %> has no guardians.</h4>
+<% end %>
+
+<h4>Add a Guardian</h4>
+
+<%= form_for [@student, Guardian.new] do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %><br>
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %><br>
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %><br>
+  <%= f.label :address %>
+  <%= f.text_field :address %><br>
+  <%= f.label :email %>
+  <%= f.email_field :email %><br>
+  <%= f.label :day_phone %>
+  <%= f.phone_field :day_phone %><br>
+  <%= f.label :evening_phone %>
+  <%= f.phone_field :evening_phone %><br>
+  <%= f.label :relationship %>
+  <%= f.text_field :relationship %><br>
+  <%= f.hidden_field :student_id, value: @student.id %>
+  <%= f.submit %>
+<% end %>

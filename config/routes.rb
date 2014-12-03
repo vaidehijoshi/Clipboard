@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root :to => 'schools#index'
 
-  resources :students
+  resources :students do
+    resources :guardians
+  end
 
   resources :teachers do
     resources :course_sections, path: 'classes', as: 'classes' do
