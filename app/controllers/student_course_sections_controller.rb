@@ -20,7 +20,10 @@ class StudentCourseSectionsController < ApplicationController
   end
 
   def destroy
-
+    @student_course_section = StudentCourseSection.find(params[:id])
+    @student = Student.find(params[:student_id])
+    @student_course_section.destroy
+    redirect_to teacher_class_path(current_user, @student_course_section.course_section_id)
   end
 
   private
