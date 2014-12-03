@@ -1,0 +1,22 @@
+<h1>Edit <%= @guardian.full_name %></h1>
+
+<%= form_for [@student, @guardian] do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %><br>
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %><br>
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %><br>
+  <%= f.label :address %>
+  <%= f.text_field :address %><br>
+  <%= f.label :email %>
+  <%= f.email_field :email %><br>
+  <%= f.label :day_phone %>
+  <%= f.phone_field :day_phone %><br>
+  <%= f.label :evening_phone %>
+  <%= f.phone_field :evening_phone %><br>
+  <%= f.label :relationship %>
+  <%= f.text_field :relationship %><br>
+  <%= f.hidden_field :student_id, value: @student.id %>
+  <%= f.submit %>
+<% end %>
