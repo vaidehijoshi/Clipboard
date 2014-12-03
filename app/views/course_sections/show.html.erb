@@ -7,6 +7,16 @@ Students:
 <% end %>
 </ul>
 
+<h4>Add a new student to this course</h4>
+<%= form_for Student.new do |f| %>
+  <%= f.text_field(:first_name, @class.students, :id, :first_name, prompt: true) %>
+  <%= f.text_field(:last_name, @class.students, :id, :last_name, prompt: true) %>
+  <%= f.text_field(:email, @class.students, :id, :email, prompt: true) %>
+  <%= f.hidden_field :course_section_id, value: @class.id %>
+  <%= f.submit "Add Student", class: "submit" %>
+<% end %>
+
+
 <h4>Create a pair of work buddies</h4>
 <%= form_for Buddyship.new do |f| %>
   <%= f.collection_select(:student_id, @class.students, :id, :full_name, prompt: true) %>
