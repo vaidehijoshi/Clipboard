@@ -7,6 +7,56 @@ Students:
 <% end %>
 </ul>
 
+Assignments:
+
+<% ["Classwork", "Homework", "Test"].each do |category| %>
+	<% assignments = @course_section.assignments.where(category: category) %>
+	<h3><%= pluralize(assignments.count, category) %></h3>
+	<ul>
+		<% assignments.each do |assignment| %>
+			<li>
+				<%= link_to assignment.name, teacher_class_assignment_path(current_user, @course_section, assignment) %> (<%= assignment.points %> points)
+				<% if assignment.date_assigned %>
+					<ul>
+					<li><%= assignment.date_assigned.strftime("Assigned on %m/%d/%Y at %I:%M%p") %></li>
+					</ul>
+				<% end %>
+				<% if assignment.date_due %>
+					<ul>
+					<li><%= assignment.date_due.strftime("Due on %m/%d/%Y at %I:%M%p") %></li>
+					</ul>
+				<% end %>
+			</li>
+		<% end %>
+	</ul>
+<% end %>
+
+<h3>Add an Assignment</h3>
+<%= form_tag(teacher_class_assignments_path(@course_section, current_user), method: :post) do %>
+	<%= label_tag(:name, "Name") %><br>
+  <%= text_field_tag(:name) %><br>
+	<%= label_tag(:points, "Points") %><br>
+	<%= number_field_tag(:points) %><br>
+	<%= label_tag(:date_assigned, "Date Assigned") %><br>
+	<%= date_field_tag(:date_assigned) %><br>
+	<%= label_tag(:date_due, "Date Due") %><br>
+	<%= date_field_tag(:date_due) %><br>
+	<%= select_tag 'category', options_for_select(["Classwork", "Homework", "Test"]) %><br>
+  <%= submit_tag "Add Assignment" %>
+<% end %>
+
+<%#= form_for @assignment, url: teacher_class_assignments_path(current_user, @course_section), method: :post do |f| %>
+	<%#= f.label :name %>
+	<%#= f.text_field :name %>
+	<%#= f.label :points %>
+	<%#= f.text_field :points %>
+	<%#= f.check_box 'assignment', :category, "Test", "not test" %>
+	<%#= f.check_box 'category', 'homework' %>
+	<%#= f.check_box 'category', 'test' %>
+	<%#= f.submit %>
+<%# end %>
+
+
 <h4>Create a pair of work buddies</h4>
 <%= form_for @buddyship, url: teacher_class_buddyships_path(current_user, @course_section), method: :post do |f| %>
   <%= f.collection_select(:student_id, @course_section.students, :id, :full_name, prompt: true) %>

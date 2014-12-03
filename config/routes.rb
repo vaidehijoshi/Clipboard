@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
+  
+
   root :to => 'schools#index'
 
   resources :students
 
   resources :teachers do
     resources :course_sections, path: 'classes', as: 'classes' do
+      resources :assignments
       resources :buddyships
       resources :enemyships
     end
