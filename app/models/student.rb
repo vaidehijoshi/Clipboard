@@ -8,6 +8,7 @@ class Student < ActiveRecord::Base
   has_many :enemies, through: :enemyships
   has_many :buddyships
   has_many :buddies, through: :buddyships
+  has_many :guardians
 
 
   def full_name

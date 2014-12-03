@@ -3,14 +3,14 @@
 <ul>
 <% @teacher.course_teacher_assignments.each do |course_teacher_assignment| %>
 	<% course = Course.find(course_teacher_assignment.course_id) %>
-	<li><%= course.name %> <%= link_to "add a section for this course", new_course_section_path(:course_section => { :course_teacher_assignment_id => course_teacher_assignment.id }) %></li>
+	<li><%= course.name %> <%= link_to "add a section for this course", new_teacher_class_path(@teacher, :course_section => { :course_teacher_assignment_id => course_teacher_assignment.id }) %></li>
 <% end %>
 </ul>
 
 Here are your classes:
 <ul>
 <% @teacher.course_sections.each do |course_section| %>
-	<li><%= link_to course_section.name, course_section_path(course_section) %></li>
+	<li><%= link_to course_section.name, teacher_class_path(@teacher, course_section) %></li>
 <% end %>
 </ul>
 

@@ -1,6 +1,10 @@
 class BuddyshipsController < ApplicationController
+  def index
+    @buddyships = Buddyship.all
+  end
 
   def create
+    # binding.pry
     @buddyship = Buddyship.create(buddyship_params)
     if @buddyship.save
       respond_to do |format|

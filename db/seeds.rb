@@ -51,6 +51,20 @@ students.each do |student|
   ])
 end
 
+assignments = course_section.assignments.create([
+  {name: "Code Everything", type: "Classwork", points: 20},
+  {name: "Write About Coding", type: "Homework", points: 5},
+  {name: "Practice Coding", type: "Homework", points: 5},
+  {name: "Code Assessment", type: "Test", points: 10}
+])
+
 enemyship = course_section.enemyships.create(:student_id => Student.first.id, :enemy_id => Student.last.id)
 buddyship = course_section.buddyships.create(:student_id => Student.second.id, :buddy_id => Student.third.id)
 
+guardian = Guardian.create(
+  first_name: "Jimmy", last_name: "Senior", email: 'bigjimmy@example.com', title: 'Lt.', address: "123 Fake Street", day_phone: "555-5555", evening_phone: "555-6666", relationship: "Father"
+  )
+
+guardian.student = students.first
+
+guardian.save
