@@ -1,9 +1,9 @@
 <h1>Create a New Section for <%= @course_section.course.name %></h1>
 
-<%= form_for @course_section do |f| %>
+<%= form_for @course_section, url: teacher_classes_path(@teacher) do |f| %>
 	<%= f.label :name, "Course Name" %>
 	<%= f.text_field :name %>
+	<%= f.hidden_field :course_teacher_assignment_id, value: @course_teacher_assignment.id %>
 	<%= f.submit %>
 <% end %>
 
-<%= link_to "back to your homepage", teacher_path(@course_section.teacher) %>

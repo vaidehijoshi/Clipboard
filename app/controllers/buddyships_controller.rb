@@ -1,6 +1,10 @@
 class BuddyshipsController < ApplicationController
+  def index
+    @buddyships = Buddyship.all
+  end
 
   def create
+    binding.pry
     @buddyship = Buddyship.create(buddyship_params)
     if @buddyship.save
       respond_to do |format|
@@ -18,7 +22,7 @@ class BuddyshipsController < ApplicationController
   private
 
   def buddyship_params
-    params.require(:buddyship).permit(:student_id, :buddy_id, :course_section_id)
+    params.require(:buddyship).permit(:student_id, :buddy_id, :class_id)
   end
 
 end

@@ -3,17 +3,18 @@ Rails.application.routes.draw do
 
   resources :students
 
-  resources :teachers
+  resources :teachers do
+    resources :course_sections, path: 'classes', as: 'classes' do
+      resources :buddyships
+      resources :enemyships
+    end
+  end
 
   resources :courses
 
   resources :schools
 
-  resources :buddyships
-  resources :enemyships
-
-  resources :course_sections, path: 'classes'
-
+  
   resources :sessions, :only => [:create]
   match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
 
