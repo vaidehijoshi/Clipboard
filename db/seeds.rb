@@ -15,6 +15,14 @@ teacher = Teacher.create(
 
 course = school.courses.create({ name: '6th Grade English' })
 
+more_courses = school.courses.create([
+  { name: '6th Grade Advisory' },
+  { name: '6th Grade Math' },
+  { name: '6th Grade Science' },
+  { name: '6th Grade History' },
+  { name: 'The Awesomeness of Ruby'}
+])
+
 course_teacher_assignment = teacher.course_teacher_assignments.create({ course_id: course.id })
 
 course_section = course_teacher_assignment.course_sections.create({ name: 'English6-001' })
