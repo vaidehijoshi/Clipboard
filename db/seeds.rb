@@ -54,3 +54,10 @@ end
 enemyship = course_section.enemyships.create(:student_id => Student.first.id, :enemy_id => Student.last.id)
 buddyship = course_section.buddyships.create(:student_id => Student.second.id, :buddy_id => Student.third.id)
 
+guardian = Guardian.create(
+  first_name: "Jimmy", last_name: "Senior", email: 'bigjimmy@example.com', title: 'Lt.', address: "123 Fake Street", day_phone: "555-5555", evening_phone: "555-6666", relationship: "Father"
+  )
+
+guardian.student = students.first
+
+guardian.save

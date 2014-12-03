@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141202162831) do
+ActiveRecord::Schema.define(version: 20141203191819) do
 
   create_table "buddyships", force: true do |t|
     t.integer  "course_section_id"
@@ -47,6 +47,20 @@ ActiveRecord::Schema.define(version: 20141202162831) do
     t.integer  "course_section_id"
     t.integer  "student_id"
     t.integer  "enemy_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "guardians", force: true do |t|
+    t.integer  "student_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "title"
+    t.string   "address"
+    t.string   "email"
+    t.string   "day_phone"
+    t.string   "evening_phone"
+    t.string   "relationship"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
