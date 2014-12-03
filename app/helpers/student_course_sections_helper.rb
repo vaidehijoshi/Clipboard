@@ -1,0 +1,2 @@
+module StudentCourseSectionsHelper
+end

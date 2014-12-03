@@ -3,6 +3,7 @@ class CourseSectionsController < ApplicationController
     @course_section = CourseSection.find(params[:id])
     @buddyship = @course_section.buddyships.new
     @enemyship = @course_section.enemyships.new
+    @student_course_section = StudentCourseSection.new
   end
 
   def new

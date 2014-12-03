@@ -1,24 +1,43 @@
 <h1><%= @course_section.name %></h1>
+<% if current_user == @course_section.teacher %>
 
-Students:
-<ul>
-<% @course_section.students.each do |student| %>
-	<li><%= link_to student.full_name, student_path(student) %></li>
-<% end %>
-</ul>
+  <%= form_for @student_course_section, url: student_course_sections_path do |f| %>
+    <%= f.collection_select(:student_id, Student.all, :id, :full_name, prompt: true) %>
+    <%= f.hidden_field :course_section_id, value: @course_section.id %>
+    <%= f.submit "Add student", class: "submit" %>
+  <% end %>
 
-<h4>Create a pair of work buddies</h4>
-<%= form_for @buddyship, url: teacher_class_buddyships_path(current_user, @course_section), method: :post do |f| %>
-  <%= f.collection_select(:student_id, @course_section.students, :id, :full_name, prompt: true) %>
-  <%= f.collection_select(:buddy_id, @course_section.students, :id, :full_name, prompt: true) %>
-  <%= f.hidden_field :course_section_id, value: @course_section.id %>
-  <%= f.submit "Go", class: "submit" %>
-<% end %>
 
-<h4>Create a pair of work enemies</h4>
-<%= form_for @enemyship, url: teacher_class_enemyships_path(current_user, @course_section), method: :post do |f| %>
-  <%= f.collection_select(:student_id, @course_section.students, :id, :full_name, prompt: true) %>
-  <%= f.collection_select(:enemy_id, @course_section.students, :id, :full_name, prompt: true) %>
-  <%= f.hidden_field :course_section_id, value: @course_section.id %>
-  <%= f.submit "Go", class: "submit" %>
-<% end %>
+
+  Students:
+  <ul>
+  <% @course_section.students.each do |student| %>
+  	<li><%= link_to ' x ', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete" %><%= link_to student.full_name, student_path(student) %></li>
+  <% end %>
+  </ul>
+
+    <h4>Create a pair of work buddies</h4>
+    <%= form_for @buddyship, url: teacher_class_buddyships_path(current_user, @course_section), method: :post do |f| %>
+      <%= f.collection_select(:student_id, @course_section.students, :id, :full_name, prompt: true) %>
+      <%= f.collection_select(:buddy_id, @course_section.students, :id, :full_name, prompt: true) %>
+      <%= f.hidden_field :course_section_id, value: @course_section.id %>
+      <%= f.submit "Go", class: "submit" %>
+    <% end %>
+
+    <h4>Create a pair of work enemies</h4>
+    <%= form_for @enemyship, url: teacher_class_enemyships_path(current_user, @course_section), method: :post do |f| %>
+      <%= f.collection_select(:student_id, @course_section.students, :id, :full_name, prompt: true) %>
+      <%= f.collection_select(:enemy_id, @course_section.students, :id, :full_name, prompt: true) %>
+      <%= f.hidden_field :course_section_id, value: @course_section.id %>
+      <%= f.submit "Go", class: "submit" %>
+    <% end %>
+  
+  <p><%= link_to 'Back', teacher_path(@course_section.teacher) %></p>
+  <% else %>
+    <h2>This is not your class.</h2>
+
+  <% end %>
+
+
+<%= link_to 'Home', root_path %>
+
