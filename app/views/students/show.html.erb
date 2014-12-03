@@ -1,4 +1,9 @@
 <h1><%= @student.full_name %></h1>
+<ul>
+<% @student.course_sections.each do |course_section| %>
+  <li><%= link_to course_section.name, teacher_class_path(course_section.teacher, course_section) %></li>
+<% end %>
+</ul>
 
 <h2>Works Well With</h2>
 <% if @student.buddies.any? %>
