@@ -42,6 +42,8 @@
 		</div>
 	<% end %>
 
+  <h3><%= link_to "Send an Email", teacher_class_email_path(current_user, @course_section) %></h3>
+
 	<h3>Add an Assignment</h3>
 	<%= form_tag(teacher_class_assignments_path(@course_section, current_user), method: :post) do %>
 		<%= label_tag(:name, "Name") %><br>

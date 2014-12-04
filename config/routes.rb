@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       resources :assignments
       resources :buddyships
       resources :enemyships
+      get 'email', to: 'email#course_section'
+      post 'email', to: 'email#course_section_send'
     end
   end
 

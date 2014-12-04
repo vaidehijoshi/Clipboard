@@ -16,4 +16,8 @@ class Student < ActiveRecord::Base
     first_name + " " + last_name
   end
 
+  def guardian_ids
+    guardians.pluck(:id)
+  end
+
 end
