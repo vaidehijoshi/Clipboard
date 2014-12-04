@@ -2,6 +2,9 @@ class Assignment < ActiveRecord::Base
   belongs_to :course_section
   has_many :scores
 
+  has_attached_file :document, styles: {thumbnail: {:geometry => "100x100", :quality => 400}, medium: "300x300" }
+  validates_attachment :document, content_type: { content_type: "application/pdf" }
+
   validates :name, presence: true
 
   def self.all_by_category(course_section)

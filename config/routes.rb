@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get 'classes/:id/assignments/:id/remove_document', to: 'assignments#remove_document', as: 'remove_assignment_document'
 
   root :to => 'schools#index'
 
