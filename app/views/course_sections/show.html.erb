@@ -37,13 +37,17 @@
 					<% end %>
 				<%= link_to "edit", edit_teacher_class_assignment_path(current_user, @course_section, assignment) %> | 
 				<%= link_to "delete", teacher_class_assignment_path(current_user, @course_section, assignment), method: "delete", data: {confirm: "Are you sure?"} %><br>
+				<% if assignment.document_file_size %>
+					<%= link_to "Download #{assignment.document_file_name}", assignment.document.url(:original, false) %><br>
+					<%= link_to "Delete #{assignment.document_file_name}", remove_assignment_document_path(:assignment_id => assignment.id) %>
+				<% end %>
 				</li>
 			<% end %>
 		</div>
 	<% end %>
 
 	<h3>Add an Assignment</h3>
-	<%= form_tag(teacher_class_assignments_path(@course_section, current_user), method: :post) do %>
+	<%= form_tag(teacher_class_assignments_path(@course_section, current_user), method: :post, :enctype =>"multipart/form-data") do %>
 		<%= label_tag(:name, "Name") %><br>
 	  <%= text_field_tag(:name) %><br>
 		<%= label_tag(:points, "Points") %><br>
@@ -53,6 +57,7 @@
 		<%= label_tag(:date_due, "Date Due") %><br>
 		<%= date_field_tag(:date_due) %><br>
 		<%= select_tag 'category', options_for_select(["Classwork", "Homework", "Test"]) %><br>
+  	<%= file_field_tag(:document) %><br>
 	  <%= submit_tag "Add Assignment" %>
 	<% end %>
 

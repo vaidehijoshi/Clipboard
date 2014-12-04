@@ -1,1 +1,7 @@
 <h1><%= @assignment.name %></h1>
+<p>
+<%= link_to "Back to your homepage", teacher_class_path(current_user, @assignment.course_section) %><br>
+<%= link_to "Download", @assignment.document.url(:original, false) %>	
+</p>
+<object width="670" height="850" data="<%=@assignment.document.url(:original)%>"></object>
+

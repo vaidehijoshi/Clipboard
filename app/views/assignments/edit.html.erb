@@ -1,16 +1,34 @@
 <h1>Edit <%= @assignment.name %></h1>
-
-<%= form_tag(teacher_class_assignment_path(current_user, @assignment.course_section, @assignment), method: :patch) do %>
-	<%= label_tag(:name, "Name") %><br>
-  <%= text_field_tag(:name, @assignment.name) %><br>
-	<%= label_tag(:points, "Points") %><br>
-	<%= number_field_tag(:points, @assignment.points) %><br>
-	<%= label_tag(:date_assigned, "Date Assigned") %><br>
-	<%= date_field_tag(:date_assigned, @assignment.date_assigned) %><br>
-	<%= label_tag(:date_due, "Date Due") %><br>
-	<%= date_field_tag(:date_due, @assignment.date_due) %><br>
-	<%= select_tag 'category', options_for_select(["Classwork", "Homework", "Test"], @assignment.category) %><br>
-  <%= submit_tag "Update Assignment" %>
-<% end %>
-
 <%= link_to "Back to your homepage", teacher_class_path(current_user, @assignment.course_section) %>
+<div class="row">
+	<div class="col-md-3">
+		<%= form_tag(teacher_class_assignment_path(current_user, @assignment.course_section, @assignment), method: :patch) do %>
+			<%= label_tag(:name, "Name") %><br>
+		  <%= text_field_tag(:name, @assignment.name) %><br>
+			<%= label_tag(:points, "Points") %><br>
+			<%= number_field_tag(:points, @assignment.points) %><br>
+			<%= label_tag(:date_assigned, "Date Assigned: #{@assignment.date_assigned_formatted}") %><br>
+			<%= date_field_tag(:date_assigned, @assignment.date_assigned) %><br>
+			<%= label_tag(:date_due, "Date Due: #{@assignment.date_due_formatted}") %><br>
+			<%= date_field_tag(:date_due, @assignment.date_due) %><br>
+			<%= select_tag 'category', options_for_select(["Classwork", "Homework", "Test"], @assignment.category) %><br>
+		  <%= submit_tag "Update Assignment" %>
+		<% end %>
+		<div>
+			<p>
+			<%= form_for @assignment, :url => teacher_class_assignment_path, :html => { :multipart => true } do |form| %>
+			  <%= form.file_field :document %>
+			  <%= form.submit "Upload attachment" %>
+			<% end %>
+			</p>
+		</div>
+	</div>
+	<% if @assignment.document_file_size %>
+		<div class="col-md-9">
+			<object width="670" height="850" data="<%=@assignment.document.url(:original)%>"></object>
+
+			<%= link_to "Download", @assignment.document.url(:original, false) %>
+			<%= link_to "Delete #{@assignment.document_file_name}", remove_assignment_document_path(:assignment_id => @assignment.id), data: {confirm: "Are you sure?"} %>
+		</div>
+	<% end %>
+</div>
