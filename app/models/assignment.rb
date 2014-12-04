@@ -15,4 +15,20 @@ class Assignment < ActiveRecord::Base
     end
     organized_hash
   end
+
+  def date_due_formatted
+    if date_due
+      date_due.strftime('%m/%d/%Y')
+    else
+      "no due date set"
+    end
+  end
+
+  def date_assigned_formatted
+    if date_assigned
+      date_assigned.strftime('%m/%d/%Y')
+    else
+      "no date assigned set"
+    end
+  end
 end
