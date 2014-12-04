@@ -95,13 +95,33 @@ assignments = rails_section.assignments.create([
   {name: "Code Assessment", category: "Test", points: 10}
 ])
 
-enemyship = rails_section.enemyships.create(:student_id => Student.all.first.id, :enemy_id => Student.last.id)
-buddyship = rails_section.buddyships.create(:student_id => Student.second.id, :buddy_id => Student.third.id)
+enemyship1 = rails_section.enemyships.create(:student_id => Student.all[1].id, :enemy_id => Student.all[2].id)
+enemyship2 = rails_section.enemyships.create(:student_id => Student.all[3].id, :enemy_id => Student.all[4].id)
+enemyship3 = rails_section.enemyships.create(:student_id => Student.all[1].id, :enemy_id => Student.all[3].id)
+enemyship4 = rails_section.enemyships.create(:student_id => Student.all[8].id, :enemy_id => Student.all[10].id)
+enemyship5 = rails_section.enemyships.create(:student_id => Student.all[5].id, :enemy_id => Student.all[6].id)
+enemyship6 = rails_section.enemyships.create(:student_id => Student.all[7].id, :enemy_id => Student.all[15].id)
+enemyship7 = rails_section.enemyships.create(:student_id => Student.all[3].id, :enemy_id => Student.all[2].id)
+enemyship8 = rails_section.enemyships.create(:student_id => Student.all[20].id, :enemy_id => Student.all[22].id)
+enemyship9 = rails_section.enemyships.create(:student_id => Student.all[21].id, :enemy_id => Student.all[3].id)
+enemyship10 = rails_section.enemyships.create(:student_id => Student.all[13].id, :enemy_id => Student.all[14].id)
 
-guardian = Guardian.create(
+buddyship1 = rails_section.buddyships.create(:student_id => Student.all[1].id, :buddy_id => Student.all[15].id)
+buddyship2 = rails_section.buddyships.create(:student_id => Student.all[3].id, :buddy_id => Student.all[6].id)
+buddyship3 = rails_section.buddyships.create(:student_id => Student.all[5].id, :buddy_id => Student.all[11].id)
+buddyship4 = rails_section.buddyships.create(:student_id => Student.all[20].id, :buddy_id => Student.all[25].id)
+buddyship5 = rails_section.buddyships.create(:student_id => Student.all[18].id, :buddy_id => Student.all[9].id)
+buddyship6 = rails_section.buddyships.create(:student_id => Student.all[24].id, :buddy_id => Student.all[6].id)
+buddyship7 = rails_section.buddyships.create(:student_id => Student.all[19].id, :buddy_id => Student.all[4].id)
+buddyship8 = rails_section.buddyships.create(:student_id => Student.all[19].id, :buddy_id => Student.all[5].id)
+buddyship9 = rails_section.buddyships.create(:student_id => Student.all[22].id, :buddy_id => Student.all[10].id)
+buddyship10 = rails_section.buddyships.create(:student_id => Student.all[7].id, :buddy_id => Student.all[11].id)
+
+
+guardian0 = Guardian.create(
   first_name: "Jimmy", last_name: "Senior", email: 'bigjimmy@example.com', title: 'Lt.', address: "123 Fake Street", day_phone: "555-5555", evening_phone: "555-6666", relationship: "Father"
   )
 
-guardian.student = students.first
+guardian0.student = Student.all[0]
 
-guardian.save
+guardian0.save
