@@ -77,46 +77,27 @@ class CourseSection < ActiveRecord::Base
  # end
 
 
-def groups_of(students_per_group) #(5)
-    number_of_groups = self.students.size / students_per_group  # 40 / 5 = 8
-    tables_array = []#Array.new(number_of_groups, []) # [[],[],[],[],[],..]
-    all_kids = students.to_a.shuffle
+  def groups_of(students_per_group) #(5)
+      number_of_groups = self.students.size / students_per_group  # 40 / 5 = 8
+      tables_array = []#Array.new(number_of_groups, []) # [[],[],[],[],[],..]
+      all_kids = students.to_a.shuffle
+      empty_table = []
+      unplaceable_kids = []
 
-    k = 0
-    i = 0 # which student 0 - 39
-    j = 0 # WHICH table 0 - 7 
-    table = []
-    while (i < all_kids.length) do 
       
-      while (j <= number_of_groups - 1 )
-        
-
-        if k < students_per_group # If the table isn't full, add the student to it. also add to fullness
-          kid = all_kids[i]  
-          puts " i: student index = #{i} ////// j: table index = #{j} /////// k: table fullness = #{k}"
-          puts kid.full_name 
-          table << kid.full_name 
-          
-          i += 1 
-          k += 1
-
-        else # else if the table is full, go to the next table
-          j += 1
-          k = 0
-          tables_array << table
-          table = []
+      all_kids.each do |kid|
+        while empty_table.size < students_per_group do 
+          if !((kid.has_enemies_at_table?(empty_table)) && empty_table.include?(kid))
+            empty_table << all_kids.delete(kid)
+          end
         end
-    
-      end 
 
-    end
-    
+      end
+      tables_array << empty_table
 
-    tables_array
   end
+
 end
-
-
 
   # 1. Find all pairs of enemies in a classroom 
   # 2. Separate them into different groups 
