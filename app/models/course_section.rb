@@ -12,33 +12,8 @@ class CourseSection < ActiveRecord::Base
   validates :name, presence: true
 
 
-  # def students_in_class
-  #   students.all.each_with_object([]) do |student, kids|
-  #     kids << student
-  #   end
-  # end
-
-
-
-  ## has friends, no enemies
-  def good_kids
-    # good_kids = []
-    # students_in_class.each_with_index do |kid, i|
-    #   if (kid.enemies.size == 0 && kid.buddies.size >= 1)
-    #     good_kids.push(students_in_class.delete_at(i))
-    #   end
-    # end
-    # good_kids
-  end
-
-  def neutral_kids
-    neutral = []
-    students_in_class.each do |student|
-      if !(trouble_kids.include?(student))
-        neutral << student
-      end
-    end
-    neutral
+  def students_in_class
+    students.to_a
   end
 
   def trouble_kids
@@ -52,22 +27,72 @@ class CourseSection < ActiveRecord::Base
     bad_kids
   end
 
-  def groups_of(students_per_group) #(5)
+
+
+#   def groups_of(students_per_group) #(5)
+#     number_of_groups = self.students.size / students_per_group  # 40 / 5 = 8
+#     tables_array = []
+#     all_kids = students_in_class
+
+#     k = 0 # how full a table is
+#     i = 0 # which student 0 - 39
+#     j = 0 # WHICH table 0 - 7 
+#     table = []
+#     kid_has_seat = false
+#     tables_checked = 0
+
+#     while (i < all_kids.length) do       
+#       while (j <= number_of_groups - 1 )
+#         if k < students_per_group # If the table isn't full, add the student to it. also add to fullness
+#           kid = all_kids[i]  
+#           # puts " i: student index = #{i} ////// j: table index = #{j} /////// k: table fullness = #{k}"
+#           # puts kid.full_name
+#           while (!kid_has_seat && (tables_checked <= number_of_groups - 1)) do
+#             if !(kid.has_enemies_at_table(table))
+#               table << kid
+#               kid_has_seat = true
+#               i += 1 
+#               k += 1
+#             else
+#               j += 1
+#             end
+#           end
+
+
+#           if kid_has_seat == false
+#             ## ALERT TEACHER, unseatable
+#           end
+
+#         else # else if the table is full, go to the next table
+#           j += 1
+#           k = 0
+#           tables_array << table
+#           table = []
+#         end
+#       end 
+#     end
+#     tables_array
+#   end
+
+ # end
+
+
+def groups_of(students_per_group) #(5)
     number_of_groups = self.students.size / students_per_group  # 40 / 5 = 8
     tables_array = []#Array.new(number_of_groups, []) # [[],[],[],[],[],..]
-    bad_kids = students.to_a
+    all_kids = students.to_a.shuffle
 
     k = 0
     i = 0 # which student 0 - 39
     j = 0 # WHICH table 0 - 7 
     table = []
-    while (i < bad_kids.length) do 
+    while (i < all_kids.length) do 
       
       while (j <= number_of_groups - 1 )
         
 
         if k < students_per_group # If the table isn't full, add the student to it. also add to fullness
-          kid = bad_kids[i]  
+          kid = all_kids[i]  
           puts " i: student index = #{i} ////// j: table index = #{j} /////// k: table fullness = #{k}"
           puts kid.full_name 
           table << kid.full_name 
@@ -82,7 +107,6 @@ class CourseSection < ActiveRecord::Base
           table = []
         end
     
-
       end 
 
     end
@@ -90,23 +114,11 @@ class CourseSection < ActiveRecord::Base
 
     tables_array
   end
+end
 
-  def group_buddies
-    classroom_pairs = []
-
-    self.buddyships.each do |buddyship|
-      pairs = []
-      pairs << Student.find(buddyship.student)
-      pairs << Student.find(buddyship.buddy)
-      classroom_pairs << pairs
-    end
-
-    classroom_pairs
-  end
 
 
   # 1. Find all pairs of enemies in a classroom 
   # 2. Separate them into different groups 
   # 3. Then add pairs of buddies to groups
   # 4. Add remaining neutral kids to fill in
-end

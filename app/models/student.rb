@@ -16,4 +16,23 @@ class Student < ActiveRecord::Base
     first_name + " " + last_name
   end
 
+  def has_enemies_at_table?(table)
+    enemies.each do |enemy|
+      if table.include?(enemy)
+        return true
+      end
+    end
+    false
+  end
+
+  def has_buddies_at_table?(table)
+    buddies.each do |buddy|
+      if table.include?(buddy)
+        return true
+      end
+    end
+    false
+  end
+
+
 end
