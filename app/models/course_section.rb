@@ -54,18 +54,17 @@ class CourseSection < ActiveRecord::Base
 
   def groups_of(students_per_group) #(5)
     number_of_groups = self.students.size / students_per_group  # 40 / 5 = 8
-    tables_array = Array.new(number_of_groups, []) # [[],[],[],[],[],..]
-    bad_kids = trouble_kids
+    tables_array = []#Array.new(number_of_groups, []) # [[],[],[],[],[],..]
+    bad_kids = students.to_a
 
-
-    i = 0 # which student
+    k = 0
+    i = 0 # which student 0 - 39
     j = 0 # WHICH table 0 - 7 
-    while (i <= bad_kids.length) do 
+    table = []
+    while (i < bad_kids.length) do 
       
-      table = tables_array[j]
-
-      k = 0 # how full is the table
-      while (j <= number_of_groups - 1 ) 
+      while (j <= number_of_groups - 1 )
+        
 
         if k < students_per_group # If the table isn't full, add the student to it. also add to fullness
           kid = bad_kids[i]  
@@ -75,33 +74,19 @@ class CourseSection < ActiveRecord::Base
           
           i += 1 
           k += 1
-        else
-        # else k >= students_per_group #If it is full, go to next table
+
+        else # else if the table is full, go to the next table
           j += 1
-          table = tables_array[j]
+          k = 0
+          tables_array << table
+          table = []
         end
-
-        # puts "WAAAH"
-      end 
-
-
-       # j =1
-      # puts "end of loop!!"
-    end
     
 
+      end 
 
-    # for i in 0..trouble_kids.length-1
-    #   kid = trouble_kids.sample
-    #   tables_array.each do |table|
-    #     kid.enemies.each do | enemy|
-    #       if !(table.include?(enemy))
-    #         index = trouble_kids.index(kid)
-    #         table << (trouble_kids.delete_at(index))
-    #       end
-    #     end     
-    #   end
-    # end
+    end
+    
 
     tables_array
   end
