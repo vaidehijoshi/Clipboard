@@ -5,6 +5,7 @@ class CourseSectionsController < ApplicationController
     @enemyship = @course_section.enemyships.new
     @student_course_section = StudentCourseSection.new
     @assignment = @course_section.assignments.new
+    @assignments_hash = Assignment.all_by_category(@course_section)
   end
 
   def new
