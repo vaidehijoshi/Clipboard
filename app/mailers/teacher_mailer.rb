@@ -1,7 +1,7 @@
 class TeacherMailer < ActionMailer::Base
-  default from: 'flatiron.clipboard@gmail.com'
 
   def custom_email(user, recipient_emails, subject, body)
-    mail(to: recipient_emails, subject: subject, body: body)
+    mail(from: user.full_name, reply_to: user.email, to: recipient_emails, subject: subject, body: body, cc: user.email)
   end
+  
 end
