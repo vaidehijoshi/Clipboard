@@ -12,11 +12,11 @@ class CourseSection < ActiveRecord::Base
   validates :name, presence: true
 
 
-  def students_in_class
-    students.all.each_with_object([]) do |student, kids|
-      kids << student
-    end
-  end
+  # def students_in_class
+  #   students.all.each_with_object([]) do |student, kids|
+  #     kids << student
+  #   end
+  # end
 
 
 
@@ -43,27 +43,51 @@ class CourseSection < ActiveRecord::Base
 
   def trouble_kids
     bad_kids = []
-    students_in_class.each_with_index do |kid, i|
+    current_students = students.to_a
+    current_students.each_with_index do |kid, i|
       if (kid.enemies.size > 0)
-        bad_kids.push(students_in_class.delete_at(i))
+        bad_kids.push(current_students.delete_at(i))
       end
     end
     bad_kids
   end
 
-  def groups_of(students_per_group)
-    number_of_groups = self.students.size / students_per_group
-    tables_array = Array.new(number_of_groups, [])
+  def groups_of(students_per_group) #(5)
+    number_of_groups = self.students.size / students_per_group  # 40 / 5 = 8
+    tables_array = Array.new(number_of_groups, []) # [[],[],[],[],[],..]
+    bad_kids = trouble_kids
 
-    
-      tables_array.each do |table|
-        trouble_kids.each do |kid|
-          if table.length < students_per_group
-            table << kid.full_name
-            trouble_kids.delete(kid)
-          end
+
+    i = 0 # which student
+    j = 0 # WHICH table 0 - 7 
+    while (i <= bad_kids.length) do 
+      
+      table = tables_array[j]
+
+      k = 0 # how full is the table
+      while (j <= number_of_groups - 1 ) 
+
+        if k < students_per_group # If the table isn't full, add the student to it. also add to fullness
+          kid = bad_kids[i]  
+          puts " i: student index = #{i} ////// j: table index = #{j} /////// k: table fullness = #{k}"
+          puts kid.full_name 
+          table << kid.full_name 
+          
+          i += 1 
+          k += 1
+        else
+        # else k >= students_per_group #If it is full, go to next table
+          j += 1
+          table = tables_array[j]
         end
-      end
+
+        # puts "WAAAH"
+      end 
+
+
+       # j =1
+      # puts "end of loop!!"
+    end
     
 
 
