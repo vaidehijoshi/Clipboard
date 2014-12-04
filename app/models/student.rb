@@ -9,6 +9,7 @@ class Student < ActiveRecord::Base
   has_many :buddyships
   has_many :buddies, through: :buddyships
   has_many :guardians
+  has_many :scores
 
 
   def full_name

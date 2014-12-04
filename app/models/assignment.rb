@@ -1,5 +1,6 @@
 class Assignment < ActiveRecord::Base
   belongs_to :course_section
+  has_many :scores
 
   validates :name, presence: true
 
