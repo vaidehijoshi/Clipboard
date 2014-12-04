@@ -25,7 +25,7 @@
 	</div>
 	<% if @assignment.document_file_size %>
 		<div class="col-md-9">
-			<object width="670" height="850" data="<%=@assignment.document.url(:original)%>"></object>
+			<object width="700" height="850" data="<%=@assignment.document.url(:original)%>"></object>
 
 			<%= link_to "Download", @assignment.document.url(:original, false) %>
 			<%= link_to "Delete #{@assignment.document_file_name}", remove_assignment_document_path(:assignment_id => @assignment.id), data: {confirm: "Are you sure?"} %>

@@ -1,7 +1,10 @@
 class AssignmentsController < ApplicationController
   def show
-    #binding.pry
+    @scores = {}
     @assignment = Assignment.find(params[:id])
+    @assignment.students.each do |student|
+      @scores[student.id] = Score.find_or_create_by(student_id: student.id, assignment_id: @assignment.id)
+    end
   end
 
   def create
