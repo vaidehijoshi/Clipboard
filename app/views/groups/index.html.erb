@@ -3,3 +3,12 @@
 <% @groups.each do |group| %>
   <p><%= group %></p>
 <% end %>
+
+<%= form_tag teacher_class_groups_path(@teacher, @course_section, @group) do %>
+  <% @groups[:groups].each_with_index do |group, i| %>
+    <% group.each do |kid| %>
+      <%= hidden_field_tag "groups[#{ i }][]", kid.id %>
+    <% end %>
+  <% end %>
+  <%= submit_tag "Save" %>
+<% end %>
