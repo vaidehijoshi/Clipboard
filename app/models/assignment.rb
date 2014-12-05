@@ -1,5 +1,6 @@
 class Assignment < ActiveRecord::Base
   belongs_to :course_section
+  delegate :teacher, to: :course_section
   has_many :students, through: :course_section
   has_many :scores
   accepts_nested_attributes_for :scores
