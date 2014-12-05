@@ -80,6 +80,8 @@
     <%= f.hidden_field :course_section_id, value: @course_section.id %>
     <%= f.submit "Go", class: "submit" %>
   <% end %>
+
+  <%= @course_section.make_groups_of(5) %>
   
   <p><%= link_to 'Back', teacher_path(@course_section.teacher) %></p>
   <% else %>

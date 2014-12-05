@@ -81,8 +81,9 @@ class CourseSection < ActiveRecord::Base
       end
     end
 
-    {:groups => all_groups_array, :unplaceable => all_kids}
-    binding.pry
+    course_groupings = {:groups => all_groups_array, :unplaceable => all_kids}
+    
+    # binding.pry
 
     
   end
