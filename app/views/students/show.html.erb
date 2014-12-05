@@ -1,9 +1,25 @@
 <h1><%= @student.full_name %></h1>
-<ul>
+
 <% @student.course_sections.each do |course_section| %>
   <li><%= link_to course_section.name, teacher_class_path(course_section.teacher, course_section) %></li>
 <% end %>
-</ul>
+  <ol>
+    <% @student.assignments.each do |assignment| %>
+      <li><%= assignment.category %>: <%= assignment.name %> (<%= assignment.points %>)</li>
+    <% end %>
+  </ol>
+<%= @student.all_scores %>
+
+
+
+
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+    60%
+  </div>
+</div>
+
 
 <h2>Works Well With</h2>
 <% if @student.buddies.any? %>
@@ -31,4 +47,3 @@
 
 <%= link_to(:back) %>
 
-<%= link_to 'Home', root_path %>

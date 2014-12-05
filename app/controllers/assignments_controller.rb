@@ -8,7 +8,7 @@ class AssignmentsController < ApplicationController
   end
 
   def create
-    binding.pry
+    # binding.pry
     Assignment.create(name: params[:name], points: params[:points], date_assigned: params[:date_assigned], date_due: params[:date_due], course_section_id: params[:class_id], category: params[:category], document: params[:document])
     redirect_to(:back)
   end
