@@ -27,8 +27,10 @@ class Student < ActiveRecord::Base
   end
 
   def score_for_assignment(assignment)
-    if !Score.where(assignment_id: assignment.id, student_id: self.id).empty?
-      Score.where(assignment_id: assignment.id, student_id: self.id).first.points_earned
+    # binding.pry
+    some_scores = Score.where(assignment_id: assignment.id, student_id: self.id)
+    if !some_scores.empty?
+      some_scores.first.points_earned
     end
   end
 
@@ -42,12 +44,53 @@ class Student < ActiveRecord::Base
     assignment_score_hash = {}
     self.assignments.each do |assignment|
       assignment_score_hash[assignment.course_section.name] ||= []
-      assignment_score_hash[assignment.course_section.name] << {name: assignment.name, teacher: assignment.teacher.full_name, date_assigned: assignment.date_assigned, date_due: assignment.date_due, points_score: score_for_assignment(assignment), overdue: is_overdue?(assignment), percent_score: percent_score_for_assignment(assignment), max_points: assignment.points || "no max points set"}
+      assignment_score_hash[assignment.course_section.name] << {
+        name: assignment.name, 
+        teacher: assignment.teacher.full_name, 
+        date_assigned: assignment.date_assigned, 
+        date_due: assignment.date_due, 
+        points_score: score_for_assignment(assignment), 
+        overdue: is_overdue?(assignment), 
+        percent_score: percent_score_for_assignment(assignment), 
+        max_points: assignment.points || "no max points set"
+      }
     end
     assignment_score_hash
   end
 
+  def average_for_course(course_section)
+    course_assignments_array = self.all_assignments_info[course_section.name]
+    total_percentage_points = 0
+    total_assignments_to_count = 0
+    course_assignments_array.each do |assignment|
+      if !assignment[:percent_score] && assignment[:overdue]
+        total_assignments_to_count += 1
+      elsif assignment[:percent_score]
+        total_percentage_points += assignment[:percent_score]
+        total_assignments_to_count += 1
+      end
+    end
+    if total_assignments_to_count == 0
+      return false
+    else
+      return total_percentage_points / total_assignments_to_count
+    end
+  end
+
   def overall_average
+    courses_to_count = 0
+    total_percentage_points = 0
+    self.course_sections.each do |course_section|
+      if average_for_course(course_section)
+        courses_to_count += 1
+        total_percentage_points += average_for_course(course_section)
+      end
+    end
+    if courses_to_count == 0
+      return false
+    else
+      return total_percentage_points / courses_to_count
+    end
   end
 
 
