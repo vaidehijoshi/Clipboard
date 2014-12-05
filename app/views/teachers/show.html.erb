@@ -1,19 +1,20 @@
 <h1>Welcome, <%= @teacher.full_name %></h1>
-<h3>Courses currently teaching</h3>
-<ul>
+<h3>Currently teaching courses on:</h3>
+
 <% @teacher.course_teacher_assignments.each do |course_teacher_assignment| %>
 	<% course = Course.find(course_teacher_assignment.course_id) %>
-	<li><%= course.name %> <%= link_to "add a section for this course", new_teacher_class_path(@teacher, :course_section => { :course_teacher_assignment_id => course_teacher_assignment.id }) %></li>
+  <ul>
+  	<h4><%= course.name %></h4>
+    <h5><%= link_to "add a section for this course", new_teacher_class_path(@teacher, :course_section => { :course_teacher_assignment_id => course_teacher_assignment.id }) %></h5>
+  </ul>
 <% end %>
-</ul>
 
-Here are your classes:
-<ul>
+
+<h3><%= @teacher.first_name %>'s classes:</h3>
+<ol>
 <% @teacher.course_sections.each do |course_section| %>
-	<li><%= link_to course_section.name, teacher_class_path(@teacher, course_section) %></li>
+	<h4><li><%= link_to course_section.name, teacher_class_path(@teacher, course_section) %></li></h4>
 <% end %>
-</ul>
+</ol>
 
 
-
-<%= link_to 'Home', root_path %>

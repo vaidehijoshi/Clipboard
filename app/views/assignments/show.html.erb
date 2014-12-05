@@ -1,1 +1,25 @@
 <h1><%= @assignment.name %></h1>
+<div class="row">
+	<div class="col-md-9">
+		<p>
+		<%= link_to "Back to your homepage", teacher_class_path(current_user, @assignment.course_section) %><br>
+		<%= link_to "Download", @assignment.document.url(:original, false) %>	
+		</p>
+		<object width="700" height="850" data="<%=@assignment.document.url(:original)%>"></object>
+	</div>
+
+	<div class="col-md-3">
+		<h3>Scores (out of <%=@assignment.points%> points)</h3>
+		
+		<% @assignment.course_section.students.each do |student| %>
+			<%= form_for @scores[student.id] do |f| %>
+				<%= f.label :student, student.full_name %>
+				<%= f.hidden_field :student_id, value: student.id %>
+				<%= f.hidden_field :assignment_id, value: @assignment.id %>
+				<%= f.number_field :points_earned, in:0..@assignment.points %>
+				<%= f.submit %><br>
+			<% end %>
+		<% end %>
+	</div>
+
+</div>

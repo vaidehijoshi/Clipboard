@@ -10,7 +10,7 @@ class Student < ActiveRecord::Base
   has_many :buddies, through: :buddyships
   has_many :guardians
   has_many :scores
-
+  has_many :assignments, through: :course_sections
 
   def full_name
     first_name + " " + last_name
@@ -32,6 +32,9 @@ class Student < ActiveRecord::Base
       end
     end
     false
+
+  def guardian_ids
+    guardians.pluck(:id)
   end
 
 

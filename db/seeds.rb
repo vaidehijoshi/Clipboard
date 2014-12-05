@@ -9,10 +9,10 @@
 
 school = School.create({ name: 'Little Flatiron' })
 
-avi = Teacher.create(first_name: 'Avi', last_name: 'Flombaum', title: 'Sir', email: 'avi@flatiron.com')
-steven = Teacher.create(first_name: "Steven", last_name: "Nunez", title: "Honorable", email: "steven@flatiron.com")
-tristan = Teacher.create(first_name: "Tristan", last_name: "Seigel", title: "Mr.", email: "trista@flatiron.com")
-mitch = Teacher.create(first_name: "Mitch", last_name: "Boyer", title: "Venerable", email: "mitch@flatiron.com")
+avi = Teacher.create(first_name: 'Avi', last_name: 'Flombaum', title: 'Sir', email: 'avi@example.com')
+steven = Teacher.create(first_name: "Steven", last_name: "Nunez", title: "Honorable", email: "steven@example.com")
+tristan = Teacher.create(first_name: "Tristan", last_name: "Seigel", title: "Mr.", email: "trista@example.com")
+mitch = Teacher.create(first_name: "Mitch", last_name: "Boyer", title: "Venerable", email: "mitch@example.com")
 
 
 ruby = school.courses.create({ name: 'Ruby' })
@@ -40,46 +40,46 @@ javascript_section = stevens_class.course_sections.create({ name: 'JavaScript-00
 jquery_section = tristans_class.course_sections.create({ name: 'jQuery-006' })
 
 students = Student.create([
-  { first_name: 'Lil Kana', last_name: 'Abe', email: 'Kana@flatiron.com'},
-  { first_name: 'Lil Don', last_name: 'Allison', email: 'Don@flatiron.com'},
-  { first_name: 'Lil Karim', last_name: 'Butt', email: 'Karim@flatiron.com'},
-  { first_name: 'Lil Joe', last_name: 'Cardarelli', email: 'Joe@flatiron.com'},
-  { first_name: 'Lil Julie', last_name: 'Carter', email: 'Julie@flatiron.com'},
-  { first_name: 'Lil Amanda', last_name: 'Chang', email: 'Amanda@flatiron.com'},
-  { first_name: 'Lil Danielle', last_name: 'Cohen-Shohet', email: 'Danielle@flatiron.com'},
-  { first_name: 'Lil Tom', last_name: 'Cohenno', email: 'Tom@flatiron.com'},
-  { first_name: 'Lil Blake', last_name: 'DeBoer', email: 'Blake@flatiron.com'},
-  { first_name: 'Lil Mike', last_name: 'Dorfman', email: 'Mike@flatiron.com'},
-  { first_name: 'Lil Matt', last_name: 'Fairbank', email: 'Matt@flatiron.com'},
-  { first_name: 'Lil Rodrigo', last_name: 'Figueroa', email: 'Rodrigo@flatiron.com'},
-  { first_name: 'Lil Molly', last_name: 'Gingras', email: 'Molly@flatiron.com'},
-  { first_name: 'Lil Ben', last_name: 'Gross', email: 'Ben@flatiron.com'},
-  { first_name: 'Lil Chelsea', last_name: 'Guster', email: 'Chelsea@flatiron.com'},
-  { first_name: 'Lil Kevin', last_name: 'Hylant', email: 'Kevin@flatiron.com'},
-  { first_name: 'Lil Sara', last_name: 'Giberson', email: 'Sara@flatiron.com'},
-  { first_name: 'Lil Vaidehi', last_name: 'Joshi', email: 'Vaidehi@flatiron.com'},
-  { first_name: 'Lil Brianne', last_name: 'King', email: 'Brianne@flatiron.com'},
-  { first_name: 'Lil Fabio', last_name: 'Kume', email: 'Fabio@flatiron.com'},
-  { first_name: 'Lil Nate', last_name: 'Kratchman', email: 'Nate@flatiron.com'},
-  { first_name: 'Lil Jimmy', last_name: 'Kuruvilla', email: 'Jimmy@flatiron.com'},
-  { first_name: 'Lil Joe', last_name: 'Lehr', email: 'Joe@flatiron.com'},
-  { first_name: 'Lil Sofia', last_name: 'Ma', email: 'Sofia@flatiron.com'},
-  { first_name: 'Lil Sam', last_name: 'Marcus', email: 'Sam@flatiron.com'},
-  { first_name: 'Lil Jarret', last_name: 'Moses', email: 'Jarret@flatiron.com'},
-  { first_name: 'Lil Ayanthika', last_name: 'Motha', email: 'Ayanthika@flatiron.com'},
-  { first_name: 'Lil Joshua', last_name: 'Moses', email: 'Joshua@flatiron.com'},
-  { first_name: 'Lil Shivani', last_name: 'Pandey', email: 'Shivani@flatiron.com'},
-  { first_name: 'Lil Draisy', last_name: 'Sabel', email: 'Draisy@flatiron.com'},  
-  { first_name: 'Lil Allison', last_name: 'Shane', email: 'Allison@flatiron.com'},
-  { first_name: 'Lil Seema', last_name: 'Shariat', email: 'Seema@flatiron.com'},     
-  { first_name: 'Lil Sarah', last_name: 'Stroh', email: 'Sarah@flatiron.com'},  
-  { first_name: 'Lil Cassie', last_name: 'Tarakajian', email: 'Cassie@flatiron.com'},
-  { first_name: 'Lil Sam', last_name: 'Tran', email: 'Sam@flatiron.com'},
-  { first_name: 'Lil Robyn', last_name: 'Trovati', email: 'Robyn@flatiron.com'},   
-  { first_name: 'Lil Thinh', last_name: 'Vu', email: 'Thinh@flatiron.com'},   
-  { first_name: 'Lil Rose', last_name: 'Weixel', email: 'Rose@flatiron.com'},   
-  { first_name: 'Lil Elizabeth', last_name: 'Wolensky', email: 'Elizabeth@flatiron.com'},   
-  { first_name: 'Lil Julia', last_name: 'Zhang', email: 'Julia@flatiron.com'}
+  { first_name: 'Lil Kana', last_name: 'Abe', email: 'Kana@example.com'},
+  { first_name: 'Lil Don', last_name: 'Allison', email: 'Don@example.com'},
+  { first_name: 'Lil Karim', last_name: 'Butt', email: 'Karim@example.com'},
+  { first_name: 'Lil Joe', last_name: 'Cardarelli', email: 'Joe@example.com'},
+  { first_name: 'Lil Julie', last_name: 'Carter', email: 'Julie@example.com'},
+  { first_name: 'Lil Amanda', last_name: 'Chang', email: 'Amanda@example.com'},
+  { first_name: 'Lil Danielle', last_name: 'Cohen-Shohet', email: 'Danielle@example.com'},
+  { first_name: 'Lil Tom', last_name: 'Cohenno', email: 'Tom@example.com'},
+  { first_name: 'Lil Blake', last_name: 'DeBoer', email: 'Blake@example.com'},
+  { first_name: 'Lil Mike', last_name: 'Dorfman', email: 'Mike@example.com'},
+  { first_name: 'Lil Matt', last_name: 'Fairbank', email: 'Matt@example.com'},
+  { first_name: 'Lil Rodrigo', last_name: 'Figueroa', email: 'Rodrigo@example.com'},
+  { first_name: 'Lil Molly', last_name: 'Gingras', email: 'Molly@example.com'},
+  { first_name: 'Lil Ben', last_name: 'Gross', email: 'Ben@example.com'},
+  { first_name: 'Lil Chelsea', last_name: 'Guster', email: 'Chelsea@example.com'},
+  { first_name: 'Lil Kevin', last_name: 'Hylant', email: 'Kevin@example.com'},
+  { first_name: 'Lil Sara', last_name: 'Giberson', email: 'Sara@example.com'},
+  { first_name: 'Lil Vaidehi', last_name: 'Joshi', email: 'Vaidehi@example.com'},
+  { first_name: 'Lil Brianne', last_name: 'King', email: 'Brianne@example.com'},
+  { first_name: 'Lil Fabio', last_name: 'Kume', email: 'Fabio@example.com'},
+  { first_name: 'Lil Nate', last_name: 'Kratchman', email: 'Nate@example.com'},
+  { first_name: 'Lil Jimmy', last_name: 'Kuruvilla', email: 'Jimmy@example.com'},
+  { first_name: 'Lil Joe', last_name: 'Lehr', email: 'Joe@example.com'},
+  { first_name: 'Lil Sofia', last_name: 'Ma', email: 'Sofia@example.com'},
+  { first_name: 'Lil Sam', last_name: 'Marcus', email: 'Sam@example.com'},
+  { first_name: 'Lil Jarret', last_name: 'Moses', email: 'Jarret@example.com'},
+  { first_name: 'Lil Ayanthika', last_name: 'Motha', email: 'Ayanthika@example.com'},
+  { first_name: 'Lil Joshua', last_name: 'Moses', email: 'Joshua@example.com'},
+  { first_name: 'Lil Shivani', last_name: 'Pandey', email: 'Shivani@example.com'},
+  { first_name: 'Lil Draisy', last_name: 'Sabel', email: 'Draisy@example.com'},  
+  { first_name: 'Lil Allison', last_name: 'Shane', email: 'Allison@example.com'},
+  { first_name: 'Lil Seema', last_name: 'Shariat', email: 'Seema@example.com'},     
+  { first_name: 'Lil Sarah', last_name: 'Stroh', email: 'Sarah@example.com'},  
+  { first_name: 'Lil Cassie', last_name: 'Tarakajian', email: 'Cassie@example.com'},
+  { first_name: 'Lil Sam', last_name: 'Tran', email: 'Sam@example.com'},
+  { first_name: 'Lil Robyn', last_name: 'Trovati', email: 'Robyn@example.com'},   
+  { first_name: 'Lil Thinh', last_name: 'Vu', email: 'Thinh@example.com'},   
+  { first_name: 'Lil Rose', last_name: 'Weixel', email: 'Rose@example.com'},   
+  { first_name: 'Lil Elizabeth', last_name: 'Wolensky', email: 'Elizabeth@example.com'},   
+  { first_name: 'Lil Julia', last_name: 'Zhang', email: 'Julia@example.com'}
 ])
 
 students.each do |student|

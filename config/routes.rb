@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get 'classes/:id/assignments/:id/remove_document', to: 'assignments#remove_document', as: 'remove_assignment_document'
 
   root :to => 'schools#index'
 
@@ -12,8 +13,12 @@ Rails.application.routes.draw do
       resources :assignments
       resources :buddyships
       resources :enemyships
+      get 'email', to: 'email#course_section'
+      post 'email', to: 'email#course_section_send'
     end
   end
+
+  resources :scores
 
   resources :student_course_sections, :only => [:create, :destroy, :show]
 

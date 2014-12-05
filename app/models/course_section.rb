@@ -8,6 +8,7 @@ class CourseSection < ActiveRecord::Base
   has_many :buddyships
   has_many :enemyships
   has_many :assignments
+  has_many :guardians, through: :students
 
   validates :name, presence: true
 
@@ -95,6 +96,15 @@ class CourseSection < ActiveRecord::Base
       end
       tables_array << empty_table
 
+  end
+
+
+  def students_with_guardians
+    students.where(id: guardians.pluck(:student_id))
+  end
+
+  def students_without_guardians
+    students.where.not(id: guardians.pluck(:student_id))
   end
 
 end

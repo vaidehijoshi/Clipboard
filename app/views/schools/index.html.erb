@@ -1,20 +1,16 @@
-<h1>Welcome to Clipboard!</h1>
-<h3>Bringing clipboards into the 21st century for all teachers.</h3>
+<body style='background-image: url("clipboard_paper.png"); background-size: cover; background-repeat: no-repeat; '>
+
+<div class="index-wrapper" style='padding-left:170px; padding-top:200px;'>
 
 <% if current_user %>
-	<h4>Hi, <%= current_user.full_name %> <%= link_to "Go to your homepage.", teacher_path(current_user) %></h4>
+	<h2 style="font-family: 'Droid Sans', sans-serif; font-weight: 700; padding-bottom:45px;">Welcome, <%= current_user.full_name %>!</h2>
+
+  <p><%= link_to "Add a new student to the system", new_student_path %></p>
+<% else %>
+  <h1 style="font-family: 'Droid Sans', sans-serif; font-weight: 700;">Welcome to Clipboard!</h1>
+  <h3 style="padding-bottom:45px;font-family: 'Droid Sans', sans-serif; font-weight: 400;">A smarter clipboard for smarter teachers.</h3>
+
 <% end %>
 
-<p><%= link_to "Sign Up!", new_teacher_path %></p>
-
-Already signed up? Select a School and Log in!
-<p>
-<%= form_for @teacher, :url => sessions_path, :html => { :style => "padding:15px;" } do |f| %>
-  <%= f.text_field :email, placeholder: "your email" %>
-  <%= f.submit "Sign In" %>
-<% end %>
-</p>
-
-<p><%= link_to "Add a new student to the system", new_student_path %></p>
-
-<p><%= link_to "log out", signout_path %></p>
+</div>
+</body>
