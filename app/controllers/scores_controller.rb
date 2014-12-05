@@ -14,11 +14,15 @@ class ScoresController < ApplicationController
     @score = Score.find(params[:id])
     @score.update(score_params)
     if @score.save
-      flash[:notice] = "#{@score.student.full_name} earned #{@score.points_earned} points"
-      redirect_to(:back)
+      respond_to do |format|
+        format.html { redirect_to :back, notice: "#{@score.student.full_name} earned #{@score.points_earned} points" }
+        # format.js {}
+      end
     else
-      flash[:alert] = "Score could not be updated!"
-      redirect_to(:back)
+      respond_to do |format|
+        format.html { redirect_to :back, notice: "Score could not be updated!" }
+        format.js {  }
+      end
     end
   end
 

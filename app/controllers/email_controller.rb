@@ -7,8 +7,9 @@ class EmailController < ApplicationController
   end
 
   def course_section_send
-    guardian_emails = Guardian.where(student_id: params[:email][:student_ids_for_guardians]).pluck(:email)
-    students = Student.where(id: params[:email][:student_ids])
+    @guardians = Guardian.where(student_id: params[:email][:student_ids_for_guardians])
+    guardian_emails = @guardians.pluck(:email)
+    @students = Student.where(id: params[:email][:student_ids])
     student_emails = students.pluck(:email)
     recipient_emails = guardian_emails + student_emails
 
