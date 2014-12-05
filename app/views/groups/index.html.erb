@@ -1,0 +1,33 @@
+<h1>Randomly Generated Groups for <%= @group.course_section.name %></h1>
+
+<% @groups.each do |group| %>
+  
+    <% group[1].each do |g| %>
+      <% g.each do |kid| %>
+        <li><%= kid.full_name %></li>
+      <% end %>
+
+      <hr>
+    <% end %>
+<% end %>
+
+<% if @groups[:unplaceable].size == 0 %>
+  <h5>Every student found a seat!</h5>
+<% else %>
+  <h5>Sorry, we couldn't find a seat for these students. Try regenerating!</h5>
+  <% @groups[:unplaceable].each do |g| %>
+    <% g.each do |kid| %>
+     <li><%= kid.full_name %></li>
+    <% end %>
+  <% end %>
+<% end %>
+
+<h5> Save this grouping </h5>
+<%= form_tag teacher_class_groups_path(@teacher, @course_section, @group) do %>
+  <% @groups[:groups].each_with_index do |group, i| %>
+    <% group.each do |kid| %>
+      <%= hidden_field_tag "groups[#{ i }][]", kid.id %>
+    <% end %>
+  <% end %>
+  <%= submit_tag "Save" %>
+<% end %>
