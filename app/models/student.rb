@@ -11,6 +11,7 @@ class Student < ActiveRecord::Base
   has_many :guardians
   has_many :scores
   has_many :assignments, through: :course_sections
+  has_many :memberships
 
   def full_name
     first_name + " " + last_name

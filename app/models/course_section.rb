@@ -9,6 +9,8 @@ class CourseSection < ActiveRecord::Base
   has_many :enemyships
   has_many :assignments
   has_many :guardians, through: :students
+  has_many :groups
+  
 
   validates :name, presence: true
 

@@ -8,7 +8,6 @@
   <% end %>
 
 
-  <p><%= @course_section.groups_of(5) %></p>
 
   Students:
   <ul>
@@ -81,7 +80,16 @@
     <%= f.submit "Go", class: "submit" %>
   <% end %>
 
-  <%= @course_section.make_groups_of(5) %>
+  Groups:
+
+
+<%= form_tag teacher_class_groups_path(params[:teacher_id], @course_section.id), method: :get do %>
+  <%= text_field_tag :group_size %>
+  <%= submit_tag %>
+<% end %>
+
+
+
   
   <p><%= link_to 'Back', teacher_path(@course_section.teacher) %></p>
   <% else %>

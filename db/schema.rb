@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141204164506) do
+ActiveRecord::Schema.define(version: 20141205190928) do
 
   create_table "assignments", force: true do |t|
     t.string   "name"
@@ -66,6 +66,14 @@ ActiveRecord::Schema.define(version: 20141204164506) do
     t.datetime "updated_at"
   end
 
+  create_table "groups", force: true do |t|
+    t.integer  "course_section_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groups", ["course_section_id"], name: "index_groups_on_course_section_id"
+
   create_table "guardians", force: true do |t|
     t.integer  "student_id"
     t.string   "first_name"
@@ -79,6 +87,16 @@ ActiveRecord::Schema.define(version: 20141204164506) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "memberships", force: true do |t|
+    t.integer  "group_id"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "memberships", ["group_id"], name: "index_memberships_on_group_id"
+  add_index "memberships", ["student_id"], name: "index_memberships_on_student_id"
 
   create_table "schools", force: true do |t|
     t.string   "name"
