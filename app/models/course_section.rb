@@ -30,6 +30,75 @@ class CourseSection < ActiveRecord::Base
 
 
 
+  def make_groups_of(max_kids_per_table) # 5
+    if self.students.size % max_kids_per_table != 0
+      number_of_groups = self.students.size / max_kids_per_table + 1
+    else
+      number_of_groups = self.students.size / max_kids_per_table  # 40 / 5 = 8
+    end
+
+    all_groups_array = [] # to hold all the groups when they're made
+    all_kids = students.to_a.shuffle
+    seated_kids = []
+    # binding.pry
+
+    number_of_groups.times do
+      new_table = []
+      all_kids.each_with_index do |kid, index|
+        # if seated_kids.count == all_kids.count
+        if seated_kids.include?(kid)
+          
+          break
+        else
+          if new_table.size == max_kids_per_table
+            # all_groups_array << new_table
+            break
+          elsif new_table.include?(kid)
+            break
+          elsif kid.has_enemies_at_table?(new_table)
+            break
+          else
+            new_table << kid
+            # binding.pry
+            seated_kids << all_kids.delete_at(index)
+          end
+        end
+      end
+      all_groups_array << new_table
+      puts "new table"
+      puts new_table
+      puts "all groups array"
+      puts all_groups_array
+    end
+
+    place_these_kids = all_kids.dup
+    place_these_kids.each_with_index do |kid|
+      all_groups_array.each do |group|
+        if group.size < max_kids_per_table && !kid.has_enemies_at_table?(group)
+          group << kid
+          seated_kids << all_kids.shift
+        end
+      end
+    end
+
+    {:groups => all_groups_array, :unplaceable => all_kids}
+    binding.pry
+
+    
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
 #   def groups_of(students_per_group) #(5)
 #     number_of_groups = self.students.size / students_per_group  # 40 / 5 = 8
 #     tables_array = []
@@ -78,25 +147,25 @@ class CourseSection < ActiveRecord::Base
  # end
 
 
-  def groups_of(students_per_group) #(5)
-      number_of_groups = self.students.size / students_per_group  # 40 / 5 = 8
-      tables_array = []#Array.new(number_of_groups, []) # [[],[],[],[],[],..]
-      all_kids = students.to_a.shuffle
-      empty_table = []
-      unplaceable_kids = []
+  # def groups_of(students_per_group) #(5)
+  #     number_of_groups = self.students.size / students_per_group  # 40 / 5 = 8
+  #     tables_array = []#Array.new(number_of_groups, []) # [[],[],[],[],[],..]
+  #     all_kids = students.to_a.shuffle
+  #     empty_table = []
+  #     unplaceable_kids = []
 
       
-      all_kids.each do |kid|
-        while empty_table.size < students_per_group do 
-          if !((kid.has_enemies_at_table?(empty_table)) && empty_table.include?(kid))
-            empty_table << all_kids.delete(kid)
-          end
-        end
+  #     all_kids.each do |kid|
+  #       while empty_table.size < students_per_group do 
+  #         if !((kid.has_enemies_at_table?(empty_table)) && empty_table.include?(kid))
+  #           empty_table << all_kids.delete(kid)
+  #         end
+  #       end
 
-      end
-      tables_array << empty_table
+  #     end
+  #     tables_array << empty_table
 
-  end
+  # end
 
 
   def students_with_guardians

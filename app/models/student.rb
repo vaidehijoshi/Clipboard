@@ -32,6 +32,7 @@ class Student < ActiveRecord::Base
       end
     end
     false
+  end
 
   def guardian_ids
     guardians.pluck(:id)
