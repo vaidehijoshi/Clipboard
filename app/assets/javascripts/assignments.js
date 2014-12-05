@@ -1,10 +1,11 @@
 $(function(){
   hideSubmitButtons();
   addScoreListener();
+  console.log("hi");
 })
 
 function hideSubmitButtons() {
-  $("form.edit_score input[type='submit']").hide();
+  $("form[class$='score'] input[type='submit']").hide();
 }
 
 function addScoreListener() {
@@ -21,7 +22,7 @@ function addScoreListener() {
   // });
 
   $numInput.change(function(){
-    $(this).parent("form").submit();
+    $(this).parents("form").submit();
   });
 }
 
