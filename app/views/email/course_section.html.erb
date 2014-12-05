@@ -11,6 +11,8 @@ students whose guardians you’d like to email" %><br>
   <%= collection_check_boxes :email, :student_ids, @course_section.students, :id, :full_name do |b| %>
   <%= b.check_box %> <%= b.label %> 
   <% end %><br>
+  <%= label_tag "email[template]", "Select a template" %><br>
+  <%= select_tag "email[template]", options_for_select([['Select...', '']] + @templates) %><br>
   <%= label_tag "email[subject]", "Subject" %><br>
   <%= text_field_tag "email[subject]" %><br>
   <%= label_tag "email[body]", "Body" %><br>

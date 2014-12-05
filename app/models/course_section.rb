@@ -13,10 +13,13 @@ class CourseSection < ActiveRecord::Base
   validates :name, presence: true
 
   def students_with_guardians
-    students.where(id: guardians.pluck(:student_id))
+    students.joins(:guardians).uniq
   end
 
   def students_without_guardians
     students.where.not(id: guardians.pluck(:student_id))
   end
 end
+
+
+#Student.joins('LEFT OUTER JOIN guardians ON students.id = guardians.student_id').where(guardians: { id: nil }).uniq
