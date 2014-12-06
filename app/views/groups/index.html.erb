@@ -14,15 +14,17 @@
 <% else %>
   <h5>Sorry, we couldn't find a seat for these students. Try regenerating!</h5>
   <% @unplaced_kids.each do |kid| %>
-
-
        <li><%= kid.full_name %></li>
-
-
   <% end %>
+
+<% end %>
+<h5>Regenerate Groups</h5>
+<%= form_tag teacher_class_groups_path(@teacher, @course_section, @group), method: :get do %>
+  <%= text_field_tag :group_size, nil, placeholder: "Students per group"%>
+  <%= submit_tag "Generate Groups" %>
 <% end %>
 
-<h5> Save this grouping </h5>
+<h5>Save this grouping</h5>
 <%= form_tag teacher_class_groups_path(@teacher, @course_section, @group) do %>
   <% @groups[:groups].each_with_index do |group, i| %>
     <% group.each do |kid| %>
