@@ -4658,10 +4658,11 @@ a.badge:focus {
   margin-left: 3px;
 }
 .jumbotron {
-  padding: 30px 15px;
-  margin-bottom: 30px;
+  padding: 30px 15px 50px 15px;
+  margin: 30px;
   color: inherit;
-  background-color: #eeeeee;
+  background-color: #d7d7d7;
+  text-align: center;
 }
 .jumbotron h1,
 .jumbotron .h1 {
