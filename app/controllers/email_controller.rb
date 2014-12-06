@@ -10,7 +10,7 @@ class EmailController < ApplicationController
     @guardians = Guardian.where(student_id: params[:email][:student_ids_for_guardians])
     guardian_emails = @guardians.pluck(:email)
     @students = Student.where(id: params[:email][:student_ids])
-    student_emails = students.pluck(:email)
+    student_emails = @students.pluck(:email)
     recipient_emails = guardian_emails + student_emails
 
     if params[:email][:template] == ""
