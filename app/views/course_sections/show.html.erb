@@ -49,7 +49,7 @@
   <h3><%= link_to "Send an Email", teacher_class_email_path(current_user, @course_section) %></h3>
 
 	<h3>Add an Assignment</h3>
-	<%= form_tag(teacher_class_assignments_path(@course_section, current_user), method: :post, :enctype =>"multipart/form-data") do %>
+	<%= form_tag(teacher_class_assignments_path(current_user, @course_section), method: :post, :enctype =>"multipart/form-data") do %>
 		<%= label_tag(:name, "Name") %><br>
 	  <%= text_field_tag(:name) %><br>
 		<%= label_tag(:points, "Points") %><br>
