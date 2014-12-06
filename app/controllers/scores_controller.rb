@@ -12,11 +12,12 @@ class ScoresController < ApplicationController
 
   def update
     @score = Score.find(params[:id])
+    @assignment = @score.assignment
     @score.update(score_params)
     if @score.save
       respond_to do |format|
         format.html { redirect_to :back, notice: "#{@score.student.full_name} earned #{@score.points_earned} points" }
-        # format.js {}
+        format.js { }
       end
     else
       respond_to do |format|

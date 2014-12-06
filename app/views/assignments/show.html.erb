@@ -1,12 +1,13 @@
-<h1><%= @assignment.name %></h1>
+<h1><%= @assignment.name %> <span class="pull-right">Average Score: <span id="average_score"><%= @assignment.average_grade %></span></span></h1>
 <div class="row">
 	<div class="col-md-9">
 		<p>
 		<%= link_to "Back to your homepage", teacher_class_path(current_user, @assignment.course_section) %><br>
-		<%= link_to "Download", @assignment.document.url(:original, false) %>	
+			
 		</p>
 		<% if @assignment.document.instance.document_file_size %>
 			<object width="700" height="850" data="<%=@assignment.document.url(:original)%>"></object>
+			<%= link_to "Download", @assignment.document.url(:original, false) %>
 		<% end %>
 	</div>
 
