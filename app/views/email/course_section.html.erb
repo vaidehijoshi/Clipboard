@@ -1,23 +1,30 @@
 <h1>Send an email for <%= @course_section.name %></h1>
 
 <%= form_tag teacher_class_email_path(current_user, @course_section) do %>
-  <%= label_tag "email[student_ids_for_guardians]", "Select 
-students whose guardians you’d like to email" %><br>
-  <%= collection_check_boxes :email, :student_ids_for_guardians, @course_section.students_with_guardians, :id, :full_name do |b| %>
-  <%= b.check_box %> <%= b.label %> 
-  <% end %>
-  <br>
-  <%= label_tag "email[student_ids]", "Select students to email directly" %><br>
-  <%= collection_check_boxes :email, :student_ids, @course_section.students, :id, :full_name do |b| %>
-  <%= b.check_box %> <%= b.label %> 
-  <% end %><br>
-  <%= label_tag "email[template]", "Select a template" %><br>
-  <%= select_tag "email[template]", options_for_select([['No Template', '']] + @templates) %><br>
-  <%= label_tag "email[subject]", "Subject" %><br>
-  <%= text_field_tag "email[subject]" %><br>
-  <%= label_tag "email[body]", "Body" %><br>
-  <%= text_area_tag "email[body]" %><br>
-  <p>(You will be CCed on the email for your records.)</p>
-  <%= submit_tag "Send" %>
+  <div class="row">
+    <div class="col-xs-6">
+    <%= label_tag "email[student_ids_for_guardians]", "Select 
+  students whose guardians you’d like to email" %><br>
+    <%= collection_check_boxes :email, :student_ids_for_guardians, @course_section.students_with_guardians, :id, :full_name do |b| %>
+    <%= b.check_box %> <%= b.label %> 
+    <% end %>
+    <br>
+    <br>
+    <%= label_tag "email[student_ids]", "Select students to email directly" %><br>
+    <%= collection_check_boxes :email, :student_ids, @course_section.students, :id, :full_name do |b| %>
+    <%= b.check_box %> <%= b.label %><br>
+    <% end %><br>
+    </div>
+    <div class="col-xs-6">
+      <%= label_tag "email[template]", "Select a template" %><br>
+      <%= select_tag "email[template]", options_for_select([['No Template', '']] + @templates) %><br>
+      <%= label_tag "email[subject]", "Subject" %><br>
+      <%= text_field_tag "email[subject]" %><br>
+      <%= label_tag "email[body]", "Body" %><br>
+      <%= text_area_tag "email[body]", nil, size:"40%x10%" %><br>
+      <p>(You will be CCed on the email for your records.)</p>
+      <%= submit_tag "Send" %>
+    </div>
+  </div>
 <% end %>
 
