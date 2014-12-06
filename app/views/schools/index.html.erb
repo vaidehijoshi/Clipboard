@@ -2,13 +2,31 @@
 <!-- <div class="index-wrapper" style='padding-left:170px; padding-top:200px;'> -->
 
 <div class="jumbotron">
-  <% if current_user %>
-    <h1>Welcome, <%= current_user.full_name %>!</h1><br>
-    <h4><%= link_to "Add a new student to the system", new_student_path %></h4>
-  <% else %>
-    <h1>Welcome to Clipboard!</h1>
-    <h3>A smarter clipboard for smarter teachers.</h3>
-  <% end %>
+  <div class="container">
+    <div class="row">
+      <% if current_user %>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h2>Welcome, <%= current_user.full_name %>!</h2><br>
+        <h4><%= link_to "Add a new student to the system", new_student_path %></h4>
+      <% else %>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h2>Welcome to Clipboard!</h2>
+        <h3>A smarter clipboard for smarter teachers.</h3>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 </body>

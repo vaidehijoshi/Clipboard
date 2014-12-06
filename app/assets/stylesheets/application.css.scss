@@ -4658,15 +4658,20 @@ a.badge:focus {
   margin-left: 3px;
 }
 .jumbotron {
-  padding: 30px 15px 50px 15px;
-  margin: 30px;
+  margin: 15px;
+  padding: 30px 15px 30px 15px;
   color: inherit;
-  background-color: #d7d7d7;
   text-align: center;
+  background-image: url("clipboard_paper.png");
+  background-size: cover; 
+  background-repeat: no-repeat;
+  width: auto;
+  height: auto;
 }
 .jumbotron h1,
 .jumbotron .h1 {
   color: inherit;
+  padding-top: 00px;
 }
 .jumbotron p {
   margin-bottom: 15px;
@@ -4694,7 +4699,7 @@ a.badge:focus {
   }
   .jumbotron h1,
   .jumbotron .h1 {
-    font-size: 67.5px;
+    font-size: 50px;
   }
 }
 .thumbnail {
