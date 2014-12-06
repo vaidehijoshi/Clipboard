@@ -7,14 +7,17 @@
     <%= f.submit "Add student", class: "submit" %>
   <% end %>
 
+  <h3><%= link_to "Send an Email", teacher_class_email_path(current_user, @course_section) %></h3>
 
+  <h3><%= link_to "Add an Assignment", new_teacher_class_assignment_path(current_user, @course_section.id) %></h3>
 
   Students:
-  <ul>
+  
   <% @course_section.students.each do |student| %>
-  	<li><%= link_to ' x ', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", data: {confirm: "Are you sure?"} %><%= link_to student.full_name, student_path(student) %></li>
+
+  	<p><%= link_to '✖', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", data: {confirm: "Are you sure?"} %> <%= link_to student.full_name, student_path(student) %></p>
   <% end %>
-  </ul>
+ 
 
 
 	Assignments:
@@ -46,23 +49,8 @@
 		</div>
 	<% end %>
 
-  <h3><%= link_to "Send an Email", teacher_class_email_path(current_user, @course_section) %></h3>
 
-	<h3>Add an Assignment</h3>
-	<%= form_tag(teacher_class_assignments_path(current_user, @course_section), method: :post, :enctype =>"multipart/form-data") do %>
-		<%= label_tag(:name, "Name") %><br>
-	  <%= text_field_tag(:name) %><br>
-		<%= label_tag(:points, "Points") %><br>
-		<%= number_field_tag(:points) %><br>
-		<%= label_tag(:date_assigned, "Date Assigned") %><br>
-		<%= date_field_tag(:date_assigned) %><br>
-		<%= label_tag(:date_due, "Date Due") %><br>
-		<%= date_field_tag(:date_due) %><br>
-		<%= select_tag 'category', options_for_select(["Classwork", "Homework", "Test"]) %><br>
-  	<%= file_field_tag(:document) %><br>
-	  <%= submit_tag "Add Assignment" %>
-	<% end %>
-
+	
 
   <h4>Create a pair of work buddies</h4>
   <%= form_for @buddyship, url: teacher_class_buddyships_path(current_user, @course_section), method: :post do |f| %>

@@ -1,3 +1,5 @@
+Current work groups for <%= @group.course_section.name %>:
+
 <% @groups.each do |group| %>
   <p><% group.students.each do |kid| %></p>
     <%= kid.full_name %>

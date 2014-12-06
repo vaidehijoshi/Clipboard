@@ -67,7 +67,7 @@ students = Student.create([
   { first_name: 'Lil Sam', last_name: 'Marcus', email: 'Sam@example.com'},
   { first_name: 'Lil Jarret', last_name: 'Moses', email: 'Jarret@example.com'},
   { first_name: 'Lil Ayanthika', last_name: 'Motha', email: 'Ayanthika@example.com'},
-  { first_name: 'Lil Joshua', last_name: 'Moses', email: 'Joshua@example.com'},
+  { first_name: 'Lil Joshua', last_name: 'Owens', email: 'Joshua@example.com'},
   { first_name: 'Lil Shivani', last_name: 'Pandey', email: 'Shivani@example.com'},
   { first_name: 'Lil Draisy', last_name: 'Sabel', email: 'Draisy@example.com'},  
   { first_name: 'Lil Allison', last_name: 'Shane', email: 'Allison@example.com'},
