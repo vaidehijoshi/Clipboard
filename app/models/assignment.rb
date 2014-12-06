@@ -27,6 +27,28 @@ class Assignment < ActiveRecord::Base
     end
   end
 
+  def average_grade
+    scores = Score.where(assignment_id: id)
+    if scores.where("points_earned IS NOT NULL").empty?
+      return "no scores yet!"
+    end
+    if !scores.empty?
+      total = 0
+      score_count = scores.count
+      scores.each do |score|
+        if score.points_earned
+          total += score.points_earned.to_f / points * 100
+        end
+      end
+    end
+    if total == 0
+      0
+    else
+      (total.to_f / score_count).round(2)
+    end
+  end
+
+
   def date_assigned_formatted
     if date_assigned
       date_assigned.strftime('%m/%d/%Y')
