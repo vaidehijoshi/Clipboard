@@ -1,5 +1,5 @@
 <h1><%= @student.full_name %></h1>
-
+<h2>Overall Progress: <%= @student.percent_assignments_done_overall %></h2>
 <% @student.course_sections.each do |course_section| %>
   <li><%= link_to course_section.name, teacher_class_path(course_section.teacher, course_section) %></li>
   <%= @student.percent_assignments_done_for_course(course_section) %>

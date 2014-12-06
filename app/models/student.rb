@@ -88,6 +88,15 @@ class Student < ActiveRecord::Base
     return 0
   end
 
+  def percent_assignments_done_overall
+    all_assignments = self.assignments
+    if !all_assignments.empty?
+      scored_assignments_count = scores.where(student_id: self.id).count
+      return scored_assignments_count / all_assignments.count.to_f * 100
+    end
+    return 0
+  end
+
   def average_for_course(course_section)
     course_assignments_array = self.all_assignments_info[course_section.name]
     total_percentage_points = 0
