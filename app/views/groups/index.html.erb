@@ -1,4 +1,4 @@
-<h1>Randomly Generated Groups for <%= @group.course_section.name %></h1>
+<h1>Customized Groupings for <%= @group.course_section.name %></h1>
 
 <% @placed_kids.each do |group| %>
     <% group.each do |kid| %>
@@ -16,12 +16,12 @@
     <hr>
 
 <% end %>
-<h5>Kids who got placed with at least one buddy: <%= @kids_sitting_with_buddies_counter %></h5>
+<h3>Kids who got placed with at least one buddy: <span style="color:green;"><%= @kids_sitting_with_buddies_counter %></span></h3>
 
 <% if @groups[:unplaceable].size == 0 %>
-  <h5>Every student found a seat!</h5>
+  <h4 class="alert alert-success">Every student found a seat!</h4>
 <% else %>
-  <h5>Sorry, we couldn't find a seat for these students. Try regenerating!</h5>
+  <h5 class="alert alert-warning">Sorry, we couldn't find a seat for these students. Try regenerating!</h5>
   <% @unplaced_kids.each do |kid| %>
        <li><%= kid.full_name %></li>
   <% end %>
