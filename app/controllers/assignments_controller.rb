@@ -26,6 +26,13 @@ class AssignmentsController < ApplicationController
     redirect_to(:back)
   end
 
+  def average_score
+    @assignment = Assignment.find(params[:id])
+    respond_to do |format|
+        format.js
+    end
+  end
+
   def update
     
     @assignment = Assignment.find(params[:id])

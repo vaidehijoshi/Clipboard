@@ -20,8 +20,9 @@ function addScoreListener() {
   //     $(this).data("previousValue", $(this).val());
   // });
 
-  $numInput.change(function(){
-    $(this).parents("form").submit();
+  $numInput.change(function(event){
+    //event.preventDefault();
+    $(this).parents("form").submit(); 
   });
 }
 

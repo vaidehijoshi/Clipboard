@@ -1,1 +1,6 @@
-alert("Score could not be saved.");
+//console.log(<%= @assignment.points %>);
+// if ($('form').children("#score_points_earned").val() > <%= @assignment.points %>){
+
+//  	alert("An invalid score has been entered.");
+// }
+$("#average").html("<%= @assignment.average_grade %>%");
