@@ -3,6 +3,8 @@ class GroupsController < ApplicationController
     @course_section = CourseSection.find(params[:class_id])
     if params[:group_size]   
       @groups = @course_section.make_groups_of(params[:group_size].to_i)
+      @placed_kids = @groups[:groups]
+      @unplaced_kids = @groups[:unplaceable]
       @group = @course_section.groups.new
       @teacher = @course_section.teacher
     else

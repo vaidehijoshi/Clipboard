@@ -31,64 +31,93 @@ class CourseSection < ActiveRecord::Base
   end
 
 
-
-  def make_groups_of(max_kids_per_table) # 5
-    if self.students.size % max_kids_per_table != 0
-      number_of_groups = self.students.size / max_kids_per_table + 1
+  def make_groups_of(max_kids_per_group) # 5
+    if self.students.size % max_kids_per_group != 0
+      number_of_groups = self.students.size / max_kids_per_group + 1
     else
-      number_of_groups = self.students.size / max_kids_per_table  # 40 / 5 = 8
+      number_of_groups = self.students.size / max_kids_per_group  # 40 / 5 = 8
     end
-
+    unseatable_kids = []
     all_groups_array = [] # to hold all the groups when they're made
     all_kids = students.to_a.shuffle
-    seated_kids = []
-    # binding.pry
-
-    number_of_groups.times do
-      new_table = []
-      all_kids.each_with_index do |kid, index|
-        # if seated_kids.count == all_kids.count
-        if seated_kids.include?(kid)
-          
-          break
-        else
-          if new_table.size == max_kids_per_table
-            # all_groups_array << new_table
+    number_of_groups.times do 
+      all_groups_array << []
+    end
+    groups_checked = 0
+    kid_seated = false
+    all_kids.each do |kid|
+      kid_seated = false
+      groups_checked = 0
+      while kid_seated == false && groups_checked < number_of_groups
+        print "starting to go through groups"
+        all_groups_array.each do |group|
+          groups_checked += 1
+          if group.size < max_kids_per_group && !kid.has_enemies_at_table?(group)
+            group << kid
+            kid_seated = true
             break
-          elsif new_table.include?(kid)
-            break
-          elsif kid.has_enemies_at_table?(new_table)
-            break
-          else
-            new_table << kid
-            # binding.pry
-            seated_kids << all_kids.delete_at(index)
           end
         end
       end
-      all_groups_array << new_table
-      puts "new table"
-      puts new_table
-      puts "all groups array"
-      puts all_groups_array
-    end
-
-    place_these_kids = all_kids.dup
-    place_these_kids.each_with_index do |kid|
-      all_groups_array.each do |group|
-        if group.size < max_kids_per_table && !kid.has_enemies_at_table?(group)
-          group << kid
-          seated_kids << all_kids.shift
-        end
+      if kid_seated == false
+        unseatable_kids << kid
       end
     end
-
-    course_groupings = {:groups => all_groups_array, :unplaceable => all_kids}
-    
-    # binding.pry
-
-    
+    course_groupings = {:groups => all_groups_array, :unplaceable => unseatable_kids}
   end
+
+
+#### WHATEVER WE DO, WE MUST HAVE THIS RETURNED!
+#course_groupings = {:groups => all_groups_array, :unplaceable => place_these_kids}
+
+  #   seated_kids = []
+  #   # binding.pry
+
+  #   number_of_groups.times do
+  #     new_table = []
+  #     all_kids.each_with_index do |kid, index|
+  #       # if seated_kids.count == all_kids.count
+  #       if seated_kids.include?(kid)
+          
+  #         break
+  #       else
+  #         if new_table.size == max_kids_per_table
+  #           # all_groups_array << new_table
+  #           break
+  #         elsif new_table.include?(kid)
+  #           break
+  #         elsif kid.has_enemies_at_table?(new_table)
+  #           break
+  #         else
+  #           new_table << kid
+  #           # binding.pry
+  #           seated_kids << all_kids.delete_at(index)
+  #         end
+  #       end
+  #     end
+  #     all_groups_array << new_table
+  #     puts "new table"
+  #     puts new_table
+  #     puts "all groups array"
+  #     puts all_groups_array
+  #   end
+
+  #   place_these_kids = all_kids.dup
+  #   place_these_kids.each_with_index do |kid|
+  #     all_groups_array.each do |group|
+  #       if group.size < max_kids_per_table && !kid.has_enemies_at_table?(group)
+  #         group << kid
+  #         seated_kids << place_these_kids.shift
+  #       end
+  #     end
+  #   end
+
+  #   
+    
+  #   # binding.pry
+
+    
+  # end
 
 
 
