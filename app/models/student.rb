@@ -40,9 +40,10 @@ class Student < ActiveRecord::Base
   end
 
   def is_overdue?(assignment)
-    if !assignment.students.include?(self) || !assignment.date_due || assignment.date_due > Date.today || assignment.date_due < Date.today && score_for_assignment(assignment) != nil
+    if assignment.students.include?(self) && (assignment.date_due != nil) && assignment.date_due < Date.today && score_for_assignment(assignment) == nil
+      return true
     end
-    true
+    false
   end
 
   def score_for_assignment(assignment)
@@ -77,6 +78,16 @@ class Student < ActiveRecord::Base
     assignment_score_hash
   end
 
+  def percent_assignments_done_for_course(course_section)
+    #binding.pry
+    course_assignments = self.assignments.where(course_section_id: course_section.id)
+    if !course_assignments.empty?
+      scored_assignments_count = course_section.scores.where(student_id: self.id).count
+      return scored_assignments_count / course_assignments.count.to_f * 100
+    end
+    return 0
+  end
+
   def average_for_course(course_section)
     course_assignments_array = self.all_assignments_info[course_section.name]
     total_percentage_points = 0
@@ -85,14 +96,17 @@ class Student < ActiveRecord::Base
       if !assignment[:percent_score] && assignment[:overdue]
         total_assignments_to_count += 1
       elsif assignment[:percent_score]
+        #binding.pry
         total_percentage_points += assignment[:percent_score]
         total_assignments_to_count += 1
       end
     end
     if total_assignments_to_count == 0
       return false
+    elsif total_percentage_points == 0
+      return 0
     else
-      return total_percentage_points / total_assignments_to_count
+      return total_percentage_points.to_f / total_assignments_to_count
     end
   end
 

@@ -8,6 +8,7 @@ class CourseSection < ActiveRecord::Base
   has_many :buddyships
   has_many :enemyships
   has_many :assignments
+  has_many :scores, through: :assignments
   has_many :guardians, through: :students
   has_many :groups
   

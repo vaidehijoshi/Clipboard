@@ -2,16 +2,25 @@
 
 <% @student.course_sections.each do |course_section| %>
   <li><%= link_to course_section.name, teacher_class_path(course_section.teacher, course_section) %></li>
+  <%= @student.percent_assignments_done_for_course(course_section) %>
   <% if @student.average_for_course(course_section) %>
     <h3>Average for <%= course_section.name %>: <%= @student.average_for_course(course_section) %></h3>
   <% end %>
 <% end %>
   <ol>
     <% @student.assignments.each do |assignment| %>
+      <% if @student.is_overdue?(assignment) %>
+
+        <div class="alert-danger">
+        This assignment is overdue!
+      <% else %>
+        <div>
+      <% end %>
       <li><%= assignment.category %>: <%= assignment.name %> (max points: <%= assignment.points %>)</li>
       <% if @student.percent_score_for_assignment(assignment) %>
-        <h5>Score for <%= assignment.name %>: @student.percent_score_for_assignment(assignment)</h5>
+        <h5>Score for <%= assignment.name %>: <%=@student.percent_score_for_assignment(assignment)%></h5>
       <% end %>
+      </div>
     <% end %>
   </ol>
 <%#= @student.all_scores %>
