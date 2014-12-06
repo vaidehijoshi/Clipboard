@@ -1,16 +1,20 @@
-<body style='background-image: url("clipboard_paper.png"); background-size: cover; background-repeat: no-repeat; '>
-
-<div class="index-wrapper" style='padding-left:170px; padding-top:200px;'>
-
-<% if current_user %>
-	<h2 style="font-family: 'Droid Sans', sans-serif; font-weight: 700; padding-bottom:45px;">Welcome, <%= current_user.full_name %>!</h2>
-
-  <p><%= link_to "Add a new student to the system", new_student_path %></p>
-<% else %>
-  <h1 style="font-family: 'Droid Sans', sans-serif; font-weight: 700;">Welcome to Clipboard!</h1>
-  <h3 style="padding-bottom:45px;font-family: 'Droid Sans', sans-serif; font-weight: 400;">A smarter clipboard for smarter teachers.</h3>
-
-<% end %>
-
-</div>
+<body style='style=background-image: url("clipboard_paper.png"); background-size: cover; background-repeat: no-repeat;'>
+<!-- <div class="index-wrapper" style='padding-left:170px; padding-top:200px;'> -->
+  <div class="container">
+    <div class="row">
+      <div class=".col-xs-12 .col-sm-6 .col-md-12">
+    <% if current_user %>
+      	<h1>Welcome, <%= current_user.full_name %>!</h1><br>
+        <h4><%= link_to "Add a new student to the system", new_student_path %></h4>
+    <% else %>
+        <h1>Welcome to Clipboard!</h1>
+        <h3>A smarter clipboard for smarter teachers.</h3>
+    <% end %>
+      </div>
+    </div>
+  </div>
 </body>
+
+<!-- style='background-image: url("clipboard_paper.png"); background-size: cover; background-repeat: no-repeat;' -->
+<!-- style="font-family: 'Droid Sans', sans-serif; font-weight: 700;"
+style="padding-bottom:45px;font-family: 'Droid Sans', sans-serif; font-weight: 400; -->
