@@ -2,12 +2,21 @@
 
 <% @placed_kids.each do |group| %>
     <% group.each do |kid| %>
-    
+      <% if kid.has_buddies_at_table?(group) %>
+        <% @kids_sitting_with_buddies_counter += 1 %>
+        <span class="alert-success">
+      <% elsif kid.has_enemies_at_table?(group) %>
+        <span class="alert-danger">
+      <% else %>
+        <span>
+      <% end %>
       <li><%= kid.full_name %></li>
+      </span>
     <% end %>
     <hr>
 
 <% end %>
+<h5>Kids who got placed with at least one buddy: <%= @kids_sitting_with_buddies_counter %></h5>
 
 <% if @groups[:unplaceable].size == 0 %>
   <h5>Every student found a seat!</h5>
