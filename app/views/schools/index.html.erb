@@ -1,27 +1,13 @@
-<body style='style=background-image: url("clipboard_paper.png"); background-size: cover; background-repeat: no-repeat;'>
+<body style='style=background-image: url("clipboard_paper.png"); background-size: cover; background-repeat: no-repeat; background-position: center;'>
 <!-- <div class="index-wrapper" style='padding-left:170px; padding-top:200px;'> -->
 
-<div class="jumbotron">
+<div class="jumbotron" style="height: 350px;">
   <div class="container">
-    <div class="row">
+    <div class="row" style="padding-top:20%;">
       <% if current_user %>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
         <h2>Welcome, <%= current_user.full_name %>!</h2><br>
         <h4><%= link_to "Add a new student to the system", new_student_path %></h4>
       <% else %>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
         <h2>Welcome to Clipboard!</h2>
         <h3>A smarter clipboard for smarter teachers.</h3>
       <% end %>
