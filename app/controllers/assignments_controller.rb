@@ -1,4 +1,9 @@
 class AssignmentsController < ApplicationController
+
+  def new
+    @course_section = CourseSection.find(params[:class_id])
+  end
+
   def show
     @scores = {}
     @assignment = Assignment.find(params[:id])
@@ -10,7 +15,10 @@ class AssignmentsController < ApplicationController
   def create
     # binding.pry
     Assignment.create(name: params[:name], points: params[:points], date_assigned: params[:date_assigned], date_due: params[:date_due], course_section_id: params[:class_id], category: params[:category], document: params[:document])
-    redirect_to(:back)
+    # redirect_to(:back)
+    @course_section = CourseSection.find(params[:class_id])
+    @teacher = @course_section.teacher
+    redirect_to teacher_class_path(@teacher, @course_section)
   end
 
   def edit
