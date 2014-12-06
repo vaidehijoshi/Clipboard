@@ -6,6 +6,7 @@ class TeacherMailer < ActionMailer::Base
 
   def template_email(user, recipient_emails, template)
     mail(from: user.full_name, reply_to: user.email, to: recipient_emails, cc: user.email, template_path: "teacher_mailer/templates", template_name: template)
+    @students = user.stundents
   end
   
 end

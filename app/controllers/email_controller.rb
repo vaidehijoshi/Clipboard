@@ -11,6 +11,8 @@ class EmailController < ApplicationController
     guardian_emails = @guardians.pluck(:email)
     @students = Student.where(id: params[:email][:student_ids])
     student_emails = @students.pluck(:email)
+    student_first_names = @students.pluck(:first_name)
+    student_last_names = @students.pluck(:last_name)
     recipient_emails = guardian_emails + student_emails
 
     if params[:email][:template] == ""
@@ -19,6 +21,14 @@ class EmailController < ApplicationController
       TeacherMailer.template_email(current_user, recipient_emails, params[:email][:template]).deliver
     end
     redirect_to :back
+  end
+
+  def progress_report(student)
+    @student = student
+    @guardians = Guardian.where(student_id: student.id)
+    guardian_emails = @guardians.pluck(:email)
+    student_email = student.pluck(:email)
+    
   end
 
 
