@@ -86,7 +86,7 @@
 
 
 <%= form_tag teacher_class_groups_path(params[:teacher_id], @course_section.id), method: :get do %>
-  <%= text_field_tag :group_size, nil, placeholder: "Students per group"%>
+  <%= number_field_tag :group_size, nil, in: 1..@course_section.students.count %>
   <%= submit_tag "Generate Groups" %>
 <% end %>
 
