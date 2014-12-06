@@ -3,11 +3,10 @@
 <head>
   <title>Clipboard</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'application', params[:controller] %>
   <%= csrf_meta_tags %>
   <%= analytics_init if Rails.env.production? %>
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
-  <%= javascript_include_tag 'application', params[:controller] %>
 </head>
 <body>
 

@@ -12,7 +12,7 @@ students whose guardians you’d like to email" %><br>
   <%= b.check_box %> <%= b.label %> 
   <% end %><br>
   <%= label_tag "email[template]", "Select a template" %><br>
-  <%= select_tag "email[template]", options_for_select([['Select...', '']] + @templates) %><br>
+  <%= select_tag "email[template]", options_for_select([['No Template', '']] + @templates) %><br>
   <%= label_tag "email[subject]", "Subject" %><br>
   <%= text_field_tag "email[subject]" %><br>
   <%= label_tag "email[body]", "Body" %><br>

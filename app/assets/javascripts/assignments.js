@@ -1,7 +1,6 @@
 $(function(){
   hideSubmitButtons();
   addScoreListener();
-  console.log("hi");
 })
 
 function hideSubmitButtons() {
