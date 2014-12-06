@@ -10,11 +10,12 @@
 
 
   Students:
-  <ul>
+  
   <% @course_section.students.each do |student| %>
-  	<li><%= link_to ' x ', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", data: {confirm: "Are you sure?"} %><%= link_to student.full_name, student_path(student) %></li>
+
+  	<p><%= link_to '✖', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", data: {confirm: "Are you sure?"} %> <%= link_to student.full_name, student_path(student) %></p>
   <% end %>
-  </ul>
+ 
 
 
 	Assignments:
