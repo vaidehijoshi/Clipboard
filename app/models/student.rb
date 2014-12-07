@@ -16,7 +16,7 @@ class Student < ActiveRecord::Base
   def full_name
     first_name + " " + last_name
   end
-
+  
   def has_enemies_at_table?(table)
     enemies.each do |enemy|
       if table.include?(enemy)

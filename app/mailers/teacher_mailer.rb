@@ -4,8 +4,10 @@ class TeacherMailer < ActionMailer::Base
     mail(from: user.full_name, reply_to: user.email, to: recipient_emails, subject: subject, body: body, cc: user.email)
   end
 
-  def template_email(user, recipient_emails, template)
-    mail(from: user.full_name, reply_to: user.email, to: recipient_emails, cc: user.email, template_path: "teacher_mailer/templates", template_name: template)
+  def template_email(guardian, student, user, recipient_email, template)
+    @guardian = guardian
+    @student = student
+    mail(from: user.full_name, reply_to: user.email, to: recipient_email, cc: user.email, template_path: "teacher_mailer/templates", template_name: template)
   end
   
 end
