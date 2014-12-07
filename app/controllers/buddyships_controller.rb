@@ -19,6 +19,16 @@ class BuddyshipsController < ApplicationController
     end
   end
 
+  def destroy
+    @buddyship = Buddyship.find(params[:id])
+    @student = Student.find(@buddyship.student_id)
+    @buddy = Student.find(@buddyship.buddy_id)
+    @course_section = CourseSection.find(params[:class_id])
+    @buddyship.destroy
+    flash[:notice] = "#{@student.first_name} and #{@buddy.first_name} are no longer buddies in #{@course_section.name}"
+    redirect_to(:back)
+  end
+
   private
 
   def buddyship_params

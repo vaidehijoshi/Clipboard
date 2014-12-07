@@ -2,7 +2,7 @@ class ScoresController < ApplicationController
   def create
     @score = Score.create(score_params)
     @assignment = @score.assignment
-    if @score.save
+    if @saved = @score.save
       respond_to do |format|
         format.html { redirect_to :back, notice: "#{@score.student.full_name} earned #{@score.points_earned} points" }
         format.js {  }
@@ -16,17 +16,33 @@ class ScoresController < ApplicationController
   def update
     @score = Score.find(params[:id])
     @assignment = @score.assignment
-    @score.update(score_params)
-    if @score.save
+    if score_params[:points_earned] == ""
+      @score.destroy
       respond_to do |format|
-        format.html { redirect_to :back, notice: "#{@score.student.full_name} earned #{@score.points_earned} points" }
+        format.html { redirect_to :back, notice: "Score reset." }
         format.js {  }
       end
     else
-      respond_to do |format|
-        format.html { redirect_to :back, notice: "Score could not be updated!" }
-        format.js {  }
+      if @updated = @score.update(score_params)
+        respond_to do |format|
+          format.html { redirect_to :back, notice: "#{@score.student.full_name} earned #{@score.points_earned} points" }
+          format.js {  }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to :back, notice: "Score could not be updated!" }
+          format.js {  }
+        end
       end
+    end
+  end
+
+  def destroy
+    @score = Score.find(params[:id])
+    @score.destroy
+    respond_to do |format|
+      format.html { redirect_to :back, notice: "Score reset." }
+      format.js {  }
     end
   end
 

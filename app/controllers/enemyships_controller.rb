@@ -15,6 +15,16 @@ class EnemyshipsController < ApplicationController
     end
   end
 
+  def destroy
+    @enemyship = Enemyship.find(params[:id])
+    @student = Student.find(@enemyship.student_id)
+    @enemy = Student.find(@enemyship.enemy_id)
+    @course_section = CourseSection.find(params[:class_id])
+    @enemyship.destroy
+    flash[:notice] = "#{@student.first_name} and #{@enemy.first_name} are no longer non work buddies in #{@course_section.name}"
+    redirect_to(:back)
+  end
+
   private
 
   def enemyship_params
