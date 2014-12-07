@@ -1,9 +1,12 @@
 class ScoresController < ApplicationController
   def create
     @score = Score.create(score_params)
+    @assignment = @score.assignment
     if @score.save
-      flash[:notice] = "#{@score.student.full_name} earned #{@score.points_earned} points"
-      redirect_to(:back)
+      respond_to do |format|
+        format.html { redirect_to :back, notice: "#{@score.student.full_name} earned #{@score.points_earned} points" }
+        format.js {  }
+      end
     else
       flash[:alert] = "Score could not be created!"
       redirect_to(:back)
@@ -17,7 +20,7 @@ class ScoresController < ApplicationController
     if @score.save
       respond_to do |format|
         format.html { redirect_to :back, notice: "#{@score.student.full_name} earned #{@score.points_earned} points" }
-        format.js { }
+        format.js {  }
       end
     else
       respond_to do |format|
