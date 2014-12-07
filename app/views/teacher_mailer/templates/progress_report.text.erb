@@ -1,0 +1,16 @@
+<% message.subject = "Progress Report for #{@student.full_name}" %>
+
+Dear Guardians of <%= @student.full_name %>,
+
+Here's are <%= @student.first_name %>'s current grades:
+
+<% @student.assignments.each do |assignment| %>
+	<% score = Score.where(student_id: @student.id, assignment_id: assignment.id).first %>
+	Assignment: <%= assignment.name %>, <%= assignment.category %>
+	Due Date: <%= assignment.date_due %>
+	<% if score %>
+		Percent Score: <%= @student.percent_score_for_assignment(assignment) %>
+	<% end %>
+<% end %>
+
+
