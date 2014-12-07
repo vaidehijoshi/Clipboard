@@ -42,8 +42,11 @@
               <h4>Work Buddies:</h4>
               <% if @student.buddies.any? %>
               <ul>
-                <% @student.buddies.each do |buddy| %>
+                <% @student.buddyships.each do |buddyship| %>
+                  <% course_section = CourseSection.find(buddyship.course_section_id) %>
+                  <% buddy = Student.find(buddyship.buddy_id) %>
                   <h5><%= @student.first_name %> works well with <%= link_to buddy.full_name, student_path(buddy) %> .</h5>
+                  <%= link_to "#{@student.first_name} & #{buddy.first_name} are no longer buddies.", teacher_class_buddyship_path(course_section.teacher, course_section, buddyship), method: 'DELETE' , data: {confirm: "Are you sure?"} %>
                 <% end %>
               </ul>
               <% else %>
@@ -54,8 +57,11 @@
               <h4>Non Work Buddies:</h4>
               <% if @student.enemies.any? %>
               <ul>
-                <% @student.enemies.each do |enemy| %>
+                <% @student.enemyships.each do |enemyship| %>
+                  <% course_section = CourseSection.find(enemyship.course_section_id) %>
+                  <% enemy = Student.find(enemyship.enemy_id) %>
                   <h5><%= @student.first_name %> doesn't work well with <%= link_to enemy.full_name, student_path(enemy) %> .</h5>
+                  <%= link_to "#{@student.first_name} & #{enemy.first_name} are no longer non work buddies.", teacher_class_enemyship_path(course_section.teacher, course_section, enemyship), method: 'DELETE' , data: {confirm: "Are you sure?"} %>
                 <% end %>
               </ul>
               <% else %>
