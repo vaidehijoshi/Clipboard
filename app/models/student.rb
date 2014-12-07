@@ -99,17 +99,22 @@ class Student < ActiveRecord::Base
 
   def average_for_course(course_section)
     course_assignments_array = self.all_assignments_info[course_section.name]
+
     total_percentage_points = 0
     total_assignments_to_count = 0
-    course_assignments_array.each do |assignment|
-      if !assignment[:percent_score] && assignment[:overdue]
-        total_assignments_to_count += 1
-      elsif assignment[:percent_score]
-        #binding.pry
-        total_percentage_points += assignment[:percent_score]
-        total_assignments_to_count += 1
+
+    if !course_assignments_array.empty?
+      course_assignments_array.each do |assignment|
+        if !assignment[:percent_score] && assignment[:overdue]
+          total_assignments_to_count += 1
+        elsif assignment[:percent_score]
+          #binding.pry
+          total_percentage_points += assignment[:percent_score]
+          total_assignments_to_count += 1
+        end
       end
     end
+    
     if total_assignments_to_count == 0
       return false
     elsif total_percentage_points == 0
