@@ -14,6 +14,7 @@ class CourseSection < ActiveRecord::Base
   
 
   validates :name, presence: true
+  validates :name, uniqueness: true
 
 
   def students_in_class

@@ -4658,7 +4658,7 @@ a.badge:focus {
 }
 .jumbotron {
   margin: 15px;
-  padding: 30px 15px 30px 15px;
+  padding: 30px 15px 50px 15px;
   color: inherit;
   text-align: center;
   background-image: url("clipboard_paper.png");
@@ -6440,9 +6440,9 @@ button.close {
 }
 
 footer {
-  position: fixed;
-  margin-bottom: -15px;
-  padding-bottom: -15px;
+  height: 20px;
   width: 100%;
-  background-color: #e74944;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  background-color: transparent;
 }
