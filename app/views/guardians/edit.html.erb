@@ -1,22 +1,73 @@
-<h1>Edit <%= @guardian.full_name %></h1>
+<div class="row">
+  <div class="col-lg-6">
+    <div class="well bs-component">
+      <legend>Edit <%= @guardian.full_name %></legend>
 
-<%= form_for [@student, @guardian] do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %><br>
-  <%= f.label :first_name %>
-  <%= f.text_field :first_name %><br>
-  <%= f.label :last_name %>
-  <%= f.text_field :last_name %><br>
-  <%= f.label :address %>
-  <%= f.text_field :address %><br>
-  <%= f.label :email %>
-  <%= f.email_field :email %><br>
-  <%= f.label :day_phone %>
-  <%= f.phone_field :day_phone %><br>
-  <%= f.label :evening_phone %>
-  <%= f.phone_field :evening_phone %><br>
-  <%= f.label :relationship %>
-  <%= f.text_field :relationship %><br>
-  <%= f.hidden_field :student_id, value: @student.id %>
-  <%= f.submit %>
-<% end %>
+      <%= form_for [@student, @guardian], :html => {:class => "form-horizonal"} do |f| %>
+
+        <div class="form-group">
+          <%= f.label :title, :class => "col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <%= f.text_field :title, :class => "form-control" %><br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :first_name, :class => "col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <%= f.text_field :first_name, :class => "form-control" %><br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :last_name, :class => "col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <%= f.text_field :last_name, :class => "form-control" %><br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :address, :class => "col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <%= f.text_field :address, :class => "form-control" %><br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :email, :class => "col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <%= f.email_field :email, :class => "form-control" %><br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :day_phone, :class => "col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <%= f.phone_field :day_phone, :class => "form-control" %><br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :evening_phone, :class => "col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <%= f.phone_field :evening_phone, :class => "form-control" %><br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :relationship, :class => "col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <%= f.text_field :relationship, :class => "form-control" %><br>
+            <%= f.hidden_field :student_id, value: @student.id %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-10">
+            <%= f.submit :class => "form-control" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

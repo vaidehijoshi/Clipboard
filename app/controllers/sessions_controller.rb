@@ -9,6 +9,9 @@ class SessionsController < ApplicationController
         flash[:notice] = "Could not find that person, sorry!"
         redirect_to root_path
       end
+    else
+      flash[:notice] = "You must enter your email to log in."
+      redirect_to root_path
     end
   end
 

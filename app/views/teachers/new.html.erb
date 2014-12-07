@@ -1,8 +1,42 @@
-Sign up!
-<%= form_for(@teacher) do |f| %>
-  <%= f.text_field :first_name, placeholder: "first name" %>
-  <%= f.text_field :last_name, placeholder: "last name" %>
-  <%= f.text_field :title, placeholder: "Ms., Mrs., Mr., Dr., etc." %>
-  <%= f.text_field :email, placeholder: "email address" %>
-  <%= f.submit "Sign Up" %>
-<% end %>
+<div class="row">
+	<div class="col-lg-6">
+		<div class="well bs-component">
+			<legend>Sign up!</legend>
+			<%= form_for @teacher, :html => {:class => "form-horizonal"} do |f| %>
+				<div class="form-group">
+				<%= f.label :first_name, :class => "col-lg-2 control-label" %>
+					<div class="col-lg-10">
+				  	<%= f.text_field :first_name, placeholder: "first name", :class => "form-control" %>
+				  </div>
+			  </div>
+
+			  <div class="form-group">
+			  	<%= f.label :last_name, :class => "col-lg-2 control-label" %>
+				  <div class="col-lg-10">
+				  	<%= f.text_field :last_name, placeholder: "last name", :class => "form-control" %>
+				  </div>
+			  </div>
+			  
+			  <div class="form-group">
+			  <%= f.label :title, :class => "col-lg-2 control-label" %>
+				  <div class="col-lg-10">
+				  	<%= f.text_field :title, placeholder: "Ms., Mrs., Mr., Dr., etc.", :class => "form-control" %>
+				  </div>
+			  </div>
+
+			  <div class="form-group">
+			  <%= f.label :email, :class => "col-lg-2 control-label" %>
+			  <div class="col-lg-10">
+			  	<%= f.text_field :email, placeholder: "email address", :class => "form-control" %>
+			  </div>
+			  </div>
+			  
+			  <div class="form-group">
+				  <div class="col-lg-10 col-lg-offset-2">
+				  	<%= f.submit "Sign Up", :class => "btn btn-primary" %>
+				  </div>
+			  </div>
+			<% end %>
+			</div>
+	</div>
+</div>
