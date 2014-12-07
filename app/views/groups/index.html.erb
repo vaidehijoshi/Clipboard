@@ -27,18 +27,27 @@
   <% end %>
 
 <% end %>
-<h5>Regenerate Groups</h5>
-<%= form_tag teacher_class_groups_path(@teacher, @course_section, @group), method: :get do %>
-  <%= text_field_tag :group_size, nil, placeholder: "Students per group"%>
-  <%= submit_tag "Generate Groups" %>
-<% end %>
 
-<h5>Save this grouping</h5>
-<%= form_tag teacher_class_groups_path(@teacher, @course_section, @group) do %>
-  <% @groups[:groups].each_with_index do |group, i| %>
-    <% group.each do |kid| %>
-      <%= hidden_field_tag "groups[#{ i }][]", kid.id %>
+<div class="row" style="padding-bottom: 80px;">
+  <div class="col-md-2"></div>
+  <div class="col-md-4">
+    <%= form_tag teacher_class_groups_path(@teacher, @course_section, @group), method: :get do %>
+      <%= text_field_tag :group_size, nil, placeholder: "Students per group"%>
+      <%= submit_tag "Regenerate Groups", :class => "btn btn-primary" %><br>
     <% end %>
-  <% end %>
-  <%= submit_tag "Save" %>
-<% end %>
+    <br>
+  </div>
+  <div class="col-md-4">
+    <%= form_tag teacher_class_groups_path(@teacher, @course_section, @group) do %>
+      <% @groups[:groups].each_with_index do |group, i| %>
+        <% group.each do |kid| %>
+          <%= hidden_field_tag "groups[#{ i }][]", kid.id %>
+        <% end %>
+      <% end %>
+      <%= submit_tag "Save current groups!", :class => "btn btn-success" %><br>
+    <% end %>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+
+
