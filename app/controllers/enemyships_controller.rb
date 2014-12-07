@@ -15,6 +15,10 @@ class EnemyshipsController < ApplicationController
     end
   end
 
+  def destroy
+    binding.pry
+  end
+
   private
 
   def enemyship_params

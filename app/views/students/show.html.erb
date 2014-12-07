@@ -41,8 +41,13 @@
 <h2>Works Well With</h2>
 <% if @student.buddies.any? %>
   <ul>
-    <% @student.buddies.each do |buddy| %>
-      <li><%= link_to buddy.full_name, student_path(buddy) %></li>
+    <% @student.buddyships.each do |buddyship| %>
+      <% course_section = CourseSection.find(buddyship.course_section_id) %>
+      <% buddy = Student.find(buddyship.buddy_id) %>
+      <li>
+      <%= link_to buddy.full_name, student_path(buddy) %> | 
+      <%= link_to 'no longer buddies', teacher_class_buddyship_path(course_section.teacher, course_section, buddyship), method: 'DELETE' , data: {confirm: "Are you sure?"} %>
+      </li>
     <% end %>
   </ul>
 <% else %>
