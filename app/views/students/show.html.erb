@@ -1,13 +1,109 @@
-<h1><%= @student.full_name %></h1>
-<h2>Overall Progress: <%= @student.percent_assignments_done_overall %></h2>
+<h1><%= @student.full_name %>'s Progress</h1><br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6">
+      
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Overview for <%= @student.first_name %></h3>
+        </div>
+        <div class="panel-body">
+          <% if @student.overall_average %>
+            <h4>Overall Average in all classes: <%= @student.overall_average %>%</h4>
+          <% end %>
+          <h4>Currently enrolled in:</h4>
+          <ol>
+            <% @student.course_sections.each do |course| %>
+              <li><%= course.name %></li>
+            <% end %>
+          </ol>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-xs-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Panel primary</h3>
+        </div>
+        <div class="panel-body">
+          <div class="list-group">
+            <a href="<%= student_guardians_path(@student) %>" class="list-group-item">
+              <h4 class="list-group-item-heading">Get in touch with <%= @student.first_name %>'s Guardians</h4>
+              <p class="list-group-item-text" style="padding-left: 20px;">
+                <% @student.guardians.each do |guardian| %>
+                  <%= guardian.title %> <%= guardian.first_name %> <%= guardian.last_name %><br>
+                  <%= guardian.email %><br>
+                  <%= guardian.day_phone %><br>
+                <% end %>
+              </p>
+            </a>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h4>Work Buddies:</h4>
+              <% if @student.buddies.any? %>
+              <ul>
+                <% @student.buddies.each do |buddy| %>
+                  <h5><%= @student.first_name %> works well with <%= link_to buddy.full_name, student_path(buddy) %> .</h5>
+                <% end %>
+              </ul>
+              <% else %>
+              <ul>
+                <h5><%= @student.first_name %> doesn't have any work buddies!</h5>
+              </ul>
+              <% end %>
+              <h4>Non Work Buddies:</h4>
+              <% if @student.enemies.any? %>
+              <ul>
+                <% @student.enemies.each do |enemy| %>
+                  <h5><%= @student.first_name %> doesn't work well with <%= link_to enemy.full_name, student_path(enemy) %> .</h5>
+                <% end %>
+              </ul>
+              <% else %>
+              <ul>
+                <h5><%= @student.first_name %> doesn't have any non-work buddies!</h5>
+              </ul>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3>Overall Progress: <%= @student.percent_assignments_done_overall %></h3>
 <% if @student.overall_average %>
   
   <h2>Overall Average: <%= @student.overall_average %></h2>
 
 <% end %>
-<% @student.course_sections.each do |course_section| %>
-  <li><%= link_to course_section.name, teacher_class_path(course_section.teacher, course_section) %></li>
-  <%= @student.percent_assignments_done_for_course(course_section) %>
+<div class="container">
+  <div class="row">
+    <!-- <div class="col-md-4"></div> -->
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <% @student.course_sections.each do |course_section| %>
+        <div class="panel-heading"><%= link_to course_section.name, student_course_section_path(@student, course_section) %></div>
+          <div class="panel-body">
+            <h4>Percentage of assignments completed for <%= course_section.name %> :</h4>
+            <div class="progress progress-striped active">
+              <div class="progress-bar" style="width: <%= @student.percent_assignments_done_for_course(course_section) %>%"><%= @student.percent_assignments_done_for_course(course_section).to_i %>%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-md-4"></div> -->
+    </div>
+  </div>
+</div>
+
+      
+    
+  
   <% if @student.average_for_course(course_section) %>
     <h3>Average for <%= course_section.name %>: <%= @student.average_for_course(course_section) %></h3>
   <% end %>
@@ -31,11 +127,6 @@
 <%#= @student.all_scores %>
 
 
-<!-- <div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-    60%
-  </div>
-</div> -->
 
 
 <h2>Works Well With</h2>
@@ -60,7 +151,7 @@
 <p><%= @student.first_name %> has no work enemies.</p>
 <% end %>
 
-<h2><%= link_to "Guardians", student_guardians_path(@student) %></h2>
+
 
 <%= link_to(:back) %>
 
