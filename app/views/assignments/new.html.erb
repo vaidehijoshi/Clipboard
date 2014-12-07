@@ -1,42 +1,49 @@
-<div class="row">
-  <div class="col-lg-6">
-    <div class="well bs-component">  
-      <legend>Add an Assignment</legend>
-      <%= form_tag(teacher_class_assignments_path(current_user, @course_section), method: :post, :enctype =>"multipart/form-data", :html => {:class => "form-horizonal"} ) do %>
-        <div class="form-group">
-          <%= label_tag(:name, "Name", :class => "col-lg-2 control-label") %><br>
-          <%= text_field_tag(:name, nil, :class => "form-control") %><br>
-        </div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6" style="padding-top: 70px; padding-bottom: 70px;">
+      <div class="well bs-component">  
+        <legend>Add an Assignment for <%= @course_section.name %></legend>
+        <%= form_tag(teacher_class_assignments_path(current_user, @course_section), method: :post, :enctype =>"multipart/form-data", :html => {:class => "form-horizonal"} ) do %>
+          <div class="form-group">
+            <%= label_tag(:name, "Assignment Name", :class => "col-lg-4 control-label") %><br>
+            <%= text_field_tag(:name, nil, :class => "form-control") %>
+          </div>
 
-        <div class="form-group">
-          <%= label_tag(:points, "Points", :class => "col-lg-2 control-label") %><br>
-          <%= number_field_tag(:points, nil, :class => "form-control") %><br>
-        </div>
+          <div class="form-group">
+            <%= label_tag(:points, "Points Worth", :class => "col-lg-4 control-label") %><br>
+            <%= number_field_tag(:points, nil, :class => "form-control") %>
+          </div>
 
-        <div class="form-group">
-          <%= label_tag(:date_assigned, "Date Assigned", :class => "col-lg-2 control-label") %><br>
-          <%= date_field_tag(:date_assigned, nil, :class => "form-control") %><br>
-        </div>
-
-
-        <div class="form-group">
-          <%= label_tag(:date_due, "Date Due", :class => "col-lg-2 control-label") %><br>
-          <%= date_field_tag(:date_due, nil, :class => "form-control") %><br>
-        </div>
-
-        <div class="form-group">
-          <%= select_tag 'category', options_for_select(["Classwork", "Homework", "Test"]), :class => "form-control" %><br>
-        </div>
+          <div class="form-group">
+            <%= label_tag(:date_assigned, "Date Assigned", :class => "col-lg-4 control-label") %><br>
+            <%= date_field_tag(:date_assigned, nil, :class => "form-control") %>
+          </div>
 
 
-        <div class="form-group">
-          <%= file_field_tag(:document) %><br>
-        </div>
+          <div class="form-group">
+            <%= label_tag(:date_due, "Date Due", :class => "col-lg-4 control-label") %><br>
+            <%= date_field_tag(:date_due, nil, :class => "form-control") %>
+          </div>
 
-        <div class="form-group">
-          <%= submit_tag "Add Assignment", :class => "btn btn-primary" %>
-        </div>
-      <% end %>
+          <div class="form-group">
+            <%= label_tag(:assignment_type, "Assignment Type", :class => "col-lg-4 control-label") %><br>
+            <%= select_tag 'category', options_for_select(["Classwork", "Homework", "Test"]), :class => "form-control" %>
+          </div>
+
+
+          <div class="form-group">
+            <%= label_tag(:assignment_type, "Assignment Type", :class => "col-lg-4 control-label") %><br>
+            <%= file_field_tag(:document) %>
+          </div>
+
+          <div class="form-group">
+            <%= submit_tag "Add Assignment", :class => "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
     </div>
+    <div class="col-lg-3"></div>
   </div>
 </div>
+
