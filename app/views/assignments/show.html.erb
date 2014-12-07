@@ -1,4 +1,21 @@
-<h1><%= @assignment.name %> <span class="pull-right">Average Score: <span id="average_score"><%= @assignment.average_grade %></span></span></h1>
+<div class="row">
+<div class="col-md-4">
+<h1><%= @assignment.name %></h1>
+</div>
+<div class="col-md-8">
+<h1>
+<% if @assignment.average_grade != "no scores yet!" %>
+<span class="pull-right">
+Average Score: <span id="average_score"><%= @assignment.average_grade %></span>
+</span>
+<% else %>
+<span class="pull-right">
+Average Score: <span id="average_score"><%= @assignment.average_grade %></span>
+</span>
+<% end %>
+</h1>
+</div>
+</div>
 <div class="row">
 	<div class="col-md-9">
 		<p>
