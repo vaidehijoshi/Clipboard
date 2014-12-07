@@ -1,15 +1,17 @@
 $("#average_score").html("<%= @assignment.average_grade_string %>");
+$form = $("form[student='<%= @score.student_id %>']");
 
 if (<%= @saved %>) {
   changeCreateToUpdate();
+  $form.find("input[type='number']").attr("class", "<%= @score.color_class %>");
 }
 else {
   alert("Score could not be saved.");
+  $form.find("input[type='number']").val("");
 }
 
 
 function changeCreateToUpdate() {
-  $form = $("form[student='<%= @score.student_id %>']");
   $form.find("div").append("<input name='_method' type='hidden' value='patch'>");
   $form.attr("action", "<%= @score_path %>");
   $form.attr("class", "edit_score");
