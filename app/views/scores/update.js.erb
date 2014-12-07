@@ -4,6 +4,10 @@ if (<%= @score.destroyed? %>) {
   changeUpdateToCreate();
 }
 
+if (<%= !@updated %>) {
+  alert("Score could not be saved.");
+}
+
 function changeUpdateToCreate() {
   $form = $("form[student='<%= @score.student_id %>']");
   $form.find("input[value='patch']").remove();

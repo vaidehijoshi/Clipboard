@@ -2,7 +2,7 @@ class ScoresController < ApplicationController
   def create
     @score = Score.create(score_params)
     @assignment = @score.assignment
-    if @score.save
+    if @saved = @score.save
       respond_to do |format|
         format.html { redirect_to :back, notice: "#{@score.student.full_name} earned #{@score.points_earned} points" }
         format.js {  }
@@ -23,8 +23,7 @@ class ScoresController < ApplicationController
         format.js {  }
       end
     else
-      @score.update(score_params)
-      if @score.save
+      if @updated = @score.update(score_params)
         respond_to do |format|
           format.html { redirect_to :back, notice: "#{@score.student.full_name} earned #{@score.points_earned} points" }
           format.js {  }
