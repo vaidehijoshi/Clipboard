@@ -1,2 +1,14 @@
 //alert("Score could not be saved.");
 $("#average_score").html("<%= @assignment.average_grade %>");
+
+if (<%= @score.destroyed? %>) {
+  changeUpdateToCreate();
+}
+
+function changeUpdateToCreate() {
+  $form = $("form[student='<%= @score.student_id %>']");
+  $form.find("input[value='patch']").remove();
+  $form.attr("action", "<%= scores_path %>");
+  $form.attr("class", "new_score");
+  $form.attr("id", "new_score");
+}
