@@ -18,17 +18,14 @@ class EmailController < ApplicationController
     if params[:email][:template] == ""
       TeacherMailer.custom_email(current_user, recipient_emails, params[:email][:subject], params[:email][:body]).deliver
     else
-      TeacherMailer.template_email(current_user, recipient_emails, params[:email][:template]).deliver
+      @guardians.each do |guardian|
+        TeacherMailer.template_email(guardian, guardian.student, current_user, guardian.email, params[:email][:template]).deliver
+      end
+      @students.each do |student|
+        TeacherMailer.template_email(student.guardians.first, student, current_user, student.email, params[:email][:template]).deliver
+      end
     end
     redirect_to :back
-  end
-
-  def progress_report(student)
-    @student = student
-    @guardians = Guardian.where(student_id: student.id)
-    guardian_emails = @guardians.pluck(:email)
-    student_email = student.pluck(:email)
-    
   end
 
 
@@ -38,3 +35,5 @@ class EmailController < ApplicationController
   # end
 
 end
+
+
