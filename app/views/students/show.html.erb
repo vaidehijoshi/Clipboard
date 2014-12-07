@@ -89,10 +89,19 @@
         <div class="panel-heading"><%= link_to course_section.name, student_course_section_path(@student, course_section) %></div>
           <div class="panel-body">
             <h4>Percentage of assignments completed for <%= course_section.name %> :</h4>
-            <div class="progress progress-striped active">
-              <div class="progress-bar" style="width: <%= @student.percent_assignments_done_for_course(course_section) %>%"><%= @student.percent_assignments_done_for_course(course_section).to_i %>%
-              </div>
+            <% if @student.percent_assignments_done_for_course(course_section) < 30.0 %>
+            <div class="progress progress-striped">
+              <div class="progress-bar progress-bar-danger" style="width: <%= @student.percent_assignments_done_for_course(course_section) %>%"><%= @student.percent_assignments_done_for_course(course_section).to_i %>%</div>
             </div>
+            <% elsif @student.percent_assignments_done_for_course(course_section) < 60.0 %>
+            <div class="progress progress-striped">
+              <div class="progress-bar progress-bar-warning" style="width: <%= @student.percent_assignments_done_for_course(course_section) %>%"><%= @student.percent_assignments_done_for_course(course_section).to_i %>%</div>
+            </div>
+            <% else %>
+            <div class="progress progress-striped">
+              <div class="progress-bar progress-bar-success" style="width: <%= @student.percent_assignments_done_for_course(course_section) %>%"><%= @student.percent_assignments_done_for_course(course_section).to_i %>%</div>
+            </div>
+            <% end %>
           </div>
         </div>
       </div>
