@@ -1,16 +1,20 @@
-<h1><%= @student.full_name %>’s Guardians</h1>
+<h1><%= @student.full_name %>’s Guardians</h1><br>
 
 <% if @student.guardians.any? %>
   <% @student.guardians.each do |guardian| %>
+  <ul>
     <h4><%= "#{guardian.relationship}: #{guardian.full_name}" %></h4>
-      <ul>
-        <li>Address: <%= guardian.address %></li>
-        <li>Email: <%= guardian.email %></li>
-        <li>Day Phone: <%= guardian.day_phone %></li>
-        <li>Evening Phone: <%= guardian.evening_phone %></li>
-        <li><%= link_to "Edit", edit_student_guardian_path(@student, guardian) %></li>
-        <li><%= link_to "Delete", student_guardian_path(@student, guardian), method: :delete, data: {confirm: "Are you sure?"} %></li>
+      <p><%= guardian.address %><br>
+        <%= guardian.email %><br>
+        Day Phone: <%= guardian.day_phone %><br>
+        Evening Phone: <%= guardian.evening_phone %></p>
+      <p>
+        <%= link_to "Edit information", edit_student_guardian_path(@student, guardian) %>
+        <br>
+        <%= link_to "Delete", student_guardian_path(@student, guardian), method: :delete, data: {confirm: "Are you sure you want to delete this guardian?"} %>
+      </p>
       </ul>
+      <hr>
   <% end %>
 <% else %>
   <h4><%= @student.first_name %> has no guardians.</h4>
