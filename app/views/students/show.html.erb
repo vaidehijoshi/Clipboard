@@ -93,11 +93,11 @@
             <div class="progress progress-striped">
               <div class="progress-bar progress-bar-danger" style="width: <%= @student.percent_assignments_done_for_course(course_section) %>%"><%= @student.percent_assignments_done_for_course(course_section).to_i %>%</div>
             </div>
-            <% elsif @student.percent_assignments_done_for_course(course_section) < 60.0 %>
+            <% elsif @student.percent_assignments_done_for_course(course_section) > 30.0 && @student.percent_assignments_done_for_course(course_section) < 60.0 %>
             <div class="progress progress-striped">
               <div class="progress-bar progress-bar-warning" style="width: <%= @student.percent_assignments_done_for_course(course_section) %>%"><%= @student.percent_assignments_done_for_course(course_section).to_i %>%</div>
             </div>
-            <% else %>
+            <% elsif @student.percent_assignments_done_for_course(course_section) > 60.0 %>
             <div class="progress progress-striped">
               <div class="progress-bar progress-bar-success" style="width: <%= @student.percent_assignments_done_for_course(course_section) %>%"><%= @student.percent_assignments_done_for_course(course_section).to_i %>%</div>
             </div>
