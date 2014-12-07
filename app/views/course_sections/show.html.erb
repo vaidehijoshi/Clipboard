@@ -16,7 +16,7 @@
     <%= form_for @student_course_section, url: student_course_sections_path do |f| %>
       <%= f.collection_select(:student_id, Student.all, :id, :full_name, prompt: true) %>
       <%= f.hidden_field :course_section_id, value: @course_section.id %>
-      <%= f.submit "Add student", class: "submit" %>
+      <%= f.submit "Add student", class: "btn btn-primary btn-sm" %>
     <% end %>
   </div>
 

@@ -8,15 +8,16 @@
           <h3 class="panel-title">Overview for <%= @student.first_name %></h3>
         </div>
         <div class="panel-body">
-          <% if @student.overall_average %>
-            <h4>Overall Average in all classes: <%= @student.overall_average %>%</h4>
-          <% end %>
           <h4>Currently enrolled in:</h4>
           <ol>
             <% @student.course_sections.each do |course| %>
               <li><%= course.name %></li>
             <% end %>
           </ol>
+          <% if @student.overall_average %>
+            <h4>Overall average in all classes: <%= @student.overall_average %>%</h4>
+          <% end %>
+          <h4>Overall percentage of assignments completed: <%= @student.percent_assignments_done_overall %>%</h4>
         </div>
       </div>
 
@@ -24,7 +25,7 @@
     <div class="col-xs-6">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <h3 class="panel-title">Panel primary</h3>
+          <h3 class="panel-title"><%= @student.first_name %>'s Relationships</h3>
         </div>
         <div class="panel-body">
           <div class="list-group">
@@ -45,8 +46,8 @@
                 <% @student.buddyships.each do |buddyship| %>
                   <% course_section = CourseSection.find(buddyship.course_section_id) %>
                   <% buddy = Student.find(buddyship.buddy_id) %>
-                  <h5><%= @student.first_name %> works well with <%= link_to buddy.full_name, student_path(buddy) %> .</h5>
-                  <%= link_to "#{@student.first_name} & #{buddy.first_name} are no longer buddies.", teacher_class_buddyship_path(course_section.teacher, course_section, buddyship), method: 'DELETE' , data: {confirm: "Are you sure?"} %>
+                  <h5><%= link_to buddy.full_name, student_path(buddy) %>  <%= link_to " ✖ ", teacher_class_buddyship_path(course_section.teacher, course_section, buddyship), method: 'DELETE' , data: {confirm: "Are you sure you want to delete this pairing?"} %></h5>
+                  
                 <% end %>
               </ul>
               <% else %>
@@ -60,8 +61,7 @@
                 <% @student.enemyships.each do |enemyship| %>
                   <% course_section = CourseSection.find(enemyship.course_section_id) %>
                   <% enemy = Student.find(enemyship.enemy_id) %>
-                  <h5><%= @student.first_name %> doesn't work well with <%= link_to enemy.full_name, student_path(enemy) %> .</h5>
-                  <%= link_to "#{@student.first_name} & #{enemy.first_name} are no longer non work buddies.", teacher_class_enemyship_path(course_section.teacher, course_section, enemyship), method: 'DELETE' , data: {confirm: "Are you sure?"} %>
+                  <h5><%= link_to enemy.full_name, student_path(enemy) %>  <%= link_to " ✖ ", teacher_class_enemyship_path(course_section.teacher, course_section, enemyship), method: 'DELETE' , data: {confirm: "Are you sure you want to delete this pairing?"} %></h5>
                 <% end %>
               </ul>
               <% else %>
@@ -77,65 +77,87 @@
   </div>
 </div>
 
-<h3>Overall Progress: <%= @student.percent_assignments_done_overall %></h3>
-<% if @student.overall_average %>
-  
-  <h2>Overall Average: <%= @student.overall_average %></h2>
 
-<% end %>
 <div class="container">
   <div class="row">
-    <!-- <div class="col-md-4"></div> -->
-    <div class="col-md-6">
+    <% @student.course_sections.each do |course_section| %>
+    <div class="col-md-12" style="padding-top: 20px;">
       <div class="panel panel-default">
-        <% @student.course_sections.each do |course_section| %>
-        <div class="panel-heading"><%= link_to course_section.name, student_course_section_path(@student, course_section) %></div>
-          <div class="panel-body">
-            <h4>Percentage of assignments completed for <%= course_section.name %> :</h4>
-            <% if @student.percent_assignments_done_for_course(course_section) < 30.0 %>
-            <div class="progress progress-striped">
-              <div class="progress-bar progress-bar-danger" style="width: <%= @student.percent_assignments_done_for_course(course_section) %>%"><%= @student.percent_assignments_done_for_course(course_section).to_i %>%</div>
-            </div>
-            <% elsif @student.percent_assignments_done_for_course(course_section) > 30.0 && @student.percent_assignments_done_for_course(course_section) < 60.0 %>
-            <div class="progress progress-striped">
-              <div class="progress-bar progress-bar-warning" style="width: <%= @student.percent_assignments_done_for_course(course_section) %>%"><%= @student.percent_assignments_done_for_course(course_section).to_i %>%</div>
-            </div>
-            <% elsif @student.percent_assignments_done_for_course(course_section) > 60.0 %>
-            <div class="progress progress-striped">
-              <div class="progress-bar progress-bar-success" style="width: <%= @student.percent_assignments_done_for_course(course_section) %>%"><%= @student.percent_assignments_done_for_course(course_section).to_i %>%</div>
-            </div>
+        <div class="panel-heading">
+          <legend><h3 style="color: #e74944;"><%= course_section.name %></h3>
+            <% if @student.average_for_course(course_section) %>
+              <h4>Current grade: <%= @student.average_for_course(course_section) %>%</h4>
             <% end %>
+        </legend>
+        </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-2"></div>
+            <div class="col-md-8">
+            <h4>Percentage of assignments completed for <%= course_section.name %> :</h4>
+            <% if @student.percent_assignments_done_for_course(course_section) == 0.0 %>
+              <div class="progress progress-striped">
+                <div class="progress-bar progress-bar-danger"><p style="color: #e74944;">0%</p></div>
+              </div>
+            <% elsif @student.percent_assignments_done_for_course(course_section) < 30.0 %>
+              <div class="progress progress-striped">
+                <div class="progress-bar progress-bar-danger" style="width: <%= @student.percent_assignments_done_for_course(course_section) %>%"><%= @student.percent_assignments_done_for_course(course_section).to_i %>%</div>
+              </div>
+            <% elsif @student.percent_assignments_done_for_course(course_section) > 30.0 && @student.percent_assignments_done_for_course(course_section) < 60.0 %>
+              <div class="progress progress-striped">
+                <div class="progress-bar progress-bar-warning" style="width: <%= @student.percent_assignments_done_for_course(course_section) %>%"><%= @student.percent_assignments_done_for_course(course_section).to_i %>%</div>
+              </div>
+            <% elsif @student.percent_assignments_done_for_course(course_section) > 60.0 %>
+              <div class="progress progress-striped">
+                <div class="progress-bar progress-bar-success" style="width: <%= @student.percent_assignments_done_for_course(course_section) %>%"><%= @student.percent_assignments_done_for_course(course_section).to_i %>%</div>
+              </div>
+            <% end %>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-8">
+              <table class="table table-striped table-hover" style="width: 100%;">
+                  <thead>
+                    <tr>
+                      <th>Assignment Name</th>
+                      <th>Assignment Category</th>
+                      <th>Points Possible</th>
+                      <th>Grade</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @student.assignments.each do |assignment| %>
+                    <tr>
+                      <td><%= assignment.name %></td>
+                      <td><%= assignment.category %></td>
+                      <td><%= assignment.points %></td>
+                        <% if @student.percent_score_for_assignment(assignment) %>
+                          <td><%=@student.percent_score_for_assignment(assignment)%> %</td>
+                        <% else %>
+                          <td>--</td>
+                        <% end %>
+                    </tr>
+                    <% end %>
+                  </tbody>
+              </table> 
+              <% @student.assignments.each do |assignment| %>
+                <% if @student.is_overdue?(assignment) %>
+                  <div class="alert-danger">Overdue assignment: <%= assignment.name %></div>
+                <% end %>
+              <% end %>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
           </div>
         </div>
       </div>
-      <!-- <div class="col-md-4"></div> -->
+      <% end %>
     </div>
   </div>
 </div>
 
-      
-    
-  
-  <% if @student.average_for_course(course_section) %>
-    <h3>Average for <%= course_section.name %>: <%= @student.average_for_course(course_section) %></h3>
-  <% end %>
-<% end %>
-  <ol>
-    <% @student.assignments.each do |assignment| %>
-      <% if @student.is_overdue?(assignment) %>
-
-        <div class="alert-danger">
-        This assignment is overdue!
-      <% else %>
-        <div>
-      <% end %>
-      <li><%= assignment.category %>: <%= assignment.name %> (max points: <%= assignment.points %>)</li>
-      <% if @student.percent_score_for_assignment(assignment) %>
-        <h5>Score for <%= assignment.name %>: <%=@student.percent_score_for_assignment(assignment)%></h5>
-      <% end %>
-      </div>
-    <% end %>
-  </ol>
 <%#= @student.all_scores %>
 
 
