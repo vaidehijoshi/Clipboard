@@ -3,8 +3,7 @@ $("#average_score").html("<%= @assignment.average_grade %>%");
 if (<%= @score.destroyed? %>) {
   changeUpdateToCreate();
 }
-
-if (<%= !@updated %>) {
+else if (<%= !@updated %>) {
   alert("Score could not be saved.");
 }
 

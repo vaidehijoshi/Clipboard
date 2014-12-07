@@ -3,13 +3,16 @@ class ScoresController < ApplicationController
     @score = Score.create(score_params)
     @assignment = @score.assignment
     if @saved = @score.save
+      @score_path = score_path(@score)
       respond_to do |format|
         format.html { redirect_to :back, notice: "#{@score.student.full_name} earned #{@score.points_earned} points" }
         format.js {  }
       end
     else
-      flash[:alert] = "Score could not be created!"
-      redirect_to(:back)
+      respond_to do |format|
+        format.html { redirect_to :back, notice: "Score could not be saved." }
+        format.js {  }
+      end
     end
   end
 
