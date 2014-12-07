@@ -15,7 +15,7 @@
 		<h3>Scores (out of <%=@assignment.points%> points)</h3>
 		
 		<% @assignment.course_section.students.each do |student| %>
-			<%= form_for @scores[student.id], remote: true, authenticity_token: true do |f| %>
+			<%= form_for @scores[student.id], html: {student: student.id}, remote: true, authenticity_token: true do |f| %>
 				<%= f.label :student, student.full_name %>
 				<%= f.hidden_field :student_id, value: student.id %>
 				<%= f.hidden_field :assignment_id, value: @assignment.id %>

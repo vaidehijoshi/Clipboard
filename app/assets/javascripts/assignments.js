@@ -4,7 +4,7 @@ $(function(){
 })
 
 function hideSubmitButtons() {
-  $("form[class$='score'] input[type='submit']").hide();
+  $("form[class$='score'] input[type='submit']").addClass("hidden");
 }
 
 function addScoreListener() {
