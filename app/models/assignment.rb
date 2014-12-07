@@ -27,6 +27,14 @@ class Assignment < ActiveRecord::Base
     end
   end
 
+  def average_grade_string
+    if average_grade == "no scores yet!"
+      average_grade
+    else
+      "#{average_grade}%"
+    end
+  end
+
   def average_grade
     scores = Score.where(assignment_id: id)
     if scores.where("points_earned IS NOT NULL").empty?
