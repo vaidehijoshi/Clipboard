@@ -1,6 +1,5 @@
-<h1><%= @student.full_name %>'s Progress</h1><br>
-
 <div class="container">
+  <h1><%= @student.full_name %>'s Progress</h1><br>
   <div class="row">
     <div class="col-xs-6">
       
@@ -34,8 +33,6 @@
               <p class="list-group-item-text" style="padding-left: 20px;">
                 <% @student.guardians.each do |guardian| %>
                   <%= guardian.title %> <%= guardian.first_name %> <%= guardian.last_name %><br>
-                  <%= guardian.email %><br>
-                  <%= guardian.day_phone %><br>
                 <% end %>
               </p>
             </a>
