@@ -52,7 +52,6 @@ html {
 body {
   margin: 0;
   padding-top: 70px;
-  padding-bottom: 30px;
   background-color: #fafafa;
 }
 article,
@@ -6438,4 +6437,12 @@ button.close {
 .panel-danger .panel-title,
 .panel-info .panel-title {
   color: #fff;
+}
+
+footer {
+  position: fixed;
+  margin-bottom: -15px;
+  padding-bottom: -15px;
+  width: 100%;
+  background-color: #e74944;
 }
