@@ -39,7 +39,7 @@
           </div>
           <div class="panel panel-default">
             <div class="panel-body">
-              <h4>Work Buddies:</h4>
+              <h4>Works Well With:</h4>
               <% if @student.buddies.any? %>
               <ul>
                 <% @student.buddyships.each do |buddyship| %>
@@ -54,7 +54,7 @@
                 <h5><%= @student.first_name %> doesn't have any work buddies!</h5>
               </ul>
               <% end %>
-              <h4>Non Work Buddies:</h4>
+              <h4>Doesn't Work Well With:</h4>
               <% if @student.enemies.any? %>
               <ul>
                 <% @student.enemyships.each do |enemyship| %>
