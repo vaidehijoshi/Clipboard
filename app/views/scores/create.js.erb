@@ -1,4 +1,4 @@
-$("#average_score").html("<%= @assignment.average_grade %>%");
+$("#average_score").html("<%= @assignment.average_grade_string %>");
 changeCreateToUpdate();
 
 if (<%= !@saved %>) {

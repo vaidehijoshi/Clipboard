@@ -4,15 +4,11 @@
 </div>
 <div class="col-md-8">
 <h1>
-<% if @assignment.average_grade != "no scores yet!" %>
+
 <span class="pull-right">
-Average Score: <span id="average_score"><%= @assignment.average_grade %></span>
+	Average Score: <span id="average_score"><%= @assignment.average_grade_string %></span>
 </span>
-<% else %>
-<span class="pull-right">
-Average Score: <span id="average_score"><%= @assignment.average_grade %></span>
-</span>
-<% end %>
+
 </h1>
 </div>
 </div>
