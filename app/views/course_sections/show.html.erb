@@ -9,29 +9,25 @@
           <legend><h3 style="color: #e74944;">Students:</h3></legend>
         </div>
         <div class="panel-body">
-        <% if @course_section.students.length > 0 %>     
+        <% if @course_section.students.length > 0 %>
+        <ol>     
           <% @course_section.students.each do |student| %>
-            <ul>
-              <p><%= link_to '✖', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", data: {confirm: "Are you sure you want to remove this student from the class?"} %> <%= link_to student.full_name, student_path(student) %></p>
-            </ul>
+            <li><p><%= link_to student.full_name, student_path(student) %> <%= link_to '✖', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", data: {confirm: "Are you sure you want to remove this student from the class?"} %></p></li>
           <% end %>
+        </ol>
         <% else %>
-          <h3>Currently, no students are enrolled.</h3>
+          <h4>Currently, there are no students enrolled.</h4>
         <% end %>
         </div>
       </div>
     </div>
-    <div class="col-md-7">
+    <div class="col-md-7" style="max-height: 450px;">
       <div class="panel panel-default">
         <div class="panel-heading">
           <legend><h3 style="color: #e74944;">At a Glance:</h3>
           </div>
           <div class="panel-body">
             <div class="list-group">
-              <a href="<%= teacher_class_groups_path(current_user, @course_section.id) %>" class="list-group-item">
-                <h4 class="list-group-item-heading">View Groups</h4>
-                <p class="list-group-item-text">Check out current configuration of student groups</p>
-              </a>
               <a href="<%= teacher_class_email_path(current_user, @course_section) %>" class="list-group-item">
                 <h4 class="list-group-item-heading">Send an Email</h4>
                 <p class="list-group-item-text">Email students or their guardians</p>
@@ -40,8 +36,24 @@
                 <h4 class="list-group-item-heading">Add an Assignment</h4>
                 <p class="list-group-item-text">Add a test, homework, or classwork</p>
               </a>
+              <a href="<%= teacher_class_groups_path(current_user, @course_section.id) %>" class="list-group-item">
+                <h4 class="list-group-item-heading">View Current Work Groups</h4>
+                <p class="list-group-item-text">Check out current configuration of student groups</p>
+              </a>
+              <div class="list-group-item">
+                <p class="list-group-item-text">
+                  <h4 class="list-group-item-heading">Create New Work Groups</h4>
+                  <p class="list-group-item-text">Enter the number of students per group:</p>
+                  <p class="list-group-item-text"><%= form_tag teacher_class_groups_path(params[:teacher_id], @course_section.id), method: :get do %>
+                  <%= number_field_tag :group_size, nil, in: 1..@course_section.students.count %>
+                  <%= submit_tag "Generate Groups", class: "btn btn-primary btn-sm" %>
+                  <% end %>
+                  <% end %></p>
+                </p>
+              </div>
               <div class="list-group-item">
                 <h4 class="list-group-item-heading">Add a Student</h4>
+                <p class="list-group-item-text">Add a new student to this class</p>
                 <p class="list-group-item-text"><%= form_for @student_course_section, url: student_course_sections_path do |f| %>
                 <%= f.collection_select(:student_id, Student.all, :id, :full_name, prompt: true) %>
                 <%= f.hidden_field :course_section_id, value: @course_section.id %>
@@ -51,7 +63,23 @@
           </div>
         </div>
       </div>
-    </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <legend><h3 style="color: #e74944;">Current Assignments</h3>
+      </div>
+      <div class="panel-body">
+        <div class="list-group">
+          
+          <a href="#" class="list-group-item active">
+            Cras justo odio
+          </a>
+          <a href="#" class="list-group-item">Dapibus ac facilisis in
+          </a>
+          <a href="#" class="list-group-item">Morbi leo risus
+          </a>
+        </div>
+      </div>
+    </div> <!-- end of col-md-7 -->
 
 
   <% if @assignments_hash.length > 0 %>
@@ -109,15 +137,7 @@
 
 
 
-    <h4>Generate Work Groups:</h4>
-
-
-    <%= form_tag teacher_class_groups_path(params[:teacher_id], @course_section.id), method: :get do %>
-      <%= number_field_tag :group_size, nil, in: 1..@course_section.students.count %>
-      <%= submit_tag "Generate Groups" %>
-    <% end %>
-
-  <% end %>
+    
    
   <p><%= link_to 'Back', teacher_path(@course_section.teacher) %></p>
 
