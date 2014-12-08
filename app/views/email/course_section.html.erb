@@ -3,15 +3,18 @@
 <%= form_tag teacher_class_email_path(current_user, @course_section) do %>
   <div class="row">
     <div class="col-xs-6">
-    <%= label_tag "email[student_ids_for_guardians]", "Select 
-  students whose guardians you’d like to email" %><br>
-    <%= collection_check_boxes :email, :student_ids_for_guardians, @course_section.students_with_guardians, :id, :full_name do |b| %>
-    <%= b.check_box %> <%= b.label %> 
+    <%= label_tag "email[guardian_ids]", "Select 
+  guardians to email" %><br>
+    <% @course_section.students_with_guardians.each do |student| %>
+    <label><%= student.full_name %></label>
+    <ul style="list-style-type: none;">
+      <%= collection_check_boxes :email, :guardian_ids, student.guardians, :id, :name_with_relationship do |b| %>
+      <li><%= b.check_box %> <%= b.label %></li>
     <% end %>
-    <br>
-    <br>
+    </ul>
+    <% end %>
 
-    <%= label_tag "email[student_ids]", "Select students to email directly" %><br>
+    <%= label_tag "email[student_ids]", "Select students to email" %><br>
     <%= collection_check_boxes :email, :student_ids, @course_section.students, :id, :full_name do |b| %>
     <%= b.check_box %> <%= b.label %><br>
     <% end %><br>
