@@ -14,15 +14,15 @@ class Score < ActiveRecord::Base
       ratio = points_earned / assignment.points.to_f
       case
       when ratio >= 0.9
-        "info"
+        "info" # blue
       when ratio >= 0.8
-        "success"
+        "success" # green
       when ratio >= 0.7
-        "warning"
+        "warning" # yellow
       when ratio < 0.7
-        "danger"
+        "danger" # red
       # when ratio < 0.6
-      #   "active"
+      #   "active" # grey
       end
     end
   end
