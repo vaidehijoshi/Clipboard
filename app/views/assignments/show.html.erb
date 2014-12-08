@@ -26,6 +26,16 @@
 	</div>
 
 		<div class="col-md-4">
+			<table class="table table-striped table-hover ">
+				<tbody>
+					<tr>
+			      <td class="success">> 90%</td>
+			      <td class="info">> 80%</td>
+			      <td class="warning">> 60%</td>
+			      <td class="danger">< 60%</td>
+					</tr>
+				</tbody>
+			</table>
 		<h3>Scores (out of <%=@assignment.points%> points)</h3>
 			<div style="height: 70vh; overflow: scroll;">
 			<% @assignment.course_section.students.each do |student| %>
