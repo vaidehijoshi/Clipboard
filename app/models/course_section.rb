@@ -120,58 +120,8 @@ class CourseSection < ActiveRecord::Base
     best_grouping_so_far
   end
 
-
 #### WHATEVER WE DO, WE MUST HAVE THIS RETURNED!
 #course_groupings = {:groups => all_groups_array, :unplaceable => place_these_kids}
-
-  #   seated_kids = []
-  #   # binding.pry
-
-  #   number_of_groups.times do
-  #     new_table = []
-  #     all_kids.each_with_index do |kid, index|
-  #       # if seated_kids.count == all_kids.count
-  #       if seated_kids.include?(kid)
-          
-  #         break
-  #       else
-  #         if new_table.size == max_kids_per_table
-  #           # all_groups_array << new_table
-  #           break
-  #         elsif new_table.include?(kid)
-  #           break
-  #         elsif kid.has_enemies_at_table?(new_table)
-  #           break
-  #         else
-  #           new_table << kid
-  #           # binding.pry
-  #           seated_kids << all_kids.delete_at(index)
-  #         end
-  #       end
-  #     end
-  #     all_groups_array << new_table
-  #     puts "new table"
-  #     puts new_table
-  #     puts "all groups array"
-  #     puts all_groups_array
-  #   end
-
-  #   place_these_kids = all_kids.dup
-  #   place_these_kids.each_with_index do |kid|
-  #     all_groups_array.each do |group|
-  #       if group.size < max_kids_per_table && !kid.has_enemies_at_table?(group)
-  #         group << kid
-  #         seated_kids << place_these_kids.shift
-  #       end
-  #     end
-  #   end
-
-  #   
-    
-  #   # binding.pry
-
-    
-  # end
 
 
 

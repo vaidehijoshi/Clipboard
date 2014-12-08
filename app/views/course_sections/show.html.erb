@@ -40,7 +40,7 @@
                   <h3><%= pluralize(@tests.count, "Test") %></h3>
                   <% @tests.each do |assignment| %>
                   <li>
-                    <%= link_to assignment.name, teacher_class_assignment_path(current_user, @course_section, assignment) %>
+                    <strong><%= link_to assignment.name, teacher_class_assignment_path(current_user, @course_section, assignment) %></strong>
                     <%if assignment.points %>
                       (<%= assignment.points %> points)
                     <% end %>
@@ -58,7 +58,6 @@
                   <%= link_to "delete", teacher_class_assignment_path(current_user, @course_section, assignment), method: "delete", data: {confirm: "Are you sure you want to delete this assignment?"} %><br>
                   <% if assignment.document_file_size %>
                     <%= link_to "Download #{assignment.document_file_name}", assignment.document.url(:original, false) %><br>
-                    <%= link_to "Delete #{assignment.document_file_name}", remove_assignment_document_path(:assignment_id => assignment.id) %>
                   <% end %>
                   </li>
                 <% end %>
@@ -70,7 +69,7 @@
                   <h3><%= pluralize(@homeworks.count, "Homework") %></h3>
                   <% @homeworks.each do |assignment| %>
                   <li>
-                    <%= link_to assignment.name, teacher_class_assignment_path(current_user, @course_section, assignment) %>
+                    <strong><%= link_to assignment.name, teacher_class_assignment_path(current_user, @course_section, assignment) %></strong>
                     <%if assignment.points %>
                       (<%= assignment.points %> points)
                     <% end %>
@@ -88,7 +87,6 @@
                   <%= link_to "delete", teacher_class_assignment_path(current_user, @course_section, assignment), method: "delete", data: {confirm: "Are you sure you want to delete this assignment?"} %><br>
                   <% if assignment.document_file_size %>
                     <%= link_to "Download #{assignment.document_file_name}", assignment.document.url(:original, false) %><br>
-                    <%= link_to "Delete #{assignment.document_file_name}", remove_assignment_document_path(:assignment_id => assignment.id) %>
                   <% end %>
                   </li>
                 <% end %>
@@ -100,7 +98,7 @@
                   <h3><%= pluralize(@classworks.count, "Classwork") %></h3>
                   <% @classworks.each do |assignment| %>
                   <li>
-                    <%= link_to assignment.name, teacher_class_assignment_path(current_user, @course_section, assignment) %> 
+                    <strong><%= link_to assignment.name, teacher_class_assignment_path(current_user, @course_section, assignment) %></strong>
                     <%if assignment.points %>
                       (<%= assignment.points %> points)
                     <% end %>
@@ -117,8 +115,7 @@
                   <%= link_to "edit", edit_teacher_class_assignment_path(current_user, @course_section, assignment) %> | 
                   <%= link_to "delete", teacher_class_assignment_path(current_user, @course_section, assignment), method: "delete", data: {confirm: "Are you sure you want to delete this assignment?"} %><br>
                   <% if assignment.document_file_size %>
-                    <%= link_to "Download #{assignment.document_file_name}", assignment.document.url(:original, false) %><br>
-                    <%= link_to "Delete #{assignment.document_file_name}", remove_assignment_document_path(:assignment_id => assignment.id) %>
+                    <%= link_to "Download #{assignment.document_file_name}", assignment.document.url(:original, false), {:style => "padding-left:14px;"} %><br>
                   <% end %>
                   </li>
                 <% end %>
