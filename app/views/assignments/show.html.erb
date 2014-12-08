@@ -15,7 +15,8 @@
 <div class="row">
 	<div class="col-md-8">
 		<p>
-		<%= link_to "Back to your homepage", teacher_class_path(current_user, @assignment.course_section) %><br>
+		
+		<p><a href='<%= teacher_class_path(current_user, @assignment.course_section) %>' class="btn btn-primary">Back</a></p><br>
 			
 		</p>
 		<% if @assignment.document.instance.document_file_size %>

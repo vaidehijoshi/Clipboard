@@ -1,10 +1,19 @@
-<% if @group %>
-	Current work groups for <%= @group.course_section.name %>:
-
+<% if @groups %>
+  
+  <h3>Groups for <%= @course_section.name %></h3>
+  
 	<% @groups.each do |group| %>
 	  <p><% group.students.each do |kid| %></p>
 	    <%= kid.full_name %>
 	  <% end %>
 	  <hr>
 	<% end %>
+
+<% else %>
+
+  <h4>You haven't generated groups yet.</h4>
+
 <% end %>
+
+
+<a href='<%= teacher_class_path(current_user, @course_section) %>' class="btn btn-primary">Back</a>
