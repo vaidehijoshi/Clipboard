@@ -7,6 +7,7 @@ class Assignment < ActiveRecord::Base
 
   has_attached_file :document, styles: {thumbnail: {:geometry => "100x100", :quality => 400}, medium: "300x300" }
   validates_attachment :document, content_type: { content_type: "application/pdf" }
+  # validates_attachment :document, content_type: { :content_type => 'text/plain' }
 
   validates :name, presence: true
 
