@@ -6,6 +6,8 @@ class StudentCourseSectionsController < ApplicationController
 
   def create
     @student_course_section = StudentCourseSection.create(student_course_section_params)
+    @student = Student.find(student_course_section_params[:student_id])
+    @course_section = CourseSection.find(student_course_section_params[:course_section_id])
     if @student_course_section.save 
       respond_to do |format|
         format.html { redirect_to teacher_class_path(current_user, @student_course_section.course_section_id) }
@@ -21,9 +23,12 @@ class StudentCourseSectionsController < ApplicationController
 
   def destroy
     @student_course_section = StudentCourseSection.find(params[:id])
-    @student = Student.find(params[:student_id])
+    @student = @student_course_section.student
     @student_course_section.destroy
-    redirect_to teacher_class_path(current_user, @student_course_section.course_section_id)
+    respond_to do |format|
+      format.html {redirect_to teacher_class_path(current_user, @student_course_section.course_section_id)}
+      format.js {}
+    end
   end
 
   private

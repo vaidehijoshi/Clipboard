@@ -12,15 +12,15 @@
         <div class="panel-body">
           <h4 class="list-group-item-heading">Add a Student</h4>
             <p class="list-group-item-text">Add a new student to this class</p>
-            <p class="list-group-item-text"><%= form_for @student_course_section, url: student_course_sections_path do |f| %>
+            <p class="list-group-item-text"><%= form_for @student_course_section, url: student_course_sections_path, remote: true, authenticity_token: true do |f| %>
             <%= f.collection_select(:student_id, Student.all, :id, :full_name, {prompt: true}, {:class=>'form-control'}) %><br>
             <%= f.hidden_field :course_section_id, value: @course_section.id %>
             <%= f.submit "Add student", class: "btn btn-primary btn-sm" %>
           <% end %></p><br>
         <% if @course_section.students.length > 0 %>
-        <ol>     
+        <ol id="student-list">     
           <% @course_section.students.each do |student| %>
-            <li><p><%= link_to student.full_name, student_path(student) %> <%= link_to '✖', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", data: {confirm: "Are you sure you want to remove this student from the class?"} %></p></li>
+            <li student_id="<%= student.id %>"><p><%= link_to student.full_name, student_path(student) %> <%= link_to '✖', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", remote: true, data: {confirm: "Are you sure you want to remove this student from the class?"} %></p></li>
           <% end %>
         </ol>
         <% else %>
@@ -34,17 +34,16 @@
         </div>
         <div class="panel-body">
           <div class="list-group">
-            <% if @assignments_hash.length == 0 %>
-              <h3>Currently, there are no assignments for this class.</h3>
-            <% end %>
           </div>
-            <% @assignments_hash.keys.each do |category| %>
               <div class="assignment-category">
                 <div class="list-group-item">
-                <h3><%= pluralize(@assignments_hash[category].count, category) %></h3>
-                <% @assignments_hash[category].each do |assignment| %>
+                  <h3><%= pluralize(@tests.count, "Test") %></h3>
+                  <% @tests.each do |assignment| %>
                   <li>
-                    <%= link_to assignment.name, teacher_class_assignment_path(current_user, @course_section, assignment) %> (<%= assignment.points %> points)
+                    <%= link_to assignment.name, teacher_class_assignment_path(current_user, @course_section, assignment) %>
+                    <%if assignment.points %>
+                      (<%= assignment.points %> points)
+                    <% end %>
                     <% if assignment.date_assigned %>
                       <ul>
                         <li><%= assignment.date_assigned.strftime("Assigned on %m/%d/%Y at %I:%M%p") %></li>
@@ -63,9 +62,69 @@
                   <% end %>
                   </li>
                 <% end %>
-              </div><br>
+                <%= will_paginate @tests %>
+                </div><br>
               </div>
-            <% end %>
+              <div class="assignment-category">
+                <div class="list-group-item">
+                  <h3><%= pluralize(@homeworks.count, "Homework") %></h3>
+                  <% @homeworks.each do |assignment| %>
+                  <li>
+                    <%= link_to assignment.name, teacher_class_assignment_path(current_user, @course_section, assignment) %>
+                    <%if assignment.points %>
+                      (<%= assignment.points %> points)
+                    <% end %>
+                    <% if assignment.date_assigned %>
+                      <ul>
+                        <li><%= assignment.date_assigned.strftime("Assigned on %m/%d/%Y at %I:%M%p") %></li>
+                      </ul>
+                    <% end %>
+                    <% if assignment.date_due %>
+                      <ul>
+                        <li><%= assignment.date_due.strftime("Due on %m/%d/%Y at %I:%M%p") %></li>
+                      </ul>
+                    <% end %>
+                  <%= link_to "edit", edit_teacher_class_assignment_path(current_user, @course_section, assignment) %> | 
+                  <%= link_to "delete", teacher_class_assignment_path(current_user, @course_section, assignment), method: "delete", data: {confirm: "Are you sure you want to delete this assignment?"} %><br>
+                  <% if assignment.document_file_size %>
+                    <%= link_to "Download #{assignment.document_file_name}", assignment.document.url(:original, false) %><br>
+                    <%= link_to "Delete #{assignment.document_file_name}", remove_assignment_document_path(:assignment_id => assignment.id) %>
+                  <% end %>
+                  </li>
+                <% end %>
+                <%= will_paginate @homeworks %>
+                </div><br>
+              </div>
+              <div class="assignment-category">
+                <div class="list-group-item">
+                  <h3><%= pluralize(@classworks.count, "Classwork") %></h3>
+                  <% @classworks.each do |assignment| %>
+                  <li>
+                    <%= link_to assignment.name, teacher_class_assignment_path(current_user, @course_section, assignment) %> 
+                    <%if assignment.points %>
+                      (<%= assignment.points %> points)
+                    <% end %>
+                    <% if assignment.date_assigned %>
+                      <ul>
+                        <li><%= assignment.date_assigned.strftime("Assigned on %m/%d/%Y at %I:%M%p") %></li>
+                      </ul>
+                    <% end %>
+                    <% if assignment.date_due %>
+                      <ul>
+                        <li><%= assignment.date_due.strftime("Due on %m/%d/%Y at %I:%M%p") %></li>
+                      </ul>
+                    <% end %>
+                  <%= link_to "edit", edit_teacher_class_assignment_path(current_user, @course_section, assignment) %> | 
+                  <%= link_to "delete", teacher_class_assignment_path(current_user, @course_section, assignment), method: "delete", data: {confirm: "Are you sure you want to delete this assignment?"} %><br>
+                  <% if assignment.document_file_size %>
+                    <%= link_to "Download #{assignment.document_file_name}", assignment.document.url(:original, false) %><br>
+                    <%= link_to "Delete #{assignment.document_file_name}", remove_assignment_document_path(:assignment_id => assignment.id) %>
+                  <% end %>
+                  </li>
+                <% end %>
+                <%= will_paginate @classworks %>
+                </div><br>
+              </div>
         </div>
       </div>
 
