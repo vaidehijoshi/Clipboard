@@ -6,66 +6,66 @@
       <%= form_for [@student, @guardian], :html => {:class => "form-horizonal"} do |f| %>
 
         <div class="form-group">
-          <%= f.label :title, :class => "col-lg-2 control-label" %>
-          <div class="col-lg-10">
+          <%= f.label :title, :class => "control-label" %>
+          
             <%= f.text_field :title, :class => "form-control" %><br>
-          </div>
+       
         </div>
 
         <div class="form-group">
-          <%= f.label :first_name, :class => "col-lg-2 control-label" %>
-          <div class="col-lg-10">
+          <%= f.label :first_name, :class => "control-label" %>
+
             <%= f.text_field :first_name, :class => "form-control" %><br>
-          </div>
+
         </div>
 
         <div class="form-group">
-          <%= f.label :last_name, :class => "col-lg-2 control-label" %>
-          <div class="col-lg-10">
+          <%= f.label :last_name, :class => "control-label" %>
+
             <%= f.text_field :last_name, :class => "form-control" %><br>
-          </div>
+
         </div>
 
         <div class="form-group">
-          <%= f.label :address, :class => "col-lg-2 control-label" %>
-          <div class="col-lg-10">
+          <%= f.label :address, :class => "control-label" %>
+
             <%= f.text_field :address, :class => "form-control" %><br>
-          </div>
+
         </div>
 
         <div class="form-group">
-          <%= f.label :email, :class => "col-lg-2 control-label" %>
-          <div class="col-lg-10">
+          <%= f.label :email, :class => "control-label" %>
+
             <%= f.email_field :email, :class => "form-control" %><br>
-          </div>
+
         </div>
 
         <div class="form-group">
-          <%= f.label :day_phone, :class => "col-lg-2 control-label" %>
-          <div class="col-lg-10">
+          <%= f.label :day_phone, :class => "control-label" %>
+
             <%= f.phone_field :day_phone, :class => "form-control" %><br>
-          </div>
+
         </div>
 
         <div class="form-group">
-          <%= f.label :evening_phone, :class => "col-lg-2 control-label" %>
-          <div class="col-lg-10">
+          <%= f.label :evening_phone, :class => "control-label" %>
+
             <%= f.phone_field :evening_phone, :class => "form-control" %><br>
-          </div>
+
         </div>
 
         <div class="form-group">
-          <%= f.label :relationship, :class => "col-lg-2 control-label" %>
-          <div class="col-lg-10">
+          <%= f.label :relationship, :class => "control-label" %>
+
             <%= f.text_field :relationship, :class => "form-control" %><br>
             <%= f.hidden_field :student_id, value: @student.id %>
-          </div>
+
         </div>
 
         <div class="form-group">
-          <div class="col-lg-10">
-            <%= f.submit :class => "form-control" %>
-          </div>
+
+            <%= f.submit :class => "btn btn-primary" %>
+
         </div>
       <% end %>
     </div>
