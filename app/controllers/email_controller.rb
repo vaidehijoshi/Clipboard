@@ -7,7 +7,7 @@ class EmailController < ApplicationController
   end
 
   def course_section_send
-    @guardians = Guardian.where(student_id: params[:email][:student_ids_for_guardians])
+    @guardians = Guardian.where(student_id: params[:email][:guardian_ids])
     guardian_emails = @guardians.pluck(:email)
     @students = Student.where(id: params[:email][:student_ids])
     student_emails = @students.pluck(:email)
@@ -31,7 +31,7 @@ class EmailController < ApplicationController
 
   # private
   # def email_params
-  #   params.require(:email).permit(:student_ids, :student_ids_for_guardians, :subject, :body)
+  #   params.require(:email).permit(:student_ids, :guardian_ids, :subject, :body)
   # end
 
 end

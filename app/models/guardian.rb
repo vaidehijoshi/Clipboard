@@ -5,4 +5,8 @@ class Guardian < ActiveRecord::Base
   def full_name
     "#{title} #{first_name} #{last_name}"
   end
+
+  def name_with_relationship
+    "#{relationship}: #{full_name}"
+  end
 end
