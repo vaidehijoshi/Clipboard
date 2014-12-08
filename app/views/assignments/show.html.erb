@@ -32,7 +32,7 @@
 				<%= f.label :student, student.full_name %>
 				<%= f.hidden_field :student_id, value: student.id %>
 				<%= f.hidden_field :assignment_id, value: @assignment.id %>
-				<%= f.number_field :points_earned, in:0..@assignment.points, class: @scores[student.id].color_class %>
+				<%= f.number_field :points_earned, in:0..@assignment.points, class: @scores[student.id].color_class, style: "text-align: center;" %>
 				<%= f.submit %><br>
 			<% end %>
 		<% end %>

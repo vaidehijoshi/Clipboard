@@ -8,7 +8,9 @@ class Score < ActiveRecord::Base
   validate :points_not_more_than_possible
 
   def color_class
-    if points_earned
+    if destroyed?
+      ""
+    elsif points_earned
       ratio = points_earned / assignment.points.to_f
       case
       when ratio >= 0.9
