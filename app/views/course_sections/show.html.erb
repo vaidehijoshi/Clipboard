@@ -34,19 +34,13 @@
         </div>
         <div class="panel-body">
           <div class="list-group">
-            <% if @assignments_hash.length > 0 %>
-            <a href="#" class="list-group-item">Dapibus ac facilisis in
-            </a>
-            <a href="#" class="list-group-item">Morbi leo risus
-            </a>
+            <% if @assignments_hash.length == 0 %>
+              <h3>Currently, there are no assignments for this class.</h3>
             <% end %>
           </div>
-            
-              
-            
-
             <% @assignments_hash.keys.each do |category| %>
               <div class="assignment-category">
+                <div class="list-group-item">
                 <h3><%= pluralize(@assignments_hash[category].count, category) %></h3>
                 <% @assignments_hash[category].each do |assignment| %>
                   <li>
@@ -69,10 +63,12 @@
                   <% end %>
                   </li>
                 <% end %>
+              </div><br>
               </div>
             <% end %>
         </div>
       </div>
+
     </div> <!-- end of col-md-5 -->
     <div class="col-md-7" style="max-height: 450px;">
       <div class="panel panel-default">
