@@ -12,15 +12,15 @@
         <div class="panel-body">
           <h4 class="list-group-item-heading">Add a Student</h4>
             <p class="list-group-item-text">Add a new student to this class</p>
-            <p class="list-group-item-text"><%= form_for @student_course_section, url: student_course_sections_path do |f| %>
+            <p class="list-group-item-text"><%= form_for @student_course_section, url: student_course_sections_path, remote: true, authenticity_token: true do |f| %>
             <%= f.collection_select(:student_id, Student.all, :id, :full_name, {prompt: true}, {:class=>'form-control'}) %><br>
             <%= f.hidden_field :course_section_id, value: @course_section.id %>
             <%= f.submit "Add student", class: "btn btn-primary btn-sm" %>
           <% end %></p><br>
         <% if @course_section.students.length > 0 %>
-        <ol>     
+        <ol id="student-list">     
           <% @course_section.students.each do |student| %>
-            <li><p><%= link_to student.full_name, student_path(student) %> <%= link_to '✖', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", data: {confirm: "Are you sure you want to remove this student from the class?"} %></p></li>
+            <li student_id="<%= student.id %>"><p><%= link_to student.full_name, student_path(student) %> <%= link_to '✖', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", remote: true, data: {confirm: "Are you sure you want to remove this student from the class?"} %></p></li>
           <% end %>
         </ol>
         <% else %>

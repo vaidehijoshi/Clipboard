@@ -1,0 +1,5 @@
+<li>
+  <p>
+    <%= link_to student.full_name, student_path(student) %> <%= link_to '✖', student_course_section_path(@student_course_section, student_id: student.id), method: "delete", remote: true, data: {confirm: "Are you sure you want to remove this student from the class?"} %>
+  </p>
+</li>
