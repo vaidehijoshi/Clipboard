@@ -103,7 +103,7 @@
                   <h4 class="list-group-item-heading">Create New Work Groups</h4>
                   <p class="list-group-item-text">Enter the number of students per group:</p>
                   <p class="list-group-item-text"><%= form_tag teacher_class_groups_path(params[:teacher_id], @course_section.id), method: :get do %>
-                  <%= number_field_tag :group_size, nil, in: 1..@course_section.students.count %>
+                  <%= number_field_tag :group_size, nil, in: 1..@course_section.students.count, required: true %>
                   <%= submit_tag "Generate Groups", class: "btn btn-primary btn-sm" %>
                   <% end %></p>
                 </p>

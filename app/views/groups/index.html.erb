@@ -46,7 +46,7 @@
   <div class="col-md-2"></div>
   <div class="col-md-4">
     <%= form_tag teacher_class_groups_path(@teacher, @course_section, @group), method: :get do %>
-      <%= text_field_tag :group_size, nil, placeholder: "Students per group"%>
+      <%= number_field_tag :group_size, nil, in: 1..@course_section.students.count, required: true %>
       <%= submit_tag "Regenerate Groups", :class => "btn btn-primary" %><br>
     <% end %>
     <br>
