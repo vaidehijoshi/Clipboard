@@ -1,19 +1,19 @@
 <div class="row">
-<div class="col-md-4">
-<h1><%= @assignment.name %></h1>
-</div>
-<div class="col-md-8">
-<h1>
+	<div class="col-md-4">
+		<h1><%= @assignment.name %></h1>
+	</div>
+	<div class="col-md-8">
+		<h1>
 
-<span class="pull-right">
-	Average Score: <span id="average_score"><%= @assignment.average_grade_string %></span>
-</span>
+		<span class="pull-right">
+			Average Score: <span id="average_score"><%= @assignment.average_grade_string %></span>
+		</span>
 
-</h1>
-</div>
+		</h1>
+	</div>
 </div>
 <div class="row">
-	<div class="col-md-9">
+	<div class="col-md-8">
 		<p>
 		<%= link_to "Back to your homepage", teacher_class_path(current_user, @assignment.course_section) %><br>
 			
@@ -24,18 +24,25 @@
 		<% end %>
 	</div>
 
-	<div class="col-md-3">
+		<div class="col-md-4">
 		<h3>Scores (out of <%=@assignment.points%> points)</h3>
-		
-		<% @assignment.course_section.students.each do |student| %>
-			<%= form_for @scores[student.id], html: {student: student.id}, remote: true, authenticity_token: true do |f| %>
-				<%= f.label :student, student.full_name %>
-				<%= f.hidden_field :student_id, value: student.id %>
-				<%= f.hidden_field :assignment_id, value: @assignment.id %>
-				<%= f.number_field :points_earned, in:0..@assignment.points, class: @scores[student.id].color_class, style: "text-align: center;" %>
-				<%= f.submit %><br>
-			<% end %>
-		<% end %>
+			<div style="height: 70vh; overflow: scroll;">
+			<% @assignment.course_section.students.each do |student| %>
+			<div class="row">
+					<%= form_for @scores[student.id], html: {student: student.id}, remote: true, authenticity_token: true do |f| %>
+				<div class="col-md-9">
+						<%= f.label :student, student.full_name %>
+						<%= f.hidden_field :student_id, value: student.id %>
+						<%= f.hidden_field :assignment_id, value: @assignment.id %>
+				</div>
+				<div class="col-md-3">
+						<%= f.number_field :points_earned, in:0..@assignment.points, class: @scores[student.id].color_class, style: "text-align: center;" %>
+						<%= f.submit %>
+				</div>
+					<% end %>
+			</div>
+				<% end %>
+			</div>
 	</div>
 
 </div>

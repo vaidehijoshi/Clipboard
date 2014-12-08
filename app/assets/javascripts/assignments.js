@@ -20,8 +20,20 @@ function addScoreListener() {
   //     $(this).data("previousValue", $(this).val());
   // });
 
+  $numInput.keydown(function(event){
+    if(event.keyCode === 13) {
+      event.preventDefault();
+      $(this).trigger("blur");
+    }
+  });
+
   $numInput.change(function(){
-    $(this).parents("form").submit();
+    $form = $(this).parents("form");
+    if ($(this).val() === "") {
+      $form.find("input[name='_method']").val("delete");
+    }
+    $form.submit();
   });
 }
+
 
