@@ -7,4 +7,3 @@ class CreateCourseSections < ActiveRecord::Migration
     end
   end
 end
-has_many :courses, :through => :course_sections
