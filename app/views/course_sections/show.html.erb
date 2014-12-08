@@ -13,7 +13,7 @@
           <h4 class="list-group-item-heading">Add a Student</h4>
             <p class="list-group-item-text">Add a new student to this class</p>
             <p class="list-group-item-text"><%= form_for @student_course_section, url: student_course_sections_path do |f| %>
-            <%= f.collection_select(:student_id, Student.all, :id, :full_name, prompt: true) %>
+            <%= f.collection_select(:student_id, Student.all, :id, :full_name, {prompt: true}, {:class=>'form-control'}) %><br>
             <%= f.hidden_field :course_section_id, value: @course_section.id %>
             <%= f.submit "Add student", class: "btn btn-primary btn-sm" %>
           <% end %></p><br>
@@ -121,6 +121,7 @@
 				<% end %>
 				</li>
 			<% end %>
+      <p><a href='#top' class="btn btn-xs btn-primary">scroll to top</a></p>
 		</div>
 	<% end %>
 
