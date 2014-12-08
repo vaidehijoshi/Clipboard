@@ -88,7 +88,7 @@ class Student < ActiveRecord::Base
     course_assignments = self.assignments.where(course_section_id: course_section.id)
     if !course_assignments.empty?
       scored_assignments_count = course_section.scores.where(student_id: self.id).count
-      return scored_assignments_count / course_assignments.count.to_f * 100
+      return (scored_assignments_count / course_assignments.count.to_f * 100).round(2)
     end
     return 0
   end
@@ -97,7 +97,7 @@ class Student < ActiveRecord::Base
     all_assignments = self.assignments
     if !all_assignments.empty?
       scored_assignments_count = scores.where(student_id: self.id).count
-      return scored_assignments_count / all_assignments.count.to_f * 100
+      return (scored_assignments_count / all_assignments.count.to_f * 100).round(2)
     end
     return 0
   end
@@ -141,7 +141,7 @@ class Student < ActiveRecord::Base
     if courses_to_count == 0
       return false
     else
-      return total_percentage_points / courses_to_count
+      return (total_percentage_points / courses_to_count).round(2)
     end
   end
 
