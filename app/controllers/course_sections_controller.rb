@@ -5,6 +5,11 @@ class CourseSectionsController < ApplicationController
     @enemyship = @course_section.enemyships.new
     @student_course_section = StudentCourseSection.new
     @assignment = @course_section.assignments.new
+    assignments_to_paginate = Assignment.where(course_section_id: @course_section.id)
+    @assignments = assignments_to_paginate.paginate(:page => params[:page], :per_page => 5)
+    @tests = @assignments.where(category:"Test").paginate(:page => params[:page], :per_page => 5)
+    @homeworks = @assignments.where(category:"Homework").paginate(:page => params[:page], :per_page => 5)
+    @classworks = @assignments.where(category:"Classwork").paginate(:page => params[:page], :per_page => 5)
     @assignments_hash = Assignment.all_by_category(@course_section)
   end
 
