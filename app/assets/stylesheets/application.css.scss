@@ -6473,3 +6473,5 @@ input.active {
 .toggle-on:hover {
   cursor: pointer;
 }
+
+button:focus {outline:0 !important;}
