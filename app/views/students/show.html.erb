@@ -144,7 +144,7 @@
                             <td>--</td>
                           <% end %>
                           <% if assignment[:overdue] %>
-                            <td>Yes, this assignment was due on <%= assignment[:date_due] %></td>
+                            <td>Yes, this assignment was due on <%= assignment[:date_due].strftime("%m/%d/%Y") %></td>
                           <% else %>
                             <td>No</td>
                           <% end %>
