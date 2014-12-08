@@ -117,36 +117,41 @@
           </div>
             <div class="row">
               <div class="col-md-2"></div>
+              
               <div class="col-md-8">
               <table class="table table-striped table-hover" style="width: 100%;">
-                  <thead>
-                    <tr>
-                      <th>Assignment Name</th>
-                      <th>Assignment Category</th>
-                      <th>Points Possible</th>
-                      <th>Grade</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% @student.assignments.each do |assignment| %>
-                    <tr>
-                      <td><%= assignment.name %></td>
-                      <td><%= assignment.category %></td>
-                      <td><%= assignment.points %></td>
-                        <% if @student.percent_score_for_assignment(assignment) %>
-                          <td><%=@student.percent_score_for_assignment(assignment)%> %</td>
-                        <% else %>
-                          <td>--</td>
-                        <% end %>
-                    </tr>
+                <thead>
+                  <tr>
+                    <th>Assignment Name</th>
+                    <th>Assignment Category</th>
+                    <th>Points Possible</th>
+                    <th>Grade</th>
+                    <th>Overdue?</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% assignments_for_section = @student.assignments_for_course_section(course_section) %>
+                  <% if assignments_for_section %>
+                    <% assignments_for_section.each do |assignment|  %>
+                      <tr>
+                        <td><%= assignment[:name] %></td>
+                        <td><%= assignment[:category] %></td>
+                        <td><%= assignment[:max_points] %></td>
+                          <% if assignment[:percent_score] %>
+                            <td><%= assignment[:percent_score] %> %</td>
+                          <% else %>
+                            <td>--</td>
+                          <% end %>
+                          <% if assignment[:overdue] %>
+                            <td>Yes, this assignment was due on <%= assignment[:date_due] %></td>
+                          <% else %>
+                            <td>No</td>
+                          <% end %>
+                      </tr>
                     <% end %>
-                  </tbody>
+                  <% end %>
+                </tbody>
               </table> 
-              <% @student.assignments.each do |assignment| %>
-                <% if @student.is_overdue?(assignment) %>
-                  <div class="alert-danger">Overdue assignment: <%= assignment.name %></div>
-                <% end %>
-              <% end %>
               </div>
               <div class="col-md-2"></div>
             </div>

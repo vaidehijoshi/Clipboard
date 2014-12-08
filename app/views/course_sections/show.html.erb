@@ -1,36 +1,59 @@
 <h1><%= @course_section.name %></h1>
 <% if current_user == @course_section.teacher %>
 
-
-
-  <div class="list-group">
-    <a href="<%= teacher_class_email_path(current_user, @course_section) %>" class="list-group-item">
-      <h4 class="list-group-item-heading">Send an Email</h4>
-      <p class="list-group-item-text">Email students or their guardians</p>
-    </a>
-    <a href="<%= new_teacher_class_assignment_path(current_user, @course_section.id) %>" class="list-group-item">
-      <h4 class="list-group-item-heading">Add an Assignment</h4>
-      <p class="list-group-item-text">Add a test, homework, or classwork</p>
-    </a>
-    <br>
-    <%= form_for @student_course_section, url: student_course_sections_path do |f| %>
-      <%= f.collection_select(:student_id, Student.all, :id, :full_name, prompt: true) %>
-      <%= f.hidden_field :course_section_id, value: @course_section.id %>
-      <%= f.submit "Add student", class: "btn btn-primary btn-sm" %>
-    <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <legend><h3 style="color: #e74944;">Students:</h3></legend>
+        </div>
+        <div class="panel-body">
+        <% if @course_section.students.length > 0 %>     
+          <% @course_section.students.each do |student| %>
+            <ul>
+              <p><%= link_to '✖', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", data: {confirm: "Are you sure you want to remove this student from the class?"} %> <%= link_to student.full_name, student_path(student) %></p>
+            </ul>
+          <% end %>
+        <% else %>
+          <h3>Currently, no students are enrolled.</h3>
+        <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <legend><h3 style="color: #e74944;">At a Glance:</h3>
+          </div>
+          <div class="panel-body">
+            <div class="list-group">
+              <a href="<%= teacher_class_email_path(current_user, @course_section) %>" class="list-group-item">
+                <h4 class="list-group-item-heading">Send an Email</h4>
+                <p class="list-group-item-text">Email students or their guardians</p>
+              </a>
+              <a href="<%= new_teacher_class_assignment_path(current_user, @course_section.id) %>" class="list-group-item">
+                <h4 class="list-group-item-heading">Add an Assignment</h4>
+                <p class="list-group-item-text">Add a test, homework, or classwork</p>
+              </a>
+              <div class="list-group-item">
+                <h4 class="list-group-item-heading">Add a Student</h4>
+                <p class="list-group-item-text"><%= form_for @student_course_section, url: student_course_sections_path do |f| %>
+                <%= f.collection_select(:student_id, Student.all, :id, :full_name, prompt: true) %>
+                <%= f.hidden_field :course_section_id, value: @course_section.id %>
+                <%= f.submit "Add student", class: "btn btn-primary btn-sm" %>
+              <% end %></p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 
 
 
-
-  <% if @course_section.students.length > 0 %>
-    <h3>Students:</h3>
-  <% end %>
   
-  <% @course_section.students.each do |student| %>
-
-  	<p><%= link_to '✖', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", data: {confirm: "Are you sure?"} %> <%= link_to student.full_name, student_path(student) %></p>
-  <% end %>
  
 
   <% if @assignments_hash.length > 0 %>

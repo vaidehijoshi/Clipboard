@@ -1,20 +1,24 @@
-<h1>Welcome, <%= @teacher.full_name %></h1>
-<h3>Currently teaching courses on:</h3>
-
-<% @teacher.course_teacher_assignments.each do |course_teacher_assignment| %>
-	<% course = Course.find(course_teacher_assignment.course_id) %>
-  <ul>
-  	<h4><%= course.name %></h4>
-    <h5><%= link_to "add a section for this course", new_teacher_class_path(@teacher, :course_section => { :course_teacher_assignment_id => course_teacher_assignment.id }) %></h5>
-  </ul>
-<% end %>
-
-
-<h3><%= @teacher.first_name %>'s classes:</h3>
-<ol>
-<% @teacher.course_sections.each do |course_section| %>
-	<h4><li><%= link_to course_section.name, teacher_class_path(@teacher, course_section) %></li></h4>
-<% end %>
-</ol>
-
-
+<div class="container">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-6" style="padding-top: 5%;">
+      <h1>Welcome, <%= @teacher.full_name %></h1>
+      <h3>Currently teaching courses on:</h3>
+      <% @teacher.course_teacher_assignments.each do |course_teacher_assignment| %>
+        <% course = Course.find(course_teacher_assignment.course_id) %>
+        <ul>
+          <h4><li><%= course.name %></li></h4>
+          <h4><%= link_to "add a section for this course", new_teacher_class_path(@teacher, :course_section => { :course_teacher_assignment_id => course_teacher_assignment.id }) %></h4>
+        </ul>
+      <% end %>
+      
+      <h3><%= @teacher.first_name %>'s classes:</h3>
+      <% @teacher.course_sections.each do |course_section| %>
+        <ol>
+          <h4><li><%= link_to course_section.name, teacher_class_path(@teacher, course_section) %></li></h4>
+        </ol>
+      <% end %>
+    </div>
+    <div class="col-md-5"></div>
+  </div>
+</div>
