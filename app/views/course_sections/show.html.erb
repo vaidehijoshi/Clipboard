@@ -10,6 +10,13 @@
           <legend><h3 style="color: #e74944;">Students: <span class="toggle-off pull-right">-</span><span class="toggle-on pull-right">+</span></h3></legend>
         </div>
         <div class="panel-body">
+          <h4 class="list-group-item-heading">Add a Student</h4>
+            <p class="list-group-item-text">Add a new student to this class</p>
+            <p class="list-group-item-text"><%= form_for @student_course_section, url: student_course_sections_path do |f| %>
+            <%= f.collection_select(:student_id, Student.all, :id, :full_name, prompt: true) %>
+            <%= f.hidden_field :course_section_id, value: @course_section.id %>
+            <%= f.submit "Add student", class: "btn btn-primary btn-sm" %>
+          <% end %></p><br>
         <% if @course_section.students.length > 0 %>
         <ol>     
           <% @course_section.students.each do |student| %>
@@ -37,6 +44,15 @@
                 <h4 class="list-group-item-heading">Add an Assignment</h4>
                 <p class="list-group-item-text">Add a test, homework, or classwork</p>
               </a>
+            </div>
+          </div>
+       </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <legend><h3 style="color: #e74944;">Groupings</h3>
+        </div>
+          <div class="panel-body">
+            <div class="list-group">
               <a href="<%= teacher_class_groups_path(current_user, @course_section.id) %>" class="list-group-item">
                 <h4 class="list-group-item-heading">View Current Work Groups</h4>
                 <p class="list-group-item-text">Check out current configuration of student groups</p>
@@ -48,39 +64,33 @@
                   <p class="list-group-item-text"><%= form_tag teacher_class_groups_path(params[:teacher_id], @course_section.id), method: :get do %>
                   <%= number_field_tag :group_size, nil, in: 1..@course_section.students.count %>
                   <%= submit_tag "Generate Groups", class: "btn btn-primary btn-sm" %>
-                  <% end %>
+
                   <% end %></p>
                 </p>
               </div>
-              <div class="list-group-item">
-                <h4 class="list-group-item-heading">Add a Student</h4>
-                <p class="list-group-item-text">Add a new student to this class</p>
-                <p class="list-group-item-text"><%= form_for @student_course_section, url: student_course_sections_path do |f| %>
-                <%= f.collection_select(:student_id, Student.all, :id, :full_name, prompt: true) %>
+              <h4>Create a pair of work buddies</h4>
+              <%= form_for @buddyship, url: teacher_class_buddyships_path(current_user, @course_section), method: :post do |f| %>
+                <%= f.collection_select(:student_id, @course_section.students, :id, :full_name, prompt: true) %>
+                <%= f.collection_select(:buddy_id, @course_section.students, :id, :full_name, prompt: true) %>
                 <%= f.hidden_field :course_section_id, value: @course_section.id %>
-                <%= f.submit "Add student", class: "btn btn-primary btn-sm" %>
-              <% end %></p>
-              </div>
+                <%= f.submit "Go", class: "submit" %>
+              <% end %>
+
+              <h4>Create a pair of work enemies</h4>
+              <%= form_for @enemyship, url: teacher_class_enemyships_path(current_user, @course_section), method: :post do |f| %>
+                <%= f.collection_select(:student_id, @course_section.students, :id, :full_name, prompt: true) %>
+                <%= f.collection_select(:enemy_id, @course_section.students, :id, :full_name, prompt: true) %>
+                <%= f.hidden_field :course_section_id, value: @course_section.id %>
+                <%= f.submit "Go", class: "submit" %>
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <legend><h3 style="color: #e74944;">Current Assignments</h3>
-      </div>
-      <div class="panel-body">
-        <div class="list-group">
-          
-          <a href="#" class="list-group-item active">
-            Cras justo odio
-          </a>
-          <a href="#" class="list-group-item">Dapibus ac facilisis in
-          </a>
-          <a href="#" class="list-group-item">Morbi leo risus
-          </a>
-        </div>
-      </div>
-    </div> <!-- end of col-md-7 -->
+      </div> <!-- end of col-md-7 -->
+    </div>
+  </div>
+
+      
 
 
   <% if @assignments_hash.length > 0 %>
@@ -114,34 +124,6 @@
 		</div>
 	<% end %>
 
-
-	
-  <% if @course_section.students.length > 0 %>
-
-    <h4>Create a pair of work buddies</h4>
-    <%= form_for @buddyship, url: teacher_class_buddyships_path(current_user, @course_section), method: :post do |f| %>
-      <%= f.collection_select(:student_id, @course_section.students, :id, :full_name, prompt: true) %>
-      <%= f.collection_select(:buddy_id, @course_section.students, :id, :full_name, prompt: true) %>
-      <%= f.hidden_field :course_section_id, value: @course_section.id %>
-      <%= f.submit "Go", class: "submit" %>
-    <% end %>
-
-    <h4>Create a pair of work enemies</h4>
-    <%= form_for @enemyship, url: teacher_class_enemyships_path(current_user, @course_section), method: :post do |f| %>
-      <%= f.collection_select(:student_id, @course_section.students, :id, :full_name, prompt: true) %>
-      <%= f.collection_select(:enemy_id, @course_section.students, :id, :full_name, prompt: true) %>
-      <%= f.hidden_field :course_section_id, value: @course_section.id %>
-      <%= f.submit "Go", class: "submit" %>
-    <% end %>
-
-    
-
-
-
-    
-   
-
-  
 
 <% else %>
   

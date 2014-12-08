@@ -13,11 +13,11 @@
       <% end %>
       
       <h3><%= @teacher.first_name %>'s classes:</h3>
+      <ol>
       <% @teacher.course_sections.each do |course_section| %>
-        <ol>
-          <h4><li><%= link_to course_section.name, teacher_class_path(@teacher, course_section) %></li></h4>
-        </ol>
+        <h4><li><%= link_to course_section.name, teacher_class_path(@teacher, course_section) %></li></h4>
       <% end %>
+      </ol>
     </div>
     <div class="col-md-5"></div>
   </div>
