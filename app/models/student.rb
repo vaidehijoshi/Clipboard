@@ -103,7 +103,7 @@ class Student < ActiveRecord::Base
     total_percentage_points = 0
     total_assignments_to_count = 0
 
-    if !course_assignments_array.empty?
+    if course_assignments_array && !course_assignments_array.empty?
       course_assignments_array.each do |assignment|
         if !assignment[:percent_score] && assignment[:overdue]
           total_assignments_to_count += 1

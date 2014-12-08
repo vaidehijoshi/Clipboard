@@ -25,4 +25,8 @@ class GroupsController < ApplicationController
     redirect_to teacher_class_groups_path(@course_section.teacher, @course_section)
   end
 
+  def show
+    @group = Group.find(params[:id])
+  end
+
 end
