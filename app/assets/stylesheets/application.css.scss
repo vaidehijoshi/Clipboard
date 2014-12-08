@@ -6468,3 +6468,8 @@ input.danger {
 input.active {
   background-color: #f5f5f5;
 }
+
+.toggle-off:hover,
+.toggle-on:hover {
+  cursor: pointer;
+}
