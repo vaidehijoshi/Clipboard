@@ -1,13 +1,13 @@
-<h1><%= @course_section.name %></h1>
-<p><a href='<%= teacher_path(current_user) %>' class="btn btn-primary">Back</a></p>
-<% if current_user == @course_section.teacher %>
 
 <div class="container">
+<h1><%= @course_section.name %></h1>
+<p><a href='<%= teacher_path(current_user) %>' class="btn btn-xs btn-primary">Back</a></p>
+<% if current_user == @course_section.teacher %>
   <div class="row">
     <div class="col-md-5">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <legend><h3 style="color: #e74944;">Students:</h3></legend>
+          <legend><h3 style="color: #e74944;">Students: <span class="toggle-off pull-right">-</span><span class="toggle-on pull-right">+</span></h3></legend>
         </div>
         <div class="panel-body">
         <% if @course_section.students.length > 0 %>     
