@@ -3,13 +3,13 @@
 
 <div class="jumbotron" style="height: 500px;">
   <div class="container">
-    <div class="row" style="padding-top:20%;">
+    <div class="row" style="padding-top:22%;">
       <% if current_user %>
         <h2>Welcome, <%= current_user.full_name %>!</h2><br>
         <h4><%= link_to "Add a new student to the system", new_student_path %></h4>
       <% else %>
-        <h2>Welcome to Clipboard!</h2>
-        <h3>A smarter clipboard for smarter teachers.</h3>
+        <h1>Clipboard<h1>
+        <h2>A smarter tool for smarter teachers.</h2>
       <% end %>
     </div>
   </div>
