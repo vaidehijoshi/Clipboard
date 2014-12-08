@@ -12,6 +12,10 @@
       <h4 class="list-group-item-heading">Add an Assignment</h4>
       <p class="list-group-item-text">Add a test, homework, or classwork</p>
     </a>
+    <a href="<%= teacher_class_groups_path(current_user, @course_section.id) %>" class="list-group-item">
+      <h4 class="list-group-item-heading">View Groups</h4>
+      <p class="list-group-item-text">Check out current configuration of student groups</p>
+    </a>
     <br>
     <%= form_for @student_course_section, url: student_course_sections_path do |f| %>
       <%= f.collection_select(:student_id, Student.all, :id, :full_name, prompt: true) %>
@@ -85,6 +89,8 @@
     <% end %>
 
     
+
+
 
     <h4>Generate Work Groups:</h4>
 
