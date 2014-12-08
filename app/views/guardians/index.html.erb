@@ -20,25 +20,73 @@
   <h4><%= @student.first_name %> has no guardians.</h4>
 <% end %>
 
-<h4>Add a Guardian</h4>
+<div class="row">
+  <div class="col-xs-6">
+    <div class="well bs-component">
+      <legend>Add a Guardian for <%= @student.first_name %> <span class="toggle-off pull-right">-</span><span class="toggle-on pull-right">+</span></legend>
+      <div class="guardian-form">
+        <%= form_for [@student, Guardian.new] do |f| %>
+          <div class="form-group">
+          <%= f.label :title, :class => "col-lg-12 control-label" %> 
+              <%= f.text_field :title, :class => "form-control" %><br>
+          </div>
 
-<%= form_for [@student, Guardian.new] do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %><br>
-  <%= f.label :first_name %>
-  <%= f.text_field :first_name %><br>
-  <%= f.label :last_name %>
-  <%= f.text_field :last_name %><br>
-  <%= f.label :address %>
-  <%= f.text_field :address %><br>
-  <%= f.label :email %>
-  <%= f.email_field :email %><br>
-  <%= f.label :day_phone %>
-  <%= f.phone_field :day_phone %><br>
-  <%= f.label :evening_phone %>
-  <%= f.phone_field :evening_phone %><br>
-  <%= f.label :relationship %>
-  <%= f.text_field :relationship %><br>
-  <%= f.hidden_field :student_id, value: @student.id %>
-  <%= f.submit %>
-<% end %>
+          <div class="form-group">
+          <%= f.label :first_name, :class => "col-lg-12 control-label" %>
+              <%= f.text_field :first_name, :class => "form-control" %><br>
+          </div>
+
+          <div class="form-group">
+          <%= f.label :last_name, :class => "col-lg-12 control-label" %>
+            
+              <%= f.text_field :last_name, :class => "form-control" %><br>
+        
+          </div>
+
+          <div class="form-group">
+            <%= f.label :address, :class => "col-lg-12 control-label" %>
+            
+              <%= f.text_field :address, :class => "form-control" %><br>
+        
+          </div>
+
+          <div class="form-group">
+            <%= f.label :email, :class => "col-lg-12 control-label" %>
+          
+              <%= f.email_field :email, :class => "form-control" %><br>
+          
+          </div>
+
+          <div class="form-group">
+            <%= f.label :day_phone, :class => "col-lg-12 control-label" %>
+            
+              <%= f.phone_field :day_phone, :class => "form-control"  %><br>
+          
+          </div>
+
+          <div class="form-group">
+            <%= f.label :evening_phone, :class => "col-lg-12 control-label" %>
+           
+              <%= f.phone_field :evening_phone, :class => "form-control"  %><br>
+         
+          </div>
+
+          <div class="form-group">
+            <%= f.label :relationship, :class => "col-lg-12 control-label" %>
+           
+              <%= f.text_field :relationship, :class => "form-control"  %><br>
+              <%= f.hidden_field :student_id, value: @student.id %>
+          
+          </div>
+
+
+          <div class="form-group">
+            
+              <%= f.submit :class => "btn btn-primary"  %>
+           
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

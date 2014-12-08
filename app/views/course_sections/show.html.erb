@@ -7,32 +7,83 @@
     <div class="col-md-5">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <legend><h3 style="color: #e74944;">Students: <span class="toggle-off pull-right">-</span><span class="toggle-on pull-right">+</span></h3></legend>
+          <legend><h3 style="color: #e74944;">Students <span class="toggle-off pull-right">-</span><span class="toggle-on pull-right">+</span></h3></legend>
         </div>
         <div class="panel-body">
-        <% if @course_section.students.length > 0 %>     
+          <h4 class="list-group-item-heading">Add a Student</h4>
+            <p class="list-group-item-text">Add a new student to this class</p>
+            <p class="list-group-item-text"><%= form_for @student_course_section, url: student_course_sections_path do |f| %>
+            <%= f.collection_select(:student_id, Student.all, :id, :full_name, {prompt: true}, {:class=>'form-control'}) %><br>
+            <%= f.hidden_field :course_section_id, value: @course_section.id %>
+            <%= f.submit "Add student", class: "btn btn-primary btn-sm" %>
+          <% end %></p><br>
+        <% if @course_section.students.length > 0 %>
+        <ol>     
           <% @course_section.students.each do |student| %>
-            <ul>
-              <p><%= link_to '✖', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", data: {confirm: "Are you sure you want to remove this student from the class?"} %> <%= link_to student.full_name, student_path(student) %></p>
-            </ul>
+            <li><p><%= link_to student.full_name, student_path(student) %> <%= link_to '✖', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", data: {confirm: "Are you sure you want to remove this student from the class?"} %></p></li>
           <% end %>
+        </ol>
         <% else %>
-          <h3>Currently, no students are enrolled.</h3>
+          <h4>Currently, there are no students enrolled.</h4>
         <% end %>
         </div>
       </div>
-    </div>
-    <div class="col-md-7">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <legend><h3 style="color: #e74944;">At a Glance:</h3>
+          <legend><h3 style="color: #e74944;">Assignments</h3>
+        </div>
+        <div class="panel-body">
+          <div class="list-group">
+            <% if @assignments_hash.length > 0 %>
+            <a href="#" class="list-group-item active">
+              Cras justo odio
+            </a>
+            <a href="#" class="list-group-item">Dapibus ac facilisis in
+            </a>
+            <a href="#" class="list-group-item">Morbi leo risus
+            </a>
+          </div>
+            
+              
+            <% end %>
+
+            <% @assignments_hash.keys.each do |category| %>
+              <div class="assignment-category">
+                <h3><%= pluralize(@assignments_hash[category].count, category) %></h3>
+                <% @assignments_hash[category].each do |assignment| %>
+                  <li>
+                    <%= link_to assignment.name, teacher_class_assignment_path(current_user, @course_section, assignment) %> (<%= assignment.points %> points)
+                    <% if assignment.date_assigned %>
+                      <ul>
+                        <li><%= assignment.date_assigned.strftime("Assigned on %m/%d/%Y at %I:%M%p") %></li>
+                      </ul>
+                    <% end %>
+                    <% if assignment.date_due %>
+                      <ul>
+                        <li><%= assignment.date_due.strftime("Due on %m/%d/%Y at %I:%M%p") %></li>
+                      </ul>
+                    <% end %>
+                  <%= link_to "edit", edit_teacher_class_assignment_path(current_user, @course_section, assignment) %> | 
+                  <%= link_to "delete", teacher_class_assignment_path(current_user, @course_section, assignment), method: "delete", data: {confirm: "Are you sure you want to delete this assignment?"} %><br>
+                  <% if assignment.document_file_size %>
+                    <%= link_to "Download #{assignment.document_file_name}", assignment.document.url(:original, false) %><br>
+                    <%= link_to "Delete #{assignment.document_file_name}", remove_assignment_document_path(:assignment_id => assignment.id) %>
+                  <% end %>
+                  </li>
+                <% end %>
+                <p><a href='#top' class="btn btn-xs btn-primary">scroll to top</a></p>
+              </div>
+            <% end %>
+        </div>
+      </div>
+    </div> <!-- end of col-md-5 -->
+    <div class="col-md-7" style="max-height: 450px;">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <legend><h3 style="color: #e74944;">Quick Tasks</h3>
           </div>
           <div class="panel-body">
             <div class="list-group">
-              <a href="<%= teacher_class_groups_path(current_user, @course_section.id) %>" class="list-group-item">
-                <h4 class="list-group-item-heading">View Groups</h4>
-                <p class="list-group-item-text">Check out current configuration of student groups</p>
-              </a>
               <a href="<%= teacher_class_email_path(current_user, @course_section) %>" class="list-group-item">
                 <h4 class="list-group-item-heading">Send an Email</h4>
                 <p class="list-group-item-text">Email students or their guardians</p>
@@ -41,87 +92,63 @@
                 <h4 class="list-group-item-heading">Add an Assignment</h4>
                 <p class="list-group-item-text">Add a test, homework, or classwork</p>
               </a>
+            </div>
+          </div>
+       </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <legend><h3 style="color: #e74944;">Groupings<span class="toggle-off pull-right">-</span><span class="toggle-on pull-right">+</span></h3>
+        </div>
+          <div class="panel-body">
+            <div class="list-group">
+              <a href="<%= teacher_class_groups_path(current_user, @course_section.id) %>" class="list-group-item">
+                <h4 class="list-group-item-heading">View Current Work Groups</h4>
+                <p class="list-group-item-text">Check out current configuration of student groups</p>
+              </a>
               <div class="list-group-item">
-                <h4 class="list-group-item-heading">Add a Student</h4>
-                <p class="list-group-item-text"><%= form_for @student_course_section, url: student_course_sections_path do |f| %>
-                <%= f.collection_select(:student_id, Student.all, :id, :full_name, prompt: true) %>
-                <%= f.hidden_field :course_section_id, value: @course_section.id %>
-                <%= f.submit "Add student", class: "btn btn-primary btn-sm" %>
-              <% end %></p>
+                <p class="list-group-item-text">
+                  <h4 class="list-group-item-heading">Create New Work Groups</h4>
+                  <p class="list-group-item-text">Enter the number of students per group:</p>
+                  <p class="list-group-item-text"><%= form_tag teacher_class_groups_path(params[:teacher_id], @course_section.id), method: :get do %>
+                  <%= number_field_tag :group_size, nil, in: 1..@course_section.students.count %>
+                  <%= submit_tag "Generate Groups", class: "btn btn-primary btn-sm" %>
+                  <% end %></p>
+                </p>
               </div>
+              <div class="list-group-item">
+                <p class="list-group-item-text">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h4 class="list-group-item-heading">Create a pair of work buddies</h4>
+                      <p class="list-group-item-text">Choose two students who work well together:</p>
+                      <p class="list-group-item-text"><%= form_for @buddyship, url: teacher_class_buddyships_path(current_user, @course_section), method: :post do |f| %>
+                        <%= f.collection_select(:student_id, @course_section.students, :id, :full_name, {prompt: true}, {:class=>'form-control'}) %>
+                        <%= f.collection_select(:buddy_id, @course_section.students, :id, :full_name, {prompt: true}, {:class=>'form-control'}) %>
+                        <%= f.hidden_field :course_section_id, value: @course_section.id %>
+                        <%= f.submit "Create buddies", class: "btn btn-primary btn-sm" %>
+                        <% end %>
+                      </p>
+                    </div>
+                    <div class="col-md-6">
+                      <h4 class="list-group-item-heading">Create a pair of non work buddies</h4>
+                      <p class="list-group-item-text">Choose two students who do not work well together:</p>
+                      <p class="list-group-item-text"><%= form_for @enemyship, url: teacher_class_enemyships_path(current_user, @course_section), method: :post do |f| %>
+                        <%= f.collection_select(:student_id, @course_section.students, :id, :full_name, {prompt: true}, {:class=>'form-control'}) %>
+                        <%= f.collection_select(:enemy_id, @course_section.students, :id, :full_name, {prompt: true}, {:class=>'form-control'}) %>
+                        <%= f.hidden_field :course_section_id, value: @course_section.id %>
+                        <%= f.submit "Create non work buddies", class: "btn btn-primary btn-sm" %>
+                        <% end %>
+                      </p>
+                    </div>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </div> <!-- end of col-md-7 -->
     </div>
-
-
-  <% if @assignments_hash.length > 0 %>
-	  <h3>Assignments:</h3>
-  <% end %>
-
-	<% @assignments_hash.keys.each do |category| %>
-		<div class="assignment-category">
-			<h3><%= pluralize(@assignments_hash[category].count, category) %></h3>
-			<% @assignments_hash[category].each do |assignment| %>
-				<li>
-					<%= link_to assignment.name, teacher_class_assignment_path(current_user, @course_section, assignment) %> (<%= assignment.points %> points)
-					<% if assignment.date_assigned %>
-						<ul>
-						  <li><%= assignment.date_assigned.strftime("Assigned on %m/%d/%Y at %I:%M%p") %></li>
-						</ul>
-					<% end %>
-					<% if assignment.date_due %>
-						<ul>
-						  <li><%= assignment.date_due.strftime("Due on %m/%d/%Y at %I:%M%p") %></li>
-						</ul>
-					<% end %>
-				<%= link_to "edit", edit_teacher_class_assignment_path(current_user, @course_section, assignment) %> | 
-				<%= link_to "delete", teacher_class_assignment_path(current_user, @course_section, assignment), method: "delete", data: {confirm: "Are you sure you want to delete this assignment?"} %><br>
-				<% if assignment.document_file_size %>
-					<%= link_to "Download #{assignment.document_file_name}", assignment.document.url(:original, false) %><br>
-					<%= link_to "Delete #{assignment.document_file_name}", remove_assignment_document_path(:assignment_id => assignment.id) %>
-				<% end %>
-				</li>
-			<% end %>
-		</div>
-	<% end %>
-
-
-	
-  <% if @course_section.students.length > 0 %>
-
-    <h4>Create a pair of work buddies</h4>
-    <%= form_for @buddyship, url: teacher_class_buddyships_path(current_user, @course_section), method: :post do |f| %>
-      <%= f.collection_select(:student_id, @course_section.students, :id, :full_name, prompt: true) %>
-      <%= f.collection_select(:buddy_id, @course_section.students, :id, :full_name, prompt: true) %>
-      <%= f.hidden_field :course_section_id, value: @course_section.id %>
-      <%= f.submit "Go", class: "submit" %>
-    <% end %>
-
-    <h4>Create a pair of work enemies</h4>
-    <%= form_for @enemyship, url: teacher_class_enemyships_path(current_user, @course_section), method: :post do |f| %>
-      <%= f.collection_select(:student_id, @course_section.students, :id, :full_name, prompt: true) %>
-      <%= f.collection_select(:enemy_id, @course_section.students, :id, :full_name, prompt: true) %>
-      <%= f.hidden_field :course_section_id, value: @course_section.id %>
-      <%= f.submit "Go", class: "submit" %>
-    <% end %>
-
-    
-
-
-
-    <h4>Generate Work Groups:</h4>
-
-
-    <%= form_tag teacher_class_groups_path(params[:teacher_id], @course_section.id), method: :get do %>
-      <%= number_field_tag :group_size, nil, in: 1..@course_section.students.count %>
-      <%= submit_tag "Generate Groups" %>
-    <% end %>
-
-  <% end %>
-   
-
-  
+  </div>
 
 <% else %>
   
