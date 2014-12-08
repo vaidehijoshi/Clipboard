@@ -65,6 +65,7 @@ class Student < ActiveRecord::Base
     self.assignments.each do |assignment|
       assignment_score_hash[assignment.course_section.name] ||= []
       assignment_score_hash[assignment.course_section.name] << {
+        category: assignment.category,
         name: assignment.name, 
         teacher: assignment.teacher.full_name, 
         date_assigned: assignment.date_assigned, 
@@ -76,6 +77,10 @@ class Student < ActiveRecord::Base
       }
     end
     assignment_score_hash
+  end
+
+  def assignments_for_course_section(course_section)
+    self.all_assignments_info[course_section.name]
   end
 
   def percent_assignments_done_for_course(course_section)
