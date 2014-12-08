@@ -15,4 +15,5 @@
 
 <% end %>
 
-<%= link_to "Back to course page", teacher_class_path(current_user, @course_section) %>
+
+<a href='<%= teacher_class_path(current_user, @course_section) %>' class="btn btn-primary">Back</a>

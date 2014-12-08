@@ -1,5 +1,5 @@
 <h1>Edit <%= @assignment.name %></h1>
-<%= link_to "Back to your homepage", teacher_class_path(current_user, @assignment.course_section) %>
+
 <div class="row">
 	<div class="col-md-3">
 		<%= form_tag(teacher_class_assignment_path(current_user, @assignment.course_section, @assignment), method: :patch) do %>
@@ -21,6 +21,7 @@
 			  <%= form.submit "Upload attachment" %>
 			<% end %>
 			</p>
+			<a href='<%= teacher_class_path(current_user, @assignment.course_section) %>' class="btn btn-primary">Back</a>
 		</div>
 	</div>
 	<% if @assignment.document_file_size %>
@@ -31,4 +32,6 @@
 			<%= link_to "Delete #{@assignment.document_file_name}", remove_assignment_document_path(:assignment_id => @assignment.id), data: {confirm: "Are you sure?"} %>
 		</div>
 	<% end %>
+
+	
 </div>
