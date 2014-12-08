@@ -4,37 +4,37 @@
 			<legend>Sign up!</legend>
 			<%= form_for @teacher, :html => {:class => "form-horizonal"} do |f| %>
 				<div class="form-group">
-				<%= f.label :first_name, :class => "col-lg-2 control-label" %>
-					<div class="col-lg-10">
+				<%= f.label :first_name, :class => "control-label" %>
+
 				  	<%= f.text_field :first_name, placeholder: "first name", :class => "form-control" %>
-				  </div>
+
 			  </div>
 
 			  <div class="form-group">
-			  	<%= f.label :last_name, :class => "col-lg-2 control-label" %>
-				  <div class="col-lg-10">
+			  	<%= f.label :last_name, :class => "control-label" %>
+
 				  	<%= f.text_field :last_name, placeholder: "last name", :class => "form-control" %>
-				  </div>
+
 			  </div>
 			  
 			  <div class="form-group">
-			  <%= f.label :title, :class => "col-lg-2 control-label" %>
-				  <div class="col-lg-10">
+			  <%= f.label :title, :class => "control-label" %>
+				  
 				  	<%= f.text_field :title, placeholder: "Ms., Mrs., Mr., Dr., etc.", :class => "form-control" %>
-				  </div>
+				
 			  </div>
 
 			  <div class="form-group">
-			  <%= f.label :email, :class => "col-lg-2 control-label" %>
-			  <div class="col-lg-10">
+			  <%= f.label :email, :class => "control-label" %>
+			  
 			  	<%= f.text_field :email, placeholder: "email address", :class => "form-control" %>
-			  </div>
+			  
 			  </div>
 			  
 			  <div class="form-group">
-				  <div class="col-lg-10 col-lg-offset-2">
+
 				  	<%= f.submit "Sign Up", :class => "btn btn-primary" %>
-				  </div>
+
 			  </div>
 			<% end %>
 			</div>
