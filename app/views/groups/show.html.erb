@@ -1,12 +1,27 @@
 <% if @groups %>
   
-  <h3>Groups for <%= @course_section.name %></h3>
+  <h3>Groups for <%= @course_section.name %></h3><br>
   
-	<% @groups.each do |group| %>
-	  <p><% group.students.each do |kid| %></p>
-	    <%= kid.full_name %>
-	  <% end %>
-	  <hr>
+  	<% @groups.each_with_index do |group| %>
+    <div class="col-md-3">
+      <div class="panel panel-primary">
+        <div class="panel-body">
+          <p><% group.students.each do |kid| %></p>
+            <% if kid.has_buddies_at_table?(group.students) %>
+              <% @kids_sitting_with_buddies_counter += 1 %>
+              <span class="alert-success">
+            <% elsif kid.has_enemies_at_table?(group.students) %>
+              <span class="alert-danger">
+            <% else %>
+              <span>
+            <% end %>
+            <li><%= kid.full_name %></li>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
 	<% end %>
 
 <% else %>
@@ -16,4 +31,4 @@
 <% end %>
 
 
-<a href='<%= teacher_class_path(current_user, @course_section) %>' class="btn btn-primary">Back</a>
+<a href='<%= teacher_class_path(current_user, @course_section) %>' class="btn btn-xs btn-primary">Back</a>

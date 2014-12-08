@@ -1,38 +1,52 @@
 <h1>Customized Groupings for <%= @group.course_section.name %></h1>
 
-<% @placed_kids.each do |group| %>
-    <% group.each do |kid| %>
-      <% if kid.has_buddies_at_table?(group) %>
-        <% @kids_sitting_with_buddies_counter += 1 %>
-        <span class="alert-success">
-      <% elsif kid.has_enemies_at_table?(group) %>
-        <span class="alert-danger">
-      <% else %>
-        <span>
-      <% end %>
-      <li><%= kid.full_name %></li>
-      </span>
-    <% end %>
-    <hr>
 
+
+
+<div class="row" style="padding-top: 20px;">
+<% @placed_kids.each_with_index do |group| %>
+  <div class="col-md-3">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <% group.each do |kid| %>
+          <% if kid.has_buddies_at_table?(group) %>
+            <% @kids_sitting_with_buddies_counter += 1 %>
+            <span class="alert-success">
+          <% elsif kid.has_enemies_at_table?(group) %>
+            <span class="alert-danger">
+          <% else %>
+            <span>
+          <% end %>
+            <li><%= kid.full_name %></li>
+            </span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+   
 <% end %>
+</div>
+
+<br>
+<br>
+<br>
 <h3>Kids who got placed with at least one buddy: <span style="color:green;"><%= @kids_sitting_with_buddies_counter %></span></h3>
 
 <% if @groups[:unplaceable].size == 0 %>
   <h4 class="alert alert-success">Every student found a seat!</h4>
 <% else %>
   <h5 class="alert alert-warning">Sorry, we couldn't find a seat for these students. Try regenerating!<% @unplaced_kids.each do |kid| %>
-       <li><%= kid.full_name %></li>
+      <li><%= kid.full_name %></li>
   <% end %></h5>
-  
-
 <% end %>
+
+
 
 <div class="row" style="padding-bottom: 80px;">
   <div class="col-md-2"></div>
   <div class="col-md-4">
     <%= form_tag teacher_class_groups_path(@teacher, @course_section, @group), method: :get do %>
-      <%= text_field_tag :group_size, nil, placeholder: "Students per group"%>
+      <%= number_field_tag :group_size, nil, in: 1..@course_section.students.count, required: true %>
       <%= submit_tag "Regenerate Groups", :class => "btn btn-primary" %><br>
     <% end %>
     <br>

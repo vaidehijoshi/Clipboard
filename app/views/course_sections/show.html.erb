@@ -1,7 +1,7 @@
 
 <div class="container">
-<h1><%= @course_section.name %></h1>
-<p><a href='<%= teacher_path(current_user) %>' class="btn btn-xs btn-primary">Back</a></p>
+  <h1><%= @course_section.name %></h1>
+  <p><a href='<%= teacher_path(current_user) %>' class="btn btn-xs btn-primary">Back</a></p>
 <% if current_user == @course_section.teacher %>
   <div class="row">
     <div class="col-md-5">
@@ -34,19 +34,13 @@
         </div>
         <div class="panel-body">
           <div class="list-group">
-            <% if @assignments_hash.length > 0 %>
-            <a href="#" class="list-group-item">Dapibus ac facilisis in
-            </a>
-            <a href="#" class="list-group-item">Morbi leo risus
-            </a>
+            <% if @assignments_hash.length == 0 %>
+              <h3>Currently, there are no assignments for this class.</h3>
             <% end %>
           </div>
-            
-              
-            
-
             <% @assignments_hash.keys.each do |category| %>
               <div class="assignment-category">
+                <div class="list-group-item">
                 <h3><%= pluralize(@assignments_hash[category].count, category) %></h3>
                 <% @assignments_hash[category].each do |assignment| %>
                   <li>
@@ -69,10 +63,12 @@
                   <% end %>
                   </li>
                 <% end %>
+              </div><br>
               </div>
             <% end %>
         </div>
       </div>
+
     </div> <!-- end of col-md-5 -->
     <div class="col-md-7" style="max-height: 450px;">
       <div class="panel panel-default">
@@ -100,14 +96,14 @@
             <div class="list-group">
               <a href="<%= teacher_class_groups_path(current_user, @course_section.id) %>" class="list-group-item">
                 <h4 class="list-group-item-heading">View Current Work Groups</h4>
-                <p class="list-group-item-text">Check out current configuration of student groups</p>
+                <p class="list-group-item-text">Check out the current configuration of student groups</p>
               </a>
               <div class="list-group-item">
                 <p class="list-group-item-text">
                   <h4 class="list-group-item-heading">Create New Work Groups</h4>
                   <p class="list-group-item-text">Enter the number of students per group:</p>
                   <p class="list-group-item-text"><%= form_tag teacher_class_groups_path(params[:teacher_id], @course_section.id), method: :get do %>
-                  <%= number_field_tag :group_size, nil, in: 1..@course_section.students.count %>
+                  <%= number_field_tag :group_size, nil, in: 1..@course_section.students.count, required: true %>
                   <%= submit_tag "Generate Groups", class: "btn btn-primary btn-sm" %>
                   <% end %></p>
                 </p>

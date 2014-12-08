@@ -112,7 +112,7 @@ class CourseSection < ActiveRecord::Base
     kids_seated_with_buddies = 0
     1000.times do 
       current_grouping = make_groups_of(max_kids_per_group)
-      if current_grouping[:kids_seated_with_buddies] > kids_seated_with_buddies
+      if current_grouping[:kids_seated_with_buddies] >= kids_seated_with_buddies
         kids_seated_with_buddies = current_grouping[:kids_seated_with_buddies]
         best_grouping_so_far = current_grouping
       end
