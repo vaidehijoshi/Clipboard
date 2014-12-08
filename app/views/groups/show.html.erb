@@ -1,5 +1,4 @@
-<% if @group %>
-	Current work groups for <%= @group.course_section.name %>:
+<% if @groups %>
 
 	<% @groups.each do |group| %>
 	  <p><% group.students.each do |kid| %></p>
@@ -7,4 +6,6 @@
 	  <% end %>
 	  <hr>
 	<% end %>
+
+  <%= link_to "Back to course page", teacher_class_path(current_user, @course_section) %>
 <% end %>

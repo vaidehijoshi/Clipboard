@@ -21,10 +21,10 @@
 <% if @groups[:unplaceable].size == 0 %>
   <h4 class="alert alert-success">Every student found a seat!</h4>
 <% else %>
-  <h5 class="alert alert-warning">Sorry, we couldn't find a seat for these students. Try regenerating!</h5>
-  <% @unplaced_kids.each do |kid| %>
+  <h5 class="alert alert-warning">Sorry, we couldn't find a seat for these students. Try regenerating!<% @unplaced_kids.each do |kid| %>
        <li><%= kid.full_name %></li>
-  <% end %>
+  <% end %></h5>
+  
 
 <% end %>
 

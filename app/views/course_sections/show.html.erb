@@ -28,6 +28,10 @@
           </div>
           <div class="panel-body">
             <div class="list-group">
+              <a href="<%= teacher_class_groups_path(current_user, @course_section.id) %>" class="list-group-item">
+                <h4 class="list-group-item-heading">View Groups</h4>
+                <p class="list-group-item-text">Check out current configuration of student groups</p>
+              </a>
               <a href="<%= teacher_class_email_path(current_user, @course_section) %>" class="list-group-item">
                 <h4 class="list-group-item-heading">Send an Email</h4>
                 <p class="list-group-item-text">Email students or their guardians</p>
@@ -48,13 +52,7 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-
-
-  
- 
 
   <% if @assignments_hash.length > 0 %>
 	  <h3>Assignments:</h3>
@@ -108,6 +106,8 @@
     <% end %>
 
     
+
+
 
     <h4>Generate Work Groups:</h4>
 
