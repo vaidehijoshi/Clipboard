@@ -2,6 +2,7 @@ class GroupsController < ApplicationController
   def index
     @kids_sitting_with_buddies_counter = 0
     @course_section = CourseSection.find(params[:class_id])
+    # binding.pry
     if params[:group_size]   
       @groups = @course_section.optimized_grouping(params[:group_size].to_i)
       @placed_kids = @groups[:groups]
