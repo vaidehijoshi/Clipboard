@@ -1,16 +1,19 @@
 $(function(){
   addTemplateSelectListener();
   addSelectAllListeners();
+  $("div.email-preview").hide();
 })
 
 function addTemplateSelectListener() {
   var $customEmail = $("div#custom-email")
   $("select#email_template").change(function(){
+    $("div.email-preview").hide();
     if ($(this).val() === "") {
       $customEmail.show();
     }
     else {
       $customEmail.hide();
+      $("div.email-preview#" + $(this).val()).show();
     }
   });
 }

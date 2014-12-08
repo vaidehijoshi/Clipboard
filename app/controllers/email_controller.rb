@@ -2,7 +2,7 @@ class EmailController < ApplicationController
 
   def course_section
     @course_section = CourseSection.find(params[:class_id])
-    templates = Dir[Rails.root + "app/views/teacher_mailer/templates/*"].map{ |file| file.split("/").last.sub(".text.erb", "")}
+    templates = Dir[Rails.root + "app/views/teacher_mailer/templates/*"].map{ |file| file.split("/").last.sub(".text.erb", "").sub(".html.erb", "")}.uniq
     @templates = templates.map{ |temp| [temp.split("_").map(&:capitalize).join(" "), temp]}
   end
 
