@@ -50,7 +50,7 @@
           <% @templates.each do |template| %>
             <div class="email-preview", id="<%= template[1] %>">
               <label class="control-label" style="padding-left:15px">Template preview:</label>
-                <% message = TeacherMailer.template_email(@course_section.guardians.first, @course_section.students_with_guardians.first, current_user, "example@example.com", template[1]) %>
+                <% message = TeacherMailer.template_email(@course_section, @course_section.guardians.first, @course_section.students_with_guardians.first, current_user, "example@example.com", template[1]) %>
                 <div class="panel panel-default">
                 <div class="modal-header"><h4 class="panel-title"><%= message.subject %></h4></div>
                 <div class="panel-body"><%= render file: "/teacher_mailer/templates/#{template[1]}.html.erb", locals: {message: message, :@guardian => @course_section.guardians.first, :@student => @course_section.students_with_guardians.first} %></div>

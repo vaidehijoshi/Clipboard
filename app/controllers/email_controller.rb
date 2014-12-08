@@ -7,6 +7,7 @@ class EmailController < ApplicationController
   end
 
   def course_section_send
+    @course_section = CourseSection.find(params[:class_id])
     @guardians = Guardian.where(student_id: params[:email][:guardian_ids])
     guardian_emails = @guardians.pluck(:email)
     @students = Student.where(id: params[:email][:student_ids])
@@ -19,10 +20,10 @@ class EmailController < ApplicationController
       TeacherMailer.custom_email(current_user, recipient_emails, params[:email][:subject], params[:email][:body]).deliver
     else
       @guardians.each do |guardian|
-        TeacherMailer.template_email(guardian, guardian.student, current_user, guardian.email, params[:email][:template]).deliver
+        TeacherMailer.template_email(@course_section, guardian, guardian.student, current_user, guardian.email, params[:email][:template]).deliver
       end
       @students.each do |student|
-        TeacherMailer.template_email(student.guardians.first, student, current_user, student.email, params[:email][:template]).deliver
+        TeacherMailer.template_email(@course_section, student.guardians.first, student, current_user, student.email, params[:email][:template]).deliver
       end
     end
     redirect_to :back

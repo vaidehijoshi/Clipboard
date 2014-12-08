@@ -16,3 +16,20 @@ Here's are <%= @student.first_name %>'s current grades:
 <% end %>
 
 
+Dear <%= @guardian.full_name %>,
+
+  I hope this email finds you well.
+  Below is a list of <%= @student.first_name %>'s current grades for the semester.
+
+<% assignments_to_report = @student.assignments.where(course_section_id: @course_section.id) %>
+<% assignments_to_report.each do |assignment| %>
+  <% score = Score.where(student_id: @student.id, assignment_id: assignment.id).first %>
+  
+  Assignment: <%= assignment.name %> (<%= assignment.category %>)
+    <% if score %>
+      Grade: <%= @student.percent_score_for_assignment(assignment) %> %
+    <% end %>
+  
+<% end %>
+
+  Please feel free to reach out to me if you have any questions.
