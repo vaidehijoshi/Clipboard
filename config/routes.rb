@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :guardians
   end
 
+  resources :course_teacher_assignments
+
   resources :teachers do
     resources :course_sections, path: 'classes', as: 'classes' do
       resources :assignments

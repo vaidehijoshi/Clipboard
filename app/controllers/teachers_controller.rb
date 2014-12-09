@@ -1,6 +1,14 @@
 class TeachersController < ApplicationController
   def show
     @teacher = Teacher.find(params[:id])
+    if @teacher.school
+      @school = @teacher.school
+    else
+      @school = School.new
+    end
+    @course = Course.new
+    @course_teacher_assignment = CourseTeacherAssignment.new
+    @courses = Course.where(school_id: @school.id)
   end
 
   def new

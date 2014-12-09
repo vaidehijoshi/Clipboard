@@ -9,10 +9,10 @@
 
 school = School.create({ name: 'Little Flatiron' })
 
-avi = Teacher.create(first_name: 'Avi', last_name: 'Flombaum', title: 'Sir', email: 'avi@example.com')
-steven = Teacher.create(first_name: "Steven", last_name: "Nunez", title: "Honorable", email: "steven@example.com")
-tristan = Teacher.create(first_name: "Tristan", last_name: "Seigel", title: "Mr.", email: "trista@example.com")
-mitch = Teacher.create(first_name: "Mitch", last_name: "Boyer", title: "Venerable", email: "mitch@example.com")
+avi = Teacher.create(first_name: 'Avi', last_name: 'Flombaum', title: 'Sir', email: 'avi@example.com', school_id: school.id)
+steven = Teacher.create(first_name: "Steven", last_name: "Nunez", title: "Honorable", email: "steven@example.com", school_id: school.id)
+tristan = Teacher.create(first_name: "Tristan", last_name: "Seigel", title: "Mr.", email: "tristan@example.com", school_id: school.id)
+mitch = Teacher.create(first_name: "Mitch", last_name: "Boyer", title: "Venerable", email: "mitch@example.com", school_id: school.id)
 
 
 ruby = school.courses.create({ name: 'Ruby' })
