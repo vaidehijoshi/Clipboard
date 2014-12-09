@@ -77,8 +77,7 @@ class CourseSection < ActiveRecord::Base
       while kid_seated == false && groups_checked < number_of_groups
         # TRY TO SEAT KID WITH A BUDDY
         all_groups_array.each do |group|
-
-          if group.size < max_kids_per_group && group - buddy_list != group && group - enemy_list == group
+          if group.size < max_kids_per_group && group.find{|student| (buddy_list).include?(student)} && !group.find{|student| (enemy_list).include?(student)}
             group << kid
             kid_seated = true
             break
@@ -87,7 +86,7 @@ class CourseSection < ActiveRecord::Base
         if kid_seated == false
           all_groups_array.each do |group|
             groups_checked += 1
-            if group.size < max_kids_per_group && group - enemy_list == group
+            if group.size < max_kids_per_group && !group.find{|student| (enemy_list).include?(student)}
               group << kid
               kid_seated = true
               break
