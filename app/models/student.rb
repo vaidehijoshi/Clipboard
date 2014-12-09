@@ -17,8 +17,10 @@ class Student < ActiveRecord::Base
     first_name + " " + last_name
   end
   
-  def has_enemies_at_table?(table)
-    enemies.each do |enemy|
+  def has_enemies_at_table?(course_section, table)
+    #enemy_ids = self.enemyships.where(course_section_id: course_section.id).pluck(:enemy_id)
+    enemy_list = Student.where(id: self.enemyships.where(course_section_id: course_section.id).pluck(:enemy_id))
+    enemy_list.each do |enemy|
       if table.include?(enemy)
         return true
       end
@@ -26,8 +28,10 @@ class Student < ActiveRecord::Base
     false
   end
 
-  def has_buddies_at_table?(table)
-    buddies.each do |buddy|
+  def has_buddies_at_table?(course_section, table)
+    #buddy_ids = self.buddyships.where(course_section_id: course_section.id).pluck(:buddy_id)
+    buddy_list = Student.where(id: self.buddyships.where(course_section_id: course_section.id).pluck(:buddy_id))
+    buddy_list.each do |buddy|
       if table.include?(buddy)
         return true
       end

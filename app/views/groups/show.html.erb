@@ -7,10 +7,10 @@
       <div class="panel panel-primary">
         <div class="panel-body">
           <p><% group.students.each do |kid| %></p>
-            <% if kid.has_buddies_at_table?(group.students) %>
+            <% if kid.has_buddies_at_table?(@course_section, group.students) %>
               <% @kids_sitting_with_buddies_counter += 1 %>
               <span class="alert-success">
-            <% elsif kid.has_enemies_at_table?(group.students) %>
+            <% elsif kid.has_enemies_at_table?(@course_section, group.students) %>
               <span class="alert-danger">
             <% else %>
               <span>

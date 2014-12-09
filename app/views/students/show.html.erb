@@ -47,7 +47,12 @@
                 <% @student.buddyships.each do |buddyship| %>
                   <% course_section = CourseSection.find(buddyship.course_section_id) %>
                   <% buddy = Student.find(buddyship.buddy_id) %>
-                  <h5><%= link_to buddy.full_name, student_path(buddy) %>  <%= link_to " ✖ ", teacher_class_buddyship_path(course_section.teacher, course_section, buddyship), method: 'DELETE' , data: {confirm: "Are you sure you want to delete this pairing?"} %></h5>
+                  <h5>
+                  <%= link_to buddy.full_name, student_path(buddy) %> in <%= course_section.teacher.full_name %>'s <%= course_section.name %> class
+                  <% if current_user.course_sections.include?(course_section) %>
+                    <%= link_to " ✖ ", teacher_class_buddyship_path(course_section.teacher, course_section, buddyship), method: 'DELETE' , data: {confirm: "Are you sure you want to delete this pairing?"} %>
+                  <% end %>
+                  </h5>
                   
                 <% end %>
               </ul>
@@ -62,7 +67,12 @@
                 <% @student.enemyships.each do |enemyship| %>
                   <% course_section = CourseSection.find(enemyship.course_section_id) %>
                   <% enemy = Student.find(enemyship.enemy_id) %>
-                  <h5><%= link_to enemy.full_name, student_path(enemy) %>  <%= link_to " ✖ ", teacher_class_enemyship_path(course_section.teacher, course_section, enemyship), method: 'DELETE' , data: {confirm: "Are you sure you want to delete this pairing?"} %></h5>
+                  <h5>
+                  <%= link_to enemy.full_name, student_path(enemy) %> in <%= course_section.teacher.full_name %>'s <%= course_section.name %> class 
+                  <% if current_user.course_sections.include?(course_section) %>
+                    <%= link_to " ✖ ", teacher_class_enemyship_path(course_section.teacher, course_section, enemyship), method: 'DELETE' , data: {confirm: "Are you sure you want to delete this pairing?"} %>
+                  <% end %>
+                  </h5>
                 <% end %>
               </ul>
               <% else %>

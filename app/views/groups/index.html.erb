@@ -9,13 +9,13 @@
     <div class="panel panel-primary">
       <div class="panel-body">
         <% group.each do |kid| %>
-          <% if kid.has_buddies_at_table?(group) %>
+          <% if kid.has_buddies_at_table?(@group.course_section, group) %>
             <% @kids_sitting_with_buddies_counter += 1 %>
             <span class="alert-success">
-          <% elsif kid.has_enemies_at_table?(group) %>
-            <span class="alert-danger">
-          <% else %>
-            <span>
+          <%# elsif kid.has_enemies_at_table?(@group.course_section, group) %>
+            <!-- <span class="alert-danger"> -->
+          <%# else %>
+            <!-- <span> -->
           <% end %>
             <li><%= kid.full_name %></li>
             </span>

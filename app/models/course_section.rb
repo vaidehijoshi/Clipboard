@@ -70,12 +70,15 @@ class CourseSection < ActiveRecord::Base
     groups_checked = 0
     kid_seated = false
     all_kids.each do |kid|
+      buddy_list = Student.where(id: kid.buddyships.where(course_section_id: self.id).pluck(:buddy_id))
+      enemy_list = Student.where(id: kid.enemyships.where(course_section_id: self.id).pluck(:enemy_id))
       kid_seated = false
       groups_checked = 0
       while kid_seated == false && groups_checked < number_of_groups
         # TRY TO SEAT KID WITH A BUDDY
         all_groups_array.each do |group|
-          if group.size < max_kids_per_group && kid.has_buddies_at_table?(group) && !kid.has_enemies_at_table?(group)
+
+          if group.size < max_kids_per_group && group - buddy_list != group && group - enemy_list == group
             group << kid
             kid_seated = true
             break
@@ -84,7 +87,7 @@ class CourseSection < ActiveRecord::Base
         if kid_seated == false
           all_groups_array.each do |group|
             groups_checked += 1
-            if group.size < max_kids_per_group && !kid.has_enemies_at_table?(group)
+            if group.size < max_kids_per_group && group - enemy_list == group
               group << kid
               kid_seated = true
               break
@@ -99,7 +102,8 @@ class CourseSection < ActiveRecord::Base
     kids_seated_with_buddies = 0
     all_groups_array.each do |group|
       group.each do |kid|
-        if kid.has_buddies_at_table?(group)
+        buddy_list = Student.where(id: kid.buddyships.where(course_section_id: self.id).pluck(:buddy_id))
+        if group - buddy_list != group
           kids_seated_with_buddies += 1
         end
       end
@@ -110,7 +114,7 @@ class CourseSection < ActiveRecord::Base
   def optimized_grouping(max_kids_per_group)
     best_grouping_so_far = nil
     kids_seated_with_buddies = 0
-    1000.times do 
+    50.times do 
       current_grouping = make_groups_of(max_kids_per_group)
       if current_grouping[:kids_seated_with_buddies] >= kids_seated_with_buddies
         kids_seated_with_buddies = current_grouping[:kids_seated_with_buddies]
