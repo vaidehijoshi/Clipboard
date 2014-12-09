@@ -117,7 +117,7 @@ english1_assignments = english1_section.assignments.create([
   {name: "Reading: To the Moon and Back", category: "Homework", points: 5},
   {name: "First Thanksgiving Meal Reading & Worksheet", category: "Homework", points: 20},
   {name: "Essay: What Are You Thankful For?", category: "Homework", points: 20},
-  {name: "Presentations: The", category: "Classwork", points: 30},
+  {name: "Grammar Presentations", category: "Classwork", points: 30},
   {name: "Assessment: Conjunctions & Prepositions", category: "Test", points: 40}
 ])
 
@@ -125,7 +125,7 @@ english2_assignments = english2_section.assignments.create([
   {name: "Reading: To the Moon and Back", category: "Homework", points: 5},
   {name: "First Thanksgiving Meal Reading & Worksheet", category: "Homework", points: 20},
   {name: "Essay: What Are You Thankful For?", category: "Homework", points: 20},
-  {name: "Presentations: The", category: "Classwork", points: 30},
+  {name: "Grammar Presentations", category: "Classwork", points: 30},
   {name: "Assessment: Conjunctions & Prepositions", category: "Test", points: 40}
 ])
 
