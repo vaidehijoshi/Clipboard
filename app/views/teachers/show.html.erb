@@ -1,6 +1,5 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-1"></div>
     <div class="col-md-6" style="padding-top: 5%;">
       <h1>Welcome, <%= @teacher.full_name %></h1>
       <h3>Currently teaching courses on:</h3>
@@ -11,34 +10,6 @@
           <h4><%= link_to "add a section for this course", new_teacher_class_path(@teacher, :course_section => { :course_teacher_assignment_id => course_teacher_assignment.id }) %></h4>
         </ul>
       <% end %>
-
-      <h3>Add Your School</h3>
-      <%= form_for @school do |f| %>
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-        <%= f.submit %>
-      <% end %>  
-
-      <% if @teacher.school %>
-
-        <h3><%= @teacher.school.name %></h3>
-
-        <h3>Add A Course For This School</h3>
-          <%= form_for @course do |f| %>
-            <%= f.label :name %>
-            <%= f.text_field :name %>
-            <%= f.submit %>
-          <% end %>  
-
-        <h3>Add Yourself to A Course</h3>
-          <%= form_for @course_teacher_assignment, url: course_teacher_assignments_path, method:'post' do |f| %>
-          <%#= f.collection_select(:student_id, @course_section.students, :id, :full_name, {prompt: true}, {:class=>'form-control'}) %>
-            <%= f.collection_select(:course_id, @courses, :id, :name, {prompt: true}, {:class=>'form-control'}) %>
-            <%= f.hidden_field :teacher_id, :value => @teacher.id %>
-            <%= f.submit %>
-          <% end %>
-
-      <% end %>
       <h3><%= @teacher.first_name %>'s classes:</h3>
       <ol>
       <% @teacher.course_sections.each do |course_section| %>
@@ -46,6 +17,35 @@
       <% end %>
       </ol>
     </div>
-    <div class="col-md-5"></div>
+
+    <div class="col-md-6" style="padding-top: 5%;">
+      <div class="well bs-component">
+        <h3>Add Your School</h3>
+        <%= form_for @school do |f| %>
+          <%#= f.label :name %>
+          <%= f.text_field :name, placeholder:"School Name", class:"form-control" %><br>
+          <%= f.submit class:"btn btn-primary btn-sm" %>
+        <% end %>  
+
+        <% if @teacher.school %>
+
+          <h3>Add A Course For <%= @teacher.school.name %></h3>
+            <%= form_for @course do |f| %>
+              <%#= f.label :name %>
+              <%= f.text_field :name, placeholder:"Course Name", class:"form-control" %><br>
+              <%= f.submit class:"btn btn-primary btn-sm" %>
+            <% end %>  
+
+          <h3>Add Yourself to A Course</h3>
+            <%= form_for @course_teacher_assignment, url: course_teacher_assignments_path, method:'post' do |f| %>
+            <%#= f.collection_select(:student_id, @course_section.students, :id, :full_name, {prompt: true}, {:class=>'form-control'}) %>
+              <%= f.collection_select(:course_id, @courses, :id, :name, {prompt: true}, {:class=>'form-control'}) %>
+              <%= f.hidden_field :teacher_id, :value => @teacher.id %><br>
+              <%= f.submit "Add Yourself To This Course", class:"btn btn-primary btn-sm" %>
+            <% end %>
+
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
