@@ -27,7 +27,7 @@ class Buddyship < ActiveRecord::Base
 
   def cant_be_buddies_and_enemies
     if Enemyship.find_by(student_id: student_id, enemy_id: buddy_id, course_section_id: course_section_id)
-      errors.add(:buddy_id, "you can't be both buddies and enemies for the same class! :(")
+      errors.add(:buddy_id, "you can't be both work buddies and non work buddies for the same class! :(")
     end
   end
 

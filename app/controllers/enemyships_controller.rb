@@ -4,12 +4,12 @@ class EnemyshipsController < ApplicationController
     @enemyship = Enemyship.create(enemyship_params)
     if @enemyship.save
       respond_to do |format|
-        format.html { redirect_to :back, notice: "work enemies successfully created!" }
+        format.html { redirect_to :back, notice: "relationship successfully created!" }
         format.js {}
       end
     else
       respond_to do |format|
-        format.html { redirect_to :back, alert: "oh noes!" }
+        format.html { redirect_to :back, alert: "Could not create relationship. Check to see if these students are already work buddies or non work buddies!" }
         format.js {}
       end
     end
