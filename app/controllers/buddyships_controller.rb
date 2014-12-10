@@ -13,7 +13,7 @@ class BuddyshipsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to :back, alert: "oh noes!" }
+        format.html { redirect_to :back, alert: "Could not create buddyship. Check to see if these students are already work buddies or non work buddies!" }
         format.js {}
       end
     end
