@@ -60,7 +60,7 @@ class Student < ActiveRecord::Base
 
   def percent_score_for_assignment(assignment)
     if score_for_assignment(assignment) && assignment.points
-      return (score_for_assignment(assignment).to_f / assignment.points) * 100
+      return ((score_for_assignment(assignment).to_f / assignment.points) * 100).round(2)
     end
   end
 
@@ -129,7 +129,7 @@ class Student < ActiveRecord::Base
     elsif total_percentage_points == 0
       return 0
     else
-      return total_percentage_points.to_f / total_assignments_to_count
+      return (total_percentage_points.to_f / total_assignments_to_count).round(2)
     end
   end
 

@@ -46,7 +46,7 @@ class Assignment < ActiveRecord::Base
       score_count = scores.count
       scores.each do |score|
         if score.points_earned
-          total += score.points_earned.to_f / points * 100
+          (total += score.points_earned.to_f / points * 100).round(2)
         end
       end
     end
