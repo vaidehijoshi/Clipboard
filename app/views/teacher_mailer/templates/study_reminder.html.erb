@@ -1,6 +1,10 @@
 <% message.subject = 'Study reminder!' %>
 
+<% if @student %>
 <p>Dear <%= @student.full_name %>,</p><br>
+<% else %>
+<p>Dear Student,</p><br>
+<% end %>
 
 <p>I just wanted to remind you that we have a test coming up soon!</p>
 
