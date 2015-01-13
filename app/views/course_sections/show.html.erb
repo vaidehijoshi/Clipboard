@@ -17,15 +17,19 @@
             <%= f.hidden_field :course_section_id, value: @course_section.id %>
             <%= f.submit "Add student", class: "btn btn-primary btn-sm" %>
           <% end %></p><br>
-        <% if @course_section.students.length > 0 %>
-        <ol id="student-list">     
-          <% @course_section.students.each do |student| %>
-            <li student_id="<%= student.id %>"><p><%= link_to student.full_name, student_path(student) %> <%= link_to '✖', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", remote: true, data: {confirm: "Are you sure you want to remove this student from the class?"} %></p></li>
+          <div id="student-list-wrapper">
+          <ol id="student-list">
+          <% if @course_section.students.length > 0 %>
+               
+            <% @course_section.students.each do |student| %>
+              <li student_id="<%= student.id %>"><p><%= link_to student.full_name, student_path(student) %> <%= link_to '✖', student_course_section_path(StudentCourseSection.find_by(student_id: student.id, course_section_id: @course_section.id), student_id: student.id), method: "delete", remote: true, data: {confirm: "Are you sure you want to remove this student from the class?"} %></p></li>
+            <% end %>
+         
+          <% else %>
+            <h4>Currently, there are no students enrolled.</h4>
           <% end %>
-        </ol>
-        <% else %>
-          <h4>Currently, there are no students enrolled.</h4>
-        <% end %>
+          </ol>
+          </div>
         </div>
       </div>
       <div class="panel panel-default">
