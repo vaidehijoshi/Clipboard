@@ -16,6 +16,22 @@ class CourseSection < ActiveRecord::Base
   validates :name, presence: true
   validates :name, uniqueness: true
 
+  def unique_buddyships
+    unique_buddyships = []
+    buddyships.each do |buddyship|
+      unique_buddyships << buddyship if !unique_buddyships.include?(Buddyship.where(student_id: buddyship.student_id, buddy_id: buddyship.buddy_id).first) && !unique_buddyships.include?(Buddyship.where(student_id: buddyship.buddy_id, buddy_id: buddyship.student_id).first)
+    end
+    unique_buddyships
+  end
+
+  def unique_enemyships
+    unique_enemyships = []
+    enemyships.each do |enemyship|
+      unique_enemyships << enemyship if !unique_enemyships.include?(Enemyship.where(student_id: enemyship.student_id, enemy_id: enemyship.enemy_id).first) && !unique_enemyships.include?(Enemyship.where(student_id: enemyship.enemy_id, enemy_id: enemyship.student_id).first)
+    end
+    unique_enemyships
+  end
+
 
   def students_in_class
     students.to_a

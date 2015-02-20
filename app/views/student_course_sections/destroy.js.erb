@@ -1,5 +1,4 @@
 $("li[student_id='<%= @student.id %>']").remove();
-<%# binding.pry %>
 <% if @student_course_section.course_section.students.count == 0 %>
 $("ol#student-list").append("<h4>Currently, there are no students enrolled.</h4>");
 <% end %>

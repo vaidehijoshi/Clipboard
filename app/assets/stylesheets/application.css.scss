@@ -6470,7 +6470,9 @@ input.active {
 }
 
 .toggle-off:hover,
-.toggle-on:hover {
+.toggle-on:hover,
+.sub-toggle-off:hover,
+.sub-toggle-on:hover {
   cursor: pointer;
 }
 

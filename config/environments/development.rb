@@ -1,6 +1,6 @@
 Rails.application.configure do
   Paperclip.options[:command_path] = "/usr/local/bin/"
-  
+
   config.assets.raise_production_errors = true
   # Settings specified here will take precedence over those in config/application.rb.
 
