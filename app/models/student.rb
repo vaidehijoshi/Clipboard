@@ -12,11 +12,20 @@ class Student < ActiveRecord::Base
   has_many :scores
   has_many :assignments, through: :course_sections
   has_many :memberships
+  before_save :strip_whitespace
+
+  def strip_whitespace
+    [first_name, last_name, email].each do |attribute|
+      self.first_name = first_name.strip
+      self.last_name = last_name.strip
+      self.email = email.strip
+    end
+  end
 
   def full_name
     first_name + " " + last_name
   end
-  
+
   def has_enemies_at_table?(course_section, table)
     #enemy_ids = self.enemyships.where(course_section_id: course_section.id).pluck(:enemy_id)
     enemy_list = Student.where(id: self.enemyships.where(course_section_id: course_section.id).pluck(:enemy_id))
