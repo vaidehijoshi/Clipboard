@@ -16,6 +16,14 @@ class CourseSection < ActiveRecord::Base
   validates :name, presence: true
   validates :name, uniqueness: true
 
+  def students_by_last_name
+    students.sort_by { |s| s.last_name }
+  end
+
+  def students_by_first_name
+    students.sort_by { |s| s.first_name }
+  end
+
   def unique_buddyships
     unique_buddyships = []
     buddyships.each do |buddyship|
