@@ -25,11 +25,12 @@
 
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group"> -->
 
-            <%= f.submit "Update Student", :class => "btn btn-primary" %>
+            <%= f.submit "Update Student", :class => "btn btn-primary", :style => "display: inline-block;" %>
+            <%= link_to "Cancel", :back, :class => "btn btn-primary", :style => "display: inline-block;" %>
 
-        </div>
+        <!-- </div> -->
 
       <% end %>
     </div>
