@@ -1,7 +1,7 @@
 
 <div class="container">
   <h1><%= @course_section.name %></h1>
-  <p><a href='<%= teacher_path(current_user) %>' class="btn btn-xs btn-primary">Back</a></p>
+  <p><%= link_to "Back", :back, class: "btn btn-xs btn-primary" %></p>
 <% if current_user == @course_section.teacher %>
   <div class="row">
     <div class="col-md-5">
