@@ -13,7 +13,11 @@
           <ol>
             <% @student.course_sections.each do |course| %>
               <% teacher = course.teacher %>
-              <li><%= link_to course.name, teacher_class_path(teacher, course) %></li>
+              <% if teacher == current_user %>
+                <li><%= link_to course.name, teacher_class_path(teacher, course) %></li>
+              <% else %>
+                <li><%= course.name %></li>
+              <% end %>
             <% end %>
           </ol>
           <% if @student.overall_average %>
@@ -93,10 +97,17 @@
 <div class="container">
   <div class="row">
     <% @student.course_sections.each do |course_section| %>
+    <% teacher = course_section.teacher %>
     <div class="col-md-12" style="padding-top: 20px;">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <legend><h3 style="color: #e74944;"><%= course_section.name %><span class="toggle-off pull-right">-</span><span class="toggle-on pull-right">+</span></h3>
+          <legend><h3 style="color: #e74944;">
+          <% if teacher == current_user %>
+            <%= link_to course_section.name, teacher_class_path(teacher, course_section) %>
+          <% else %>
+            <%= course_section.name %>
+          <% end %>  
+          <span class="toggle-off pull-right">-</span><span class="toggle-on pull-right">+</span></h3>
             <% if @student.average_for_course(course_section) %>
               <h4>Current grade: <%= @student.average_for_course(course_section) %>%</h4>
             <% end %>
